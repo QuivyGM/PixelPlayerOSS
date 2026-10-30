@@ -1,10 +1,13 @@
 package com.lostf1sh.pixelplayeross.ui.glancewidget
 
+import android.content.Context
+import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.util.LruCache
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.glance.GlanceTheme
+import androidx.glance.LocalContext
 import androidx.glance.color.ColorProvider
 import androidx.glance.color.ColorProviders
 import androidx.glance.color.colorProviders
@@ -43,11 +46,31 @@ data class WidgetColors(
     val prevNextIcon: ColorProvider
 )
 
+/**
+ * Returns this color with [opacity] applied, keeping separate day and night values so
+ * the widget still follows the system theme without being recomposed.
+ */
+fun ColorProvider.withOpacity(context: Context, opacity: Float): ColorProvider {
+    if (opacity >= 1f) return this
+
+    fun resolve(night: Boolean): Color {
+        val configuration = Configuration(context.resources.configuration).apply {
+            val nightMode = if (night) Configuration.UI_MODE_NIGHT_YES else Configuration.UI_MODE_NIGHT_NO
+            uiMode = (uiMode and Configuration.UI_MODE_NIGHT_MASK.inv()) or nightMode
+        }
+        val color = getColor(context.createConfigurationContext(configuration))
+        return color.copy(alpha = color.alpha * opacity.coerceIn(0f, 1f))
+    }
+
+    return ColorProvider(day = resolve(night = false), night = resolve(night = true))
+}
+
 @Composable
 fun PlayerInfo.getWidgetColors(): WidgetColors {
     val theme = this.themeColors
-    
-    return if (theme != null) {
+    val context = LocalContext.current
+
+    val colors = if (theme != null) {
         WidgetColors(
             surface = ColorProvider(
                 day = Color(theme.lightSurfaceContainer),
@@ -89,6 +112,7 @@ fun PlayerInfo.getWidgetColors(): WidgetColors {
             prevNextIcon = GlanceTheme.colors.onSecondaryContainer
         )
     }
+    return colors.copy(surface = colors.surface.withOpacity(context, backgroundOpacity))
 }
 
 /**

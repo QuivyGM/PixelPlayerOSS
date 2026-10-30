@@ -260,6 +260,7 @@ constructor(
 
         val COLLAGE_PATTERN = stringPreferencesKey("collage_pattern")
         val COLLAGE_AUTO_ROTATE = booleanPreferencesKey("collage_auto_rotate")
+        val WIDGET_BACKGROUND_OPACITY = androidx.datastore.preferences.core.floatPreferencesKey("widget_background_opacity")
         val SIDEBAR_SHORTCUTS = stringSetPreferencesKey("sidebar_shortcuts")
 
         val LAST_PLAYLIST_ID = stringPreferencesKey("last_playlist_id")
@@ -2191,6 +2192,18 @@ constructor(
     suspend fun setCollageAutoRotate(enabled: Boolean) {
         dataStore.edit { preferences ->
             preferences[PreferencesKeys.COLLAGE_AUTO_ROTATE] = enabled
+        }
+    }
+
+    /** Opacity of the home screen widgets' background, from 0 (fully transparent) to 1 (solid). */
+    val widgetBackgroundOpacityFlow: Flow<Float> =
+        dataStore.data.map { preferences ->
+            (preferences[PreferencesKeys.WIDGET_BACKGROUND_OPACITY] ?: 1f).coerceIn(0f, 1f)
+        }
+
+    suspend fun setWidgetBackgroundOpacity(opacity: Float) {
+        dataStore.edit { preferences ->
+            preferences[PreferencesKeys.WIDGET_BACKGROUND_OPACITY] = opacity.coerceIn(0f, 1f)
         }
     }
 

@@ -75,6 +75,7 @@ data class PlayerInfo(
     val themeColors: WidgetThemeColors? = null,
     val isShuffleEnabled: Boolean = false,
     val repeatMode: Int = 0,
+    val backgroundOpacity: Float = 1f,
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -99,6 +100,7 @@ data class PlayerInfo(
         if (themeColors != other.themeColors) return false
         if (isShuffleEnabled != other.isShuffleEnabled) return false
         if (repeatMode != other.repeatMode) return false
+        if (backgroundOpacity != other.backgroundOpacity) return false
 
         return true
     }
@@ -118,6 +120,7 @@ data class PlayerInfo(
         result = 31 * result + (themeColors?.hashCode() ?: 0)
         result = 31 * result + isShuffleEnabled.hashCode()
         result = 31 * result + repeatMode
+        result = 31 * result + backgroundOpacity.hashCode()
         return result
     }
 }

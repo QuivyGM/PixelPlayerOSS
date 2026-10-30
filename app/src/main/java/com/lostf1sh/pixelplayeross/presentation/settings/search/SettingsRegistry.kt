@@ -481,6 +481,15 @@ object SettingsRegistry {
                 onToggle = { viewModel, checked -> viewModel.setCollageAutoRotate(checked) }
             ),
             SettingSpec(
+                id = "appearance_widget_background_opacity",
+                itemKey = "item_appearance_widget_background_opacity",
+                titleRes = R.string.setcat_widget_background_opacity_title,
+                category = SettingsCategory.APPEARANCE,
+                subscreenRoute = Screen.SettingsCategory.createRoute("appearance"),
+                type = SettingType.NAVIGABLE_CARD,
+                keywordsStatic = listOf("widget", "home screen", "transparency", "translucent", "opacity", "background")
+            ),
+            SettingSpec(
                 id = "appearance_navbar_style",
                 itemKey = "item_appearance_navbar_style",
                 titleRes = R.string.setcat_navbar_style_label,

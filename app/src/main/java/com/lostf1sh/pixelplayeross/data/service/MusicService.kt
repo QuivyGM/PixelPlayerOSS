@@ -537,6 +537,12 @@ class MusicService : MediaSessionService() {
         }
 
         serviceScope.launch {
+            userPreferencesRepository.widgetBackgroundOpacityFlow.collect {
+                requestWidgetFullUpdate(force = true)
+            }
+        }
+
+        serviceScope.launch {
             userPreferencesRepository.playbackSpeedFlow.collect { speed ->
                 userPlaybackSpeed = speed
                 applyPlaybackSpeed(mediaSession?.player ?: engine.masterPlayer)
@@ -1692,6 +1698,7 @@ class MusicService : MediaSessionService() {
         if (old.themeColors != new.themeColors) return true
         if (old.isShuffleEnabled != new.isShuffleEnabled) return true
         if (old.repeatMode != new.repeatMode) return true
+        if (old.backgroundOpacity != new.backgroundOpacity) return true
         if (old.totalDurationMs != new.totalDurationMs) return true
 
         val drift = kotlin.math.abs(old.currentPositionMs - new.currentPositionMs)
@@ -1812,6 +1819,9 @@ class MusicService : MediaSessionService() {
             )
         }
         val isFavorite = isSongFavorite(mediaId)
+        val backgroundOpacity = withContext(Dispatchers.IO) {
+            userPreferencesRepository.widgetBackgroundOpacityFlow.first()
+        }
         val queueItems = mutableListOf<com.lostf1sh.pixelplayeross.data.model.QueueItem>()
         // Follow the player's actual navigation order so shuffle and repeat-all previews match.
         if (!snapshotTimeline.isEmpty) {
@@ -1884,6 +1894,7 @@ class MusicService : MediaSessionService() {
             themeColors = widgetColors,
             isShuffleEnabled = shuffleEnabled,
             repeatMode = repeatMode,
+            backgroundOpacity = backgroundOpacity,
         )
     }
 

@@ -115,6 +115,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
             .d("WidgetUi: PlayerInfo received. Title: $title, Artist: $artist, HasBitmapData: ${albumArtBitmapData != null}, BitmapDataSize: ${albumArtBitmapData?.size ?: "N/A"}")
 
         val actualBackgroundColor = GlanceTheme.colors.surface
+            .withOpacity(context, playerInfo.backgroundOpacity)
         val onBackgroundColor = GlanceTheme.colors.onSurface
 
         val baseModifier = GlanceModifier

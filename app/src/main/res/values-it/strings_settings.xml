@@ -85,6 +85,8 @@
     <string name="setcat_auto_hide_delay_desc">Tempo prima che i controlli si nascondano.</string>
     <string name="setcat_auto_hide_delay_label">Ritardo auto-nascondi</string>
     <string name="setcat_auto_rotate_patterns_subtitle">Cicla tra i pattern collage ogni volta che visiti Home.</string>
+    <string name="setcat_widget">Widget</string>
+    <string name="setcat_widget_background_opacity_title">Opacità dello sfondo</string>
     <string name="setcat_auto_rotate_patterns_title">Rotazione automatica pattern</string>
     <string name="setcat_auto_scan_lrc_subtitle">Scansiona e assegna automaticamente file .lrc nella stessa cartella durante la sincronizzazione libreria.</string>
     <string name="setcat_folder_album_art_title">Usa le copertine della cartella</string>

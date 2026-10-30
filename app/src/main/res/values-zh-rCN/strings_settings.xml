@@ -116,6 +116,8 @@
     <string name="setcat_collage_pattern_desc">为“你的混合歌单”选择卡片排布形状</string>
     <string name="setcat_auto_rotate_patterns_title">自动切换布局</string>
     <string name="setcat_auto_rotate_patterns_subtitle">每次回到首页自动轮换拼接卡片样式</string>
+    <string name="setcat_widget">小部件</string>
+    <string name="setcat_widget_background_opacity_title">背景不透明度</string>
     <string name="setcat_navigation_bar">导航栏</string>
     <string name="setcat_navbar_style_label">导航栏样式</string>
     <string name="setcat_navbar_style_desc">设置底部导航栏外观</string>
