@@ -76,24 +76,27 @@ class BarWidget4x1 : GlanceAppWidget() {
                 verticalAlignment = Alignment.CenterVertically,
                 horizontalAlignment = Alignment.Horizontal.Start
             ) {
-                AlbumArtImage(
-                    modifier = GlanceModifier.size(44.dp),
-                    bitmapData = albumArtBitmapData,
-                    albumArtUri = albumArtUri,
-                    size = 44.dp,
-                    context = context,
-                    cornerRadius = albumArtCornerRadius
-                )
-
-                Spacer(GlanceModifier.width(8.dp))
-
                 WidgetTextBackdrop(
-                    color = colors.textBackdrop,
-                    height = 40.dp,
-                    cornerRadius = controlButtonCornerRadius,
+                    backdrop = colors.textBackdrop,
+                    height = 44.dp,
+                    cornerRadius = albumArtCornerRadius,
                     modifier = GlanceModifier.defaultWeight()
                 ) {
-                    Column(verticalAlignment = Alignment.Vertical.CenterVertically) {
+                    AlbumArtImage(
+                        modifier = GlanceModifier.size(44.dp),
+                        bitmapData = albumArtBitmapData,
+                        albumArtUri = albumArtUri,
+                        size = 44.dp,
+                        context = context,
+                        cornerRadius = albumArtCornerRadius
+                    )
+
+                    Spacer(GlanceModifier.width(8.dp))
+
+                    Column(
+                        modifier = GlanceModifier.defaultWeight(),
+                        verticalAlignment = Alignment.Vertical.CenterVertically
+                    ) {
                         Text(
                             text = title,
                             style = TextStyle(

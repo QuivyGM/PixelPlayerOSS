@@ -84,24 +84,27 @@ class ControlWidget4x2 : GlanceAppWidget() {
                     modifier = GlanceModifier.fillMaxWidth(),
                     verticalAlignment = Alignment.Top
                 ) {
-                    AlbumArtImage(
-                        modifier = GlanceModifier.size(80.dp),
-                        bitmapData = albumArtBitmapData,
-                        albumArtUri = albumArtUri,
-                        size = 80.dp,
-                        context = context,
-                        cornerRadius = albumArtCornerRadius
-                    )
-
-                    Spacer(GlanceModifier.width(8.dp))
-
                     WidgetTextBackdrop(
-                        color = colors.textBackdrop,
+                        backdrop = colors.textBackdrop,
                         height = 80.dp,
                         cornerRadius = albumArtCornerRadius,
                         modifier = GlanceModifier.defaultWeight()
                     ) {
-                        Column(verticalAlignment = Alignment.CenterVertically) {
+                        AlbumArtImage(
+                            modifier = GlanceModifier.size(80.dp),
+                            bitmapData = albumArtBitmapData,
+                            albumArtUri = albumArtUri,
+                            size = 80.dp,
+                            context = context,
+                            cornerRadius = albumArtCornerRadius
+                        )
+
+                        Spacer(GlanceModifier.width(8.dp))
+
+                        Column(
+                            modifier = GlanceModifier.defaultWeight(),
+                            verticalAlignment = Alignment.CenterVertically
+                        ) {
                             Text(
                                 text = title,
                                 style = TextStyle(

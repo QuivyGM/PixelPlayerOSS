@@ -14,6 +14,7 @@ import androidx.glance.color.colorProviders
 import androidx.glance.unit.ColorProvider
 import com.lostf1sh.pixelplayeross.data.model.PlayerInfo
 import com.lostf1sh.pixelplayeross.data.model.WidgetThemeColors
+import kotlin.math.roundToInt
 
 object AlbumArtBitmapCache {
     private const val CACHE_SIZE_BYTES = 4 * 1024 * 1024
@@ -46,22 +47,60 @@ data class WidgetColors(
     val prevNextIcon: ColorProvider,
     /** [surface] with the user's background opacity applied; only for the widget's outer background. */
     val background: ColorProvider = surface,
-    /** Plate drawn behind the title and artist, see [textBackdropOpacity]. */
-    val textBackdrop: ColorProvider = surface
+    /** Plate drawn behind the artwork, title and artist. */
+    val textBackdrop: TextBackdrop = TextBackdrop(surface, startOpacity = 0f, endOpacity = 0f)
 )
+
+/**
+ * Plate behind the artwork and text, fading from [startOpacity] at the artwork side to
+ * [endOpacity] at the far end of the text. [color] is the opaque color it is tinted with.
+ */
+data class TextBackdrop(
+    val color: ColorProvider,
+    val startOpacity: Float,
+    val endOpacity: Float
+) {
+    val isVisible: Boolean get() = startOpacity > 0f || endOpacity > 0f
+}
+
+/** Combined coverage behind the artwork side of the text backdrop. */
+const val TEXT_BACKDROP_START_COVERAGE = 0.95f
 
 /** The title and artist never sit on a background that is more transparent than this. */
 const val MIN_TEXT_BACKDROP_OPACITY = 0.7f
 
 /**
- * Opacity of the plate drawn behind widget text. Layered over a widget background of
- * [backgroundOpacity], the two together cover at least [MIN_TEXT_BACKDROP_OPACITY], so
- * text stays readable over any wallpaper. Above that threshold no plate is needed.
+ * Builds the backdrop for a widget whose background has [backgroundOpacity]. Layered
+ * over that background, the backdrop covers [TEXT_BACKDROP_START_COVERAGE] at the
+ * artwork and fades to [MIN_TEXT_BACKDROP_OPACITY] at the end of the text, so text
+ * stays readable over any wallpaper. Ends already covered by the background get no plate.
  */
-fun textBackdropOpacity(backgroundOpacity: Float): Float {
+fun textBackdrop(color: ColorProvider, backgroundOpacity: Float) = TextBackdrop(
+    color = color,
+    startOpacity = textBackdropOpacity(backgroundOpacity, TEXT_BACKDROP_START_COVERAGE),
+    endOpacity = textBackdropOpacity(backgroundOpacity, MIN_TEXT_BACKDROP_OPACITY)
+)
+
+/** Opacity a plate needs so that, over a background of [backgroundOpacity], the two cover [coverage]. */
+private fun textBackdropOpacity(backgroundOpacity: Float, coverage: Float): Float {
     val background = backgroundOpacity.coerceIn(0f, 1f)
-    if (background >= MIN_TEXT_BACKDROP_OPACITY) return 0f
-    return 1f - (1f - MIN_TEXT_BACKDROP_OPACITY) / (1f - background)
+    if (background >= coverage) return 0f
+    return 1f - (1f - coverage) / (1f - background)
+}
+
+/**
+ * A white strip whose alpha runs from [startOpacity] on the left to [endOpacity] on the
+ * right, meant to be stretched and tinted. Glance has no gradient brush, so widgets
+ * draw gradients from a bitmap like this.
+ */
+fun horizontalGradientMask(startOpacity: Float, endOpacity: Float): Bitmap {
+    val width = 64
+    val pixels = IntArray(width) { x ->
+        val fraction = x / (width - 1f)
+        val alpha = startOpacity + (endOpacity - startOpacity) * fraction
+        ((alpha.coerceIn(0f, 1f) * 255).roundToInt() shl 24) or 0xFFFFFF
+    }
+    return Bitmap.createBitmap(pixels, width, 1, Bitmap.Config.ARGB_8888)
 }
 
 /**
@@ -132,7 +171,7 @@ fun PlayerInfo.getWidgetColors(): WidgetColors {
     }
     return colors.copy(
         background = colors.surface.withOpacity(context, backgroundOpacity),
-        textBackdrop = colors.surface.withOpacity(context, textBackdropOpacity(backgroundOpacity))
+        textBackdrop = textBackdrop(colors.surface, backgroundOpacity)
     )
 }
 

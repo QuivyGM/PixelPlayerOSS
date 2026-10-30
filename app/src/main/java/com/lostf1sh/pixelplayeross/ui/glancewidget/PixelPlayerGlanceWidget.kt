@@ -116,8 +116,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
 
         val actualBackgroundColor = GlanceTheme.colors.surface
             .withOpacity(context, playerInfo.backgroundOpacity)
-        val textBackdropColor = GlanceTheme.colors.surface
-            .withOpacity(context, textBackdropOpacity(playerInfo.backgroundOpacity))
+        val backdrop = textBackdrop(GlanceTheme.colors.surface, playerInfo.backgroundOpacity)
         val onBackgroundColor = GlanceTheme.colors.onSurface
 
         val baseModifier = GlanceModifier
@@ -176,7 +175,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
                         albumArtUri = albumArtUri,
                         isPlaying = isPlaying,
                         textColor = onBackgroundColor,
-                        textBackdropColor = textBackdropColor,
+                        textBackdrop = backdrop,
                         context = context,
                         backgroundColor = actualBackgroundColor,
                         bgCornerRadius = 60.dp
@@ -191,7 +190,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
                         albumArtUri = albumArtUri,
                         isPlaying = isPlaying,
                         textColor = onBackgroundColor,
-                        textBackdropColor = textBackdropColor,
+                        textBackdrop = backdrop,
                         context = context
                     )
                 }
@@ -214,7 +213,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
                         albumArtUri = albumArtUri,
                         isPlaying = isPlaying,
                         textColor = onBackgroundColor,
-                        textBackdropColor = textBackdropColor,
+                        textBackdrop = backdrop,
                         context = context,
                         backgroundColor = actualBackgroundColor,
                         bgCornerRadius = 28.dp
@@ -230,7 +229,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
                         isPlaying = isPlaying,
                         isFavorite = isFavorite,
                         textColor = onBackgroundColor,
-                        textBackdropColor = textBackdropColor,
+                        textBackdrop = backdrop,
                         context = context
                     )
                     else -> ExtraLargeWidgetLayout(
@@ -244,7 +243,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
                         bgCornerRadius = 28.dp,
                         textColor = onBackgroundColor,
                         context = context,
-                        textBackdropColor = textBackdropColor,
+                        textBackdrop = backdrop,
                         queue = playerInfo.queue
                     )
                 }
@@ -263,7 +262,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
         albumArtUri: String?,
         isPlaying: Boolean,
         textColor: ColorProvider,
-        textBackdropColor: ColorProvider,
+        textBackdrop: TextBackdrop,
         context: Context
     ) {
         val secondaryColor = GlanceTheme.colors.secondaryContainer
@@ -287,22 +286,22 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
                 horizontalAlignment = Alignment.Horizontal.CenterHorizontally
             ) {
 
-                AlbumArtImageGlance(
-                    modifier = GlanceModifier
-                        .size(albumArtSize),
-                    bitmapData = albumArtBitmapData,
-                    albumArtUri = albumArtUri,
-                    context = context,
-                    cornerRadius = bgCornerRadius
-                )
-                Spacer(GlanceModifier.width(10.dp))
                 WidgetTextBackdrop(
-                    color = textBackdropColor,
-                    height = 48.dp,
+                    backdrop = textBackdrop,
+                    height = maxOf(albumArtSize, 48.dp),
                     cornerRadius = bgCornerRadius,
                     modifier = GlanceModifier.defaultWeight()
                 ) {
-                    Column {
+                    AlbumArtImageGlance(
+                        modifier = GlanceModifier
+                            .size(albumArtSize),
+                        bitmapData = albumArtBitmapData,
+                        albumArtUri = albumArtUri,
+                        context = context,
+                        cornerRadius = bgCornerRadius
+                    )
+                    Spacer(GlanceModifier.width(10.dp))
+                    Column(modifier = GlanceModifier.defaultWeight()) {
                         Text(text = title, style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Bold, color = textColor), maxLines = 1)
                         if (artist.isNotEmpty() && artist != context.getString(R.string.widget_tap_to_open)) {
                             Text(text = artist, style = TextStyle(fontSize = 14.sp, color = textColor), maxLines = 1)
@@ -348,7 +347,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
         albumArtUri: String?,
         isPlaying: Boolean,
         textColor: ColorProvider,
-        textBackdropColor: ColorProvider,
+        textBackdrop: TextBackdrop,
         context: Context
     ) {
         val secondaryColor = GlanceTheme.colors.secondaryContainer
@@ -373,22 +372,22 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
                 horizontalAlignment = Alignment.Horizontal.CenterHorizontally
             ) {
 
-                AlbumArtImageGlance(
-                    modifier = GlanceModifier
-                        .size(albumArtSize),
-                    bitmapData = albumArtBitmapData,
-                    albumArtUri = albumArtUri,
-                    context = context,
-                    cornerRadius = bgCornerRadius
-                )
-                Spacer(GlanceModifier.width(14.dp))
                 WidgetTextBackdrop(
-                    color = textBackdropColor,
-                    height = 48.dp,
+                    backdrop = textBackdrop,
+                    height = maxOf(albumArtSize, 48.dp),
                     cornerRadius = bgCornerRadius,
                     modifier = GlanceModifier.defaultWeight()
                 ) {
-                    Column {
+                    AlbumArtImageGlance(
+                        modifier = GlanceModifier
+                            .size(albumArtSize),
+                        bitmapData = albumArtBitmapData,
+                        albumArtUri = albumArtUri,
+                        context = context,
+                        cornerRadius = bgCornerRadius
+                    )
+                    Spacer(GlanceModifier.width(14.dp))
+                    Column(modifier = GlanceModifier.defaultWeight()) {
                         Text(text = title, style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Bold, color = textColor), maxLines = 1)
                         if (artist.isNotEmpty() && artist != context.getString(R.string.widget_tap_to_open)) {
                             Text(text = artist, style = TextStyle(fontSize = 14.sp, color = textColor), maxLines = 1)
@@ -742,7 +741,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
         albumArtUri: String?,
         isPlaying: Boolean,
         textColor: ColorProvider,
-        textBackdropColor: ColorProvider,
+        textBackdrop: TextBackdrop,
         context: Context
     ) {
         val secondaryColor = GlanceTheme.colors.secondaryContainer
@@ -766,22 +765,22 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
                     modifier = GlanceModifier.fillMaxWidth(),
                     verticalAlignment = Alignment.CenterVertically
                 ) {
-                    AlbumArtImageGlance(
-                        bitmapData = albumArtBitmapData,
-                        albumArtUri = albumArtUri,
-                        size = 80.dp,
-                        context = context,
-                        cornerRadius = 16.dp
-                    )
-                    Spacer(GlanceModifier.width(12.dp))
                     // The artist is kept to one line so both fit the backdrop, which matches the artwork height.
                     WidgetTextBackdrop(
-                        color = textBackdropColor,
+                        backdrop = textBackdrop,
                         height = 80.dp,
                         cornerRadius = 16.dp,
                         modifier = GlanceModifier.defaultWeight()
                     ) {
-                        Column {
+                        AlbumArtImageGlance(
+                            bitmapData = albumArtBitmapData,
+                            albumArtUri = albumArtUri,
+                            size = 80.dp,
+                            context = context,
+                            cornerRadius = 16.dp
+                        )
+                        Spacer(GlanceModifier.width(12.dp))
+                        Column(modifier = GlanceModifier.defaultWeight()) {
                             Text(
                                 text = title,
                                 style = TextStyle(
@@ -853,7 +852,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
         isPlaying: Boolean,
         isFavorite: Boolean,
         textColor: ColorProvider,
-        textBackdropColor: ColorProvider,
+        textBackdrop: TextBackdrop,
         context: Context
     ) {
         Box(
@@ -864,36 +863,34 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
         ) {
             Column(modifier = GlanceModifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
                 Row(verticalAlignment = Alignment.CenterVertically, modifier = GlanceModifier.fillMaxWidth().padding(bottom = 8.dp)) {
-                    AlbumArtImageGlance(
-                        bitmapData = albumArtBitmapData,
-                        albumArtUri = albumArtUri,
-                        size = 64.dp,
-                        context = context,
-                        cornerRadius = 18.dp
-                    )
-                    Spacer(GlanceModifier.width(12.dp))
                     WidgetTextBackdrop(
-                        color = textBackdropColor,
+                        backdrop = textBackdrop,
                         height = 64.dp,
                         cornerRadius = 18.dp,
                         modifier = GlanceModifier.defaultWeight()
                     ) {
-                        Row(verticalAlignment = Alignment.CenterVertically) {
-                            Column(modifier = GlanceModifier.defaultWeight()) {
-                                Text(text = title, style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Bold, color = textColor), maxLines = 1)
-                                Text(text = artist, style = TextStyle(fontSize = 13.sp, color = textColor), maxLines = 1)
-                            }
-                            Spacer(GlanceModifier.width(4.dp))
-                            Image(
-                                provider = ImageProvider(if (isFavorite) R.drawable.round_favorite_24 else R.drawable.rounded_favorite_24),
-                                contentDescription = context.getString(R.string.cd_favorite),
-                                modifier = GlanceModifier
-                                    .size(28.dp)
-                                    .clickable(actionRunCallback<PlayerControlActionCallback>(actionParametersOf(PlayerActions.key to PlayerActions.FAVORITE)))
-                                    .padding(2.dp),
-                                colorFilter = ColorFilter.tint(textColor)
-                            )
+                        AlbumArtImageGlance(
+                            bitmapData = albumArtBitmapData,
+                            albumArtUri = albumArtUri,
+                            size = 64.dp,
+                            context = context,
+                            cornerRadius = 18.dp
+                        )
+                        Spacer(GlanceModifier.width(12.dp))
+                        Column(modifier = GlanceModifier.defaultWeight()) {
+                            Text(text = title, style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Bold, color = textColor), maxLines = 1)
+                            Text(text = artist, style = TextStyle(fontSize = 13.sp, color = textColor), maxLines = 1)
                         }
+                        Spacer(GlanceModifier.width(4.dp))
+                        Image(
+                            provider = ImageProvider(if (isFavorite) R.drawable.round_favorite_24 else R.drawable.rounded_favorite_24),
+                            contentDescription = context.getString(R.string.cd_favorite),
+                            modifier = GlanceModifier
+                                .size(28.dp)
+                                .clickable(actionRunCallback<PlayerControlActionCallback>(actionParametersOf(PlayerActions.key to PlayerActions.FAVORITE)))
+                                .padding(2.dp),
+                            colorFilter = ColorFilter.tint(textColor)
+                        )
                     }
                 }
                 Spacer(GlanceModifier.height(4.dp))
@@ -951,7 +948,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
         isPlaying: Boolean, backgroundColor: ColorProvider, bgCornerRadius: Dp,
         textColor: ColorProvider,
         context: Context,
-        textBackdropColor: ColorProvider,
+        textBackdrop: TextBackdrop,
         queue: List<QueueItem>
     ) {
         val playButtonCornerRadius = if (isPlaying) 16.dp else 60.dp
@@ -967,22 +964,22 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
                     verticalAlignment = Alignment.CenterVertically,
                     modifier = GlanceModifier.fillMaxWidth()
                 ) {
-                    AlbumArtImageGlance(
-                        bitmapData = albumArtBitmapData,
-                        albumArtUri = albumArtUri,
-                        size = 68.dp,
-                        context = context,
-                        cornerRadius = 16.dp
-                    )
-                    Spacer(GlanceModifier.width(16.dp))
                     // The title is kept to one line so it fits the backdrop, which matches the artwork height.
                     WidgetTextBackdrop(
-                        color = textBackdropColor,
+                        backdrop = textBackdrop,
                         height = 68.dp,
                         cornerRadius = 16.dp,
                         modifier = GlanceModifier.defaultWeight()
                     ) {
-                        Column {
+                        AlbumArtImageGlance(
+                            bitmapData = albumArtBitmapData,
+                            albumArtUri = albumArtUri,
+                            size = 68.dp,
+                            context = context,
+                            cornerRadius = 16.dp
+                        )
+                        Spacer(GlanceModifier.width(16.dp))
+                        Column(modifier = GlanceModifier.defaultWeight()) {
                             Text(
                                 text = title,
                                 style = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.Bold, color = textColor),

@@ -3,6 +3,7 @@ package com.lostf1sh.pixelplayeross.ui.glancewidget
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.view.View
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -21,6 +22,8 @@ import androidx.glance.background
 import androidx.glance.layout.Alignment
 import androidx.glance.layout.Box
 import androidx.glance.layout.ContentScale
+import androidx.glance.layout.Row
+import androidx.glance.layout.RowScope
 import androidx.glance.layout.fillMaxSize
 import androidx.glance.layout.height
 import androidx.glance.layout.padding
@@ -30,28 +33,41 @@ import com.lostf1sh.pixelplayeross.R
 import timber.log.Timber
 
 /**
- * Plate behind the title and artist that keeps them readable when the widget background
- * is translucent. It has a fixed [height] so it lines up with the buttons and artwork
- * beside it, and is invisible when [color] is fully transparent.
+ * Row holding the artwork and the title and artist, on a plate that keeps the text
+ * readable when the widget background is translucent. The plate starts behind the
+ * artwork and fades out towards the end of the text. It has a fixed [height] so it lines
+ * up with the buttons beside it; [cornerRadius] should match the artwork's.
  */
 @Composable
 fun WidgetTextBackdrop(
-    color: ColorProvider,
+    backdrop: TextBackdrop,
     height: Dp,
     cornerRadius: Dp,
     modifier: GlanceModifier = GlanceModifier,
-    content: @Composable () -> Unit
+    content: @Composable RowScope.() -> Unit
 ) {
-    Box(
-        modifier = modifier
-            .height(height)
-            .background(color)
-            .cornerRadius(cornerRadius)
-            .padding(horizontal = 12.dp),
-        contentAlignment = Alignment.CenterStart
-    ) {
-        content()
+    var plateModifier = modifier
+        .height(height)
+        .cornerRadius(cornerRadius)
+    if (backdrop.isVisible) {
+        // The mask runs left to right, so flip it to keep the solid end behind the artwork in RTL.
+        val isRtl = LocalContext.current.resources.configuration.layoutDirection == View.LAYOUT_DIRECTION_RTL
+        val mask = if (isRtl) {
+            horizontalGradientMask(backdrop.endOpacity, backdrop.startOpacity)
+        } else {
+            horizontalGradientMask(backdrop.startOpacity, backdrop.endOpacity)
+        }
+        plateModifier = plateModifier.background(
+            imageProvider = ImageProvider(mask),
+            contentScale = ContentScale.FillBounds,
+            colorFilter = ColorFilter.tint(backdrop.color)
+        )
     }
+    Row(
+        modifier = plateModifier.padding(end = 12.dp),
+        verticalAlignment = Alignment.CenterVertically,
+        content = content
+    )
 }
 
 @Composable
