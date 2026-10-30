@@ -3,6 +3,7 @@ package com.lostf1sh.pixelplayeross.ui.glancewidget
 import android.content.Context
 import android.content.res.Configuration
 import android.graphics.Bitmap
+import android.os.Build
 import android.util.LruCache
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.staticCompositionLocalOf
@@ -21,6 +22,7 @@ import androidx.glance.unit.ColorProvider
 import com.lostf1sh.pixelplayeross.data.model.PlayerInfo
 import com.lostf1sh.pixelplayeross.data.model.WidgetThemeColors
 import kotlin.math.roundToInt
+import kotlin.math.sqrt
 
 /** Whether the widget is in fill mode: no background, content scaled up to the edges. */
 val LocalWidgetFill = staticCompositionLocalOf { false }
@@ -41,16 +43,41 @@ val Int.ssp: TextUnit
     @Composable get() = (this * LocalWidgetScale.current).sp
 
 /**
- * Scale that grows content laid out inside [padding] on every side of [size] until it
- * reaches the nearest edges once that padding is removed. Width and height grow by the
- * same factor so sizes and spacing keep their proportions.
+ * Corner radius of a widget's outline. On Android 12+ launchers clip widgets to their own
+ * radius, so the outline is never less round than that, keeping what we draw and what the
+ * launcher clips the same. Capped at half the shorter side, where the outline is a pill.
  */
-fun fillScale(size: DpSize, padding: Dp): Float {
-    val inset = padding.value * 2
+fun widgetBorderRadius(context: Context, designRadius: Dp, size: DpSize): Dp {
+    val systemRadius = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+        val resources = context.resources
+        (resources.getDimension(android.R.dimen.system_app_widget_background_radius) /
+            resources.displayMetrics.density).dp
+    } else {
+        0.dp
+    }
+    return maxOf(designRadius, systemRadius).coerceAtMost(minOf(size.width, size.height) / 2)
+}
+
+/**
+ * Smallest inset that keeps content whose outer corners are rounded by
+ * [contentCornerRadius] inside an outline rounded by [borderRadius]: the content's corner
+ * arcs must sit within the outline's.
+ */
+fun fillInset(borderRadius: Dp, contentCornerRadius: Dp): Dp =
+    ((borderRadius - contentCornerRadius) * (1f - 1f / sqrt(2f))).coerceAtLeast(0.dp)
+
+/**
+ * Scale that grows content laid out inside [padding] on every side of [size] until it
+ * reaches [inset] from the nearest edges. Width and height grow by the same factor so
+ * sizes and spacing keep their proportions.
+ */
+fun fillScale(size: DpSize, padding: Dp, inset: Dp): Float {
     val width = size.width.value
     val height = size.height.value
-    if (width <= inset || height <= inset) return 1f
-    return minOf(width / (width - inset), height / (height - inset))
+    val padded = padding.value * 2
+    val inset2 = inset.value * 2
+    if (width <= padded || height <= padded) return 1f
+    return minOf((width - inset2) / (width - padded), (height - inset2) / (height - padded))
 }
 
 /** Background opacity the widget is drawn with; fill mode has no background at all. */

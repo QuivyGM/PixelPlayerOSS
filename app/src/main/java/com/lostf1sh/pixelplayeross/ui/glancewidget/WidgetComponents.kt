@@ -8,6 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.DpSize
+import androidx.compose.ui.unit.dp
 import androidx.glance.ColorFilter
 import androidx.glance.LocalContext
 import androidx.glance.LocalSize
@@ -19,6 +20,7 @@ import androidx.glance.action.Action
 import androidx.glance.action.actionParametersOf
 import androidx.glance.action.clickable
 import androidx.glance.appwidget.action.actionRunCallback
+import androidx.glance.appwidget.appWidgetBackground
 import androidx.glance.appwidget.cornerRadius
 import androidx.glance.background
 import androidx.glance.layout.Alignment
@@ -36,9 +38,14 @@ import timber.log.Timber
 
 /**
  * Outer container of a widget layout: the rounded background with [padding] around the
- * content. In fill mode ([LocalWidgetFill]) the background and padding are dropped and
- * the content is scaled by [fillScale] so it reaches the edges; sizes inside should use
- * [sdp], [ssp] and [scaled] to follow that scale. [size] is the area the frame covers.
+ * content. It is marked as the widget background, so Android 12+ launchers clip it and
+ * animate app launches from it consistently.
+ *
+ * In fill mode ([LocalWidgetFill]) the background and padding are dropped and the content
+ * is scaled by [fillScale] until it reaches the outline the background had, never past
+ * it: it keeps just enough inset for its outer corners, rounded by [contentCornerRadius],
+ * to fit the outline's, and is clipped to that outline. Sizes inside should use [sdp],
+ * [ssp] and [scaled] to follow the scale. [size] is the area the frame covers.
  */
 @Composable
 fun WidgetFrame(
@@ -46,20 +53,25 @@ fun WidgetFrame(
     backgroundColor: ColorProvider,
     cornerRadius: Dp,
     padding: Dp,
+    contentCornerRadius: Dp = 0.dp,
     contentAlignment: Alignment = Alignment.TopStart,
     size: DpSize = LocalSize.current,
     content: @Composable () -> Unit
 ) {
     val fill = LocalWidgetFill.current
+    val borderRadius = widgetBorderRadius(LocalContext.current, cornerRadius, size)
+    val outline = modifier
+        .appWidgetBackground()
+        .cornerRadius(borderRadius)
+    val inset = fillInset(borderRadius, contentCornerRadius)
     val frameModifier = if (fill) {
-        modifier
+        outline.padding(inset)
     } else {
-        modifier
+        outline
             .background(backgroundColor)
-            .cornerRadius(cornerRadius)
             .padding(padding)
     }
-    val scale = if (fill) fillScale(size, padding) else 1f
+    val scale = if (fill) fillScale(size, padding, inset) else 1f
     Box(modifier = frameModifier, contentAlignment = contentAlignment) {
         CompositionLocalProvider(LocalWidgetScale provides scale) {
             content()

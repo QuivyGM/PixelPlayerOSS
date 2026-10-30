@@ -278,7 +278,8 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
             modifier = modifier,
             backgroundColor = backgroundColor,
             cornerRadius = bgCornerRadius,
-            padding = 16.dp
+            padding = 16.dp,
+            contentCornerRadius = 10.dp
         ) {
             Row(
                 modifier = GlanceModifier
@@ -363,7 +364,8 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
             modifier = modifier,
             backgroundColor = backgroundColor,
             cornerRadius = bgCornerRadius,
-            padding = 16.dp
+            padding = 16.dp,
+            contentCornerRadius = 10.dp
         ) {
             Row(
                 modifier = GlanceModifier
@@ -442,7 +444,8 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
             modifier = modifier,
             backgroundColor = backgroundColor,
             cornerRadius = bgCornerRadius,
-            padding = 16.dp
+            padding = 16.dp,
+            contentCornerRadius = 10.dp
         ) {
             Column(
                 modifier = GlanceModifier.fillMaxSize(),
@@ -510,7 +513,8 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
             modifier = modifier,
             backgroundColor = backgroundColor,
             cornerRadius = bgCornerRadius,
-            padding = 16.dp
+            padding = 16.dp,
+            contentCornerRadius = 10.dp
         ) {
             Column(
                 modifier = GlanceModifier.fillMaxSize(),
@@ -583,6 +587,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
             backgroundColor = backgroundColor,
             cornerRadius = bgCornerRadius,
             padding = 16.dp,
+            contentCornerRadius = 30.dp,
             contentAlignment = Alignment.Center
         ) {
             PlayPauseButtonGlance(
@@ -613,7 +618,8 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
             modifier = modifier,
             backgroundColor = backgroundColor,
             cornerRadius = bgCornerRadius,
-            padding = 16.dp
+            padding = 16.dp,
+            contentCornerRadius = 10.dp
         ) {
             Row(
                 modifier = GlanceModifier
@@ -666,7 +672,8 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
             modifier = modifier,
             backgroundColor = backgroundColor,
             cornerRadius = bgCornerRadius,
-            padding = 12.dp
+            padding = 12.dp,
+            contentCornerRadius = 16.dp
         ) {
             Column(
                 modifier = GlanceModifier.fillMaxSize(),
@@ -757,7 +764,8 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
             modifier = modifier,
             backgroundColor = backgroundColor,
             cornerRadius = bgCornerRadius,
-            padding = 16.dp
+            padding = 16.dp,
+            contentCornerRadius = 16.dp
         ) {
             Column(
                 modifier = GlanceModifier.fillMaxSize(),
@@ -861,7 +869,8 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
             modifier = modifier,
             backgroundColor = backgroundColor,
             cornerRadius = bgCornerRadius,
-            padding = 16.dp
+            padding = 16.dp,
+            contentCornerRadius = 18.dp
         ) {
             Column(modifier = GlanceModifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
                 Row(verticalAlignment = Alignment.CenterVertically, modifier = GlanceModifier.fillMaxWidth().padding(bottom = 8.sdp)) {
@@ -959,7 +968,8 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
             modifier = modifier,
             backgroundColor = backgroundColor,
             cornerRadius = bgCornerRadius,
-            padding = 16.dp
+            padding = 16.dp,
+            contentCornerRadius = 14.dp
         ) {
             Column(modifier = GlanceModifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
                 Row(

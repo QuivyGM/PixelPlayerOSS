@@ -64,7 +64,8 @@ class BarWidget4x1 : GlanceAppWidget() {
             modifier = GlanceModifier.clickable(actionStartActivity<MainActivity>()),
             backgroundColor = colors.background,
             cornerRadius = 28.dp,
-            padding = 16.dp
+            padding = 16.dp,
+            contentCornerRadius = 16.dp
         ) {
             val albumArtCornerRadius = 16.sdp
             val playButtonCornerRadius = if (isPlaying) 16.sdp else 20.sdp
