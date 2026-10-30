@@ -74,7 +74,7 @@ class GridWidget2x2 : GlanceAppWidget() {
             Box(
                 modifier = GlanceModifier
                     .size(minSide)
-                    .background(colors.surface)
+                    .background(colors.background)
                     .cornerRadius(widgetCornerRadius)
                     .padding(16.dp)
             ) {

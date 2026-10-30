@@ -71,7 +71,7 @@ class ControlWidget4x2 : GlanceAppWidget() {
 
         Box(
             modifier = GlanceModifier
-                .background(colors.surface)
+                .background(colors.background)
                 .cornerRadius(widgetCornerRadius)
                 .padding(16.dp)
                 .clickable(actionStartActivity<MainActivity>())
@@ -95,28 +95,32 @@ class ControlWidget4x2 : GlanceAppWidget() {
 
                     Spacer(GlanceModifier.width(8.dp))
 
-                    Column(
-                        modifier = GlanceModifier.defaultWeight(),
-                        verticalAlignment = Alignment.CenterVertically
+                    WidgetTextBackdrop(
+                        color = colors.textBackdrop,
+                        height = 80.dp,
+                        cornerRadius = albumArtCornerRadius,
+                        modifier = GlanceModifier.defaultWeight()
                     ) {
-                        Text(
-                            text = title,
-                            style = TextStyle(
-                                fontSize = 16.sp,
-                                fontWeight = FontWeight.Bold,
-                                color = colors.onSurface
-                            ),
-                            maxLines = 2
-                        )
-                        Spacer(GlanceModifier.height(2.dp))
-                        Text(
-                            text = artist,
-                            style = TextStyle(
-                                fontSize = 14.sp,
-                                color = colors.artist
-                            ),
-                            maxLines = 1
-                        )
+                        Column(verticalAlignment = Alignment.CenterVertically) {
+                            Text(
+                                text = title,
+                                style = TextStyle(
+                                    fontSize = 16.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = colors.onSurface
+                                ),
+                                maxLines = 2
+                            )
+                            Spacer(GlanceModifier.height(2.dp))
+                            Text(
+                                text = artist,
+                                style = TextStyle(
+                                    fontSize = 14.sp,
+                                    color = colors.artist
+                                ),
+                                maxLines = 1
+                            )
+                        }
                     }
                 }
 

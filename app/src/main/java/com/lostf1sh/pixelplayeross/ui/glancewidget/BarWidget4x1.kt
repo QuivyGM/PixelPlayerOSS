@@ -20,7 +20,6 @@ import androidx.glance.layout.Box
 import androidx.glance.layout.Column
 import androidx.glance.layout.Row
 import androidx.glance.layout.Spacer
-import androidx.glance.layout.fillMaxHeight
 import androidx.glance.layout.fillMaxSize
 import androidx.glance.layout.height
 import androidx.glance.layout.padding
@@ -67,7 +66,7 @@ class BarWidget4x1 : GlanceAppWidget() {
 
         Box(
             modifier = GlanceModifier
-                .background(colors.surface)
+                .background(colors.background)
                 .cornerRadius(widgetCornerRadius)
                 .padding(16.dp)
                 .clickable(actionStartActivity<MainActivity>())
@@ -88,30 +87,32 @@ class BarWidget4x1 : GlanceAppWidget() {
 
                 Spacer(GlanceModifier.width(8.dp))
 
-                Column(
-                    modifier = GlanceModifier
-                        .defaultWeight()
-                        .fillMaxHeight(),
-                    verticalAlignment = Alignment.Vertical.CenterVertically
+                WidgetTextBackdrop(
+                    color = colors.textBackdrop,
+                    height = 40.dp,
+                    cornerRadius = controlButtonCornerRadius,
+                    modifier = GlanceModifier.defaultWeight()
                 ) {
-                    Text(
-                        text = title,
-                        style = TextStyle(
-                            fontSize = 14.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = colors.onSurface
-                        ),
-                        maxLines = 1
-                    )
-                    Spacer(GlanceModifier.height(2.dp))
-                    Text(
-                        text = artist,
-                        style = TextStyle(
-                            fontSize = 12.sp,
-                            color = colors.artist
-                        ),
-                        maxLines = 1
-                    )
+                    Column(verticalAlignment = Alignment.Vertical.CenterVertically) {
+                        Text(
+                            text = title,
+                            style = TextStyle(
+                                fontSize = 14.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = colors.onSurface
+                            ),
+                            maxLines = 1
+                        )
+                        Spacer(GlanceModifier.height(2.dp))
+                        Text(
+                            text = artist,
+                            style = TextStyle(
+                                fontSize = 12.sp,
+                                color = colors.artist
+                            ),
+                            maxLines = 1
+                        )
+                    }
                 }
 
                 Spacer(GlanceModifier.width(8.dp))

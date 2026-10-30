@@ -43,8 +43,26 @@ data class WidgetColors(
     val playPauseBackground: ColorProvider,
     val playPauseIcon: ColorProvider,
     val prevNextBackground: ColorProvider,
-    val prevNextIcon: ColorProvider
+    val prevNextIcon: ColorProvider,
+    /** [surface] with the user's background opacity applied; only for the widget's outer background. */
+    val background: ColorProvider = surface,
+    /** Plate drawn behind the title and artist, see [textBackdropOpacity]. */
+    val textBackdrop: ColorProvider = surface
 )
+
+/** The title and artist never sit on a background that is more transparent than this. */
+const val MIN_TEXT_BACKDROP_OPACITY = 0.7f
+
+/**
+ * Opacity of the plate drawn behind widget text. Layered over a widget background of
+ * [backgroundOpacity], the two together cover at least [MIN_TEXT_BACKDROP_OPACITY], so
+ * text stays readable over any wallpaper. Above that threshold no plate is needed.
+ */
+fun textBackdropOpacity(backgroundOpacity: Float): Float {
+    val background = backgroundOpacity.coerceIn(0f, 1f)
+    if (background >= MIN_TEXT_BACKDROP_OPACITY) return 0f
+    return 1f - (1f - MIN_TEXT_BACKDROP_OPACITY) / (1f - background)
+}
 
 /**
  * Returns this color with [opacity] applied, keeping separate day and night values so
@@ -112,7 +130,10 @@ fun PlayerInfo.getWidgetColors(): WidgetColors {
             prevNextIcon = GlanceTheme.colors.onSecondaryContainer
         )
     }
-    return colors.copy(surface = colors.surface.withOpacity(context, backgroundOpacity))
+    return colors.copy(
+        background = colors.surface.withOpacity(context, backgroundOpacity),
+        textBackdrop = colors.surface.withOpacity(context, textBackdropOpacity(backgroundOpacity))
+    )
 }
 
 /**

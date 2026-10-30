@@ -22,10 +22,37 @@ import androidx.glance.layout.Alignment
 import androidx.glance.layout.Box
 import androidx.glance.layout.ContentScale
 import androidx.glance.layout.fillMaxSize
+import androidx.glance.layout.height
+import androidx.glance.layout.padding
 import androidx.glance.layout.size
 import androidx.glance.unit.ColorProvider
 import com.lostf1sh.pixelplayeross.R
 import timber.log.Timber
+
+/**
+ * Plate behind the title and artist that keeps them readable when the widget background
+ * is translucent. It has a fixed [height] so it lines up with the buttons and artwork
+ * beside it, and is invisible when [color] is fully transparent.
+ */
+@Composable
+fun WidgetTextBackdrop(
+    color: ColorProvider,
+    height: Dp,
+    cornerRadius: Dp,
+    modifier: GlanceModifier = GlanceModifier,
+    content: @Composable () -> Unit
+) {
+    Box(
+        modifier = modifier
+            .height(height)
+            .background(color)
+            .cornerRadius(cornerRadius)
+            .padding(horizontal = 12.dp),
+        contentAlignment = Alignment.CenterStart
+    ) {
+        content()
+    }
+}
 
 @Composable
 fun AlbumArtImage(
