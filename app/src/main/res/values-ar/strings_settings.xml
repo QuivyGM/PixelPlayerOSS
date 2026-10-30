@@ -87,6 +87,8 @@
     <string name="setcat_auto_rotate_patterns_subtitle">تغيير أنماط التجميعة بشكل دوري في كل مرة تزور فيها الصفحة الرئيسية.</string>
     <string name="setcat_widget">الأداة</string>
     <string name="setcat_widget_background_opacity_title">عتامة الخلفية</string>
+    <string name="setcat_widget_fill_title">ملء</string>
+    <string name="setcat_widget_fill_subtitle">إزالة خلفية الأداة وتكبير عناصر التحكم حتى الحواف.</string>
     <string name="setcat_auto_rotate_patterns_title">تدوير الأنماط تلقائياً</string>
     <string name="setcat_auto_scan_lrc_subtitle">فحص وتعيين ملفات الكلمات المزامنة (.lrc) المتواجدة في نفس المجلد تلقائياً أثناء المزامنة.</string>
     <string name="setcat_folder_album_art_title">استخدام صور الغلاف من المجلد</string>

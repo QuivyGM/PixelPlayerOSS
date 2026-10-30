@@ -5,10 +5,12 @@ import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.view.View
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.DpSize
 import androidx.glance.ColorFilter
 import androidx.glance.LocalContext
+import androidx.glance.LocalSize
 import androidx.glance.GlanceModifier
 import androidx.glance.GlanceTheme
 import androidx.glance.Image
@@ -31,6 +33,39 @@ import androidx.glance.layout.size
 import androidx.glance.unit.ColorProvider
 import com.lostf1sh.pixelplayeross.R
 import timber.log.Timber
+
+/**
+ * Outer container of a widget layout: the rounded background with [padding] around the
+ * content. In fill mode ([LocalWidgetFill]) the background and padding are dropped and
+ * the content is scaled by [fillScale] so it reaches the edges; sizes inside should use
+ * [sdp], [ssp] and [scaled] to follow that scale. [size] is the area the frame covers.
+ */
+@Composable
+fun WidgetFrame(
+    modifier: GlanceModifier,
+    backgroundColor: ColorProvider,
+    cornerRadius: Dp,
+    padding: Dp,
+    contentAlignment: Alignment = Alignment.TopStart,
+    size: DpSize = LocalSize.current,
+    content: @Composable () -> Unit
+) {
+    val fill = LocalWidgetFill.current
+    val frameModifier = if (fill) {
+        modifier
+    } else {
+        modifier
+            .background(backgroundColor)
+            .cornerRadius(cornerRadius)
+            .padding(padding)
+    }
+    val scale = if (fill) fillScale(size, padding) else 1f
+    Box(modifier = frameModifier, contentAlignment = contentAlignment) {
+        CompositionLocalProvider(LocalWidgetScale provides scale) {
+            content()
+        }
+    }
+}
 
 /**
  * Row holding the artwork and the title and artist, on a plate that keeps the text
@@ -64,7 +99,7 @@ fun WidgetTextBackdrop(
         )
     }
     Row(
-        modifier = plateModifier.padding(end = 12.dp),
+        modifier = plateModifier.padding(end = 12.sdp),
         verticalAlignment = Alignment.CenterVertically,
         content = content
     )
@@ -186,7 +221,7 @@ fun WidgetIconButton(
     iconColor: ColorProvider,
     imageProvider: ImageProvider,
     contentDescription: String,
-    iconSize: Dp = 20.dp,
+    iconSize: Dp = 20.sdp,
     cornerRadius: Dp
 ) {
     Box(
@@ -211,7 +246,7 @@ fun PreviousButton(
     backgroundColor: ColorProvider,
     iconColor: ColorProvider,
     cornerRadius: Dp,
-    iconSize: Dp = 20.dp
+    iconSize: Dp = 20.sdp
 ) {
     val context = LocalContext.current
     val params = actionParametersOf(PlayerActions.key to PlayerActions.PREVIOUS)
@@ -233,7 +268,7 @@ fun NextButton(
     backgroundColor: ColorProvider,
     iconColor: ColorProvider,
     cornerRadius: Dp,
-    iconSize: Dp = 20.dp
+    iconSize: Dp = 20.sdp
 ) {
     val context = LocalContext.current
     val params = actionParametersOf(PlayerActions.key to PlayerActions.NEXT)
@@ -256,7 +291,7 @@ fun PlayPauseButton(
     backgroundColor: ColorProvider,
     iconColor: ColorProvider,
     cornerRadius: Dp,
-    iconSize: Dp = 22.dp
+    iconSize: Dp = 22.sdp
 ) {
     val context = LocalContext.current
     val params = actionParametersOf(PlayerActions.key to PlayerActions.PLAY_PAUSE)

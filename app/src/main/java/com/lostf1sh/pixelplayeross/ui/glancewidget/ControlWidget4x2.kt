@@ -2,8 +2,8 @@ package com.lostf1sh.pixelplayeross.ui.glancewidget
 
 import android.content.Context
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.glance.GlanceId
 import androidx.glance.GlanceModifier
 import androidx.glance.GlanceTheme
@@ -11,7 +11,6 @@ import androidx.glance.action.actionStartActivity
 import androidx.glance.action.clickable
 import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.appwidget.SizeMode
-import androidx.glance.appwidget.cornerRadius
 import androidx.glance.appwidget.provideContent
 import androidx.glance.background
 import androidx.glance.currentState
@@ -43,8 +42,10 @@ class ControlWidget4x2 : GlanceAppWidget() {
     override suspend fun provideGlance(context: Context, id: GlanceId) {
         provideContent {
             val playerInfo = currentState<PlayerInfo>()
-            GlanceTheme {
-                ControlWidget4x2Content(playerInfo = playerInfo, context = context)
+            CompositionLocalProvider(LocalWidgetFill provides playerInfo.fillMode) {
+                GlanceTheme {
+                    ControlWidget4x2Content(playerInfo = playerInfo, context = context)
+                }
             }
         }
     }
@@ -64,18 +65,16 @@ class ControlWidget4x2 : GlanceAppWidget() {
 
         val colors = playerInfo.getWidgetColors()
 
-        val widgetCornerRadius = 28.dp
-        val albumArtCornerRadius = 16.dp
-        val playButtonCornerRadius = if (isPlaying) 16.dp else 20.dp
-        val controlButtonCornerRadius = 16.dp
-
-        Box(
-            modifier = GlanceModifier
-                .background(colors.background)
-                .cornerRadius(widgetCornerRadius)
-                .padding(16.dp)
-                .clickable(actionStartActivity<MainActivity>())
+        WidgetFrame(
+            modifier = GlanceModifier.clickable(actionStartActivity<MainActivity>()),
+            backgroundColor = colors.background,
+            cornerRadius = 28.dp,
+            padding = 16.dp
         ) {
+            val albumArtCornerRadius = 16.sdp
+            val playButtonCornerRadius = if (isPlaying) 16.sdp else 20.sdp
+            val controlButtonCornerRadius = 16.sdp
+
             Column(
                 modifier = GlanceModifier.fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -86,20 +85,20 @@ class ControlWidget4x2 : GlanceAppWidget() {
                 ) {
                     WidgetTextBackdrop(
                         backdrop = colors.textBackdrop,
-                        height = 80.dp,
+                        height = 80.sdp,
                         cornerRadius = albumArtCornerRadius,
                         modifier = GlanceModifier.defaultWeight()
                     ) {
                         AlbumArtImage(
-                            modifier = GlanceModifier.size(80.dp),
+                            modifier = GlanceModifier.size(80.sdp),
                             bitmapData = albumArtBitmapData,
                             albumArtUri = albumArtUri,
-                            size = 80.dp,
+                            size = 80.sdp,
                             context = context,
                             cornerRadius = albumArtCornerRadius
                         )
 
-                        Spacer(GlanceModifier.width(8.dp))
+                        Spacer(GlanceModifier.width(8.sdp))
 
                         Column(
                             modifier = GlanceModifier.defaultWeight(),
@@ -108,17 +107,17 @@ class ControlWidget4x2 : GlanceAppWidget() {
                             Text(
                                 text = title,
                                 style = TextStyle(
-                                    fontSize = 16.sp,
+                                    fontSize = 16.ssp,
                                     fontWeight = FontWeight.Bold,
                                     color = colors.onSurface
                                 ),
                                 maxLines = 2
                             )
-                            Spacer(GlanceModifier.height(2.dp))
+                            Spacer(GlanceModifier.height(2.sdp))
                             Text(
                                 text = artist,
                                 style = TextStyle(
-                                    fontSize = 14.sp,
+                                    fontSize = 14.ssp,
                                     color = colors.artist
                                 ),
                                 maxLines = 1
@@ -137,7 +136,7 @@ class ControlWidget4x2 : GlanceAppWidget() {
                 ) {
                     val buttonModifier = GlanceModifier
                         .defaultWeight()
-                        .height(48.dp)
+                        .height(48.sdp)
 
                     ShuffleButton(
                         modifier = buttonModifier,
@@ -146,7 +145,7 @@ class ControlWidget4x2 : GlanceAppWidget() {
                         cornerRadius = controlButtonCornerRadius
                     )
 
-                    Spacer(GlanceModifier.width(6.dp))
+                    Spacer(GlanceModifier.width(6.sdp))
 
                     PreviousButton(
                         modifier = buttonModifier,
@@ -155,7 +154,7 @@ class ControlWidget4x2 : GlanceAppWidget() {
                         cornerRadius = controlButtonCornerRadius
                     )
 
-                    Spacer(GlanceModifier.width(6.dp))
+                    Spacer(GlanceModifier.width(6.sdp))
 
                     PlayPauseButton(
                         modifier = buttonModifier,
@@ -165,7 +164,7 @@ class ControlWidget4x2 : GlanceAppWidget() {
                         cornerRadius = playButtonCornerRadius
                     )
 
-                    Spacer(GlanceModifier.width(6.dp))
+                    Spacer(GlanceModifier.width(6.sdp))
 
                     NextButton(
                         modifier = buttonModifier,
@@ -174,7 +173,7 @@ class ControlWidget4x2 : GlanceAppWidget() {
                         cornerRadius = controlButtonCornerRadius
                     )
 
-                    Spacer(GlanceModifier.width(6.dp))
+                    Spacer(GlanceModifier.width(6.sdp))
 
                     val buttonColor = when (repeatMode) {
                         Player.REPEAT_MODE_OFF -> colors.prevNextBackground

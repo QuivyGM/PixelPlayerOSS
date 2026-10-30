@@ -2,6 +2,8 @@ package com.lostf1sh.pixelplayeross.ui.glancewidget
 
 import android.content.Context
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.min
 import androidx.glance.GlanceId
@@ -12,9 +14,7 @@ import androidx.glance.action.actionStartActivity
 import androidx.glance.action.clickable
 import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.appwidget.SizeMode
-import androidx.glance.appwidget.cornerRadius
 import androidx.glance.appwidget.provideContent
-import androidx.glance.background
 import androidx.glance.currentState
 import androidx.glance.layout.Alignment
 import androidx.glance.layout.Box
@@ -39,8 +39,10 @@ class GridWidget2x2 : GlanceAppWidget() {
     override suspend fun provideGlance(context: Context, id: GlanceId) {
         provideContent {
             val playerInfo = currentState<PlayerInfo>()
-            GlanceTheme {
-                GridWidget2x2Content(playerInfo = playerInfo, context = context)
+            CompositionLocalProvider(LocalWidgetFill provides playerInfo.fillMode) {
+                GlanceTheme {
+                    GridWidget2x2Content(playerInfo = playerInfo, context = context)
+                }
             }
         }
     }
@@ -57,7 +59,6 @@ class GridWidget2x2 : GlanceAppWidget() {
         val colors = playerInfo.getWidgetColors()
 
         val widgetCornerRadius = 28.dp
-        val itemCornerRadius = 16.dp
 
         val size = LocalSize.current
         val minSide = min(size.width, size.height)
@@ -71,13 +72,15 @@ class GridWidget2x2 : GlanceAppWidget() {
                 .clickable(actionStartActivity<MainActivity>()),
             contentAlignment = Alignment.Center,
         ) {
-            Box(
-                modifier = GlanceModifier
-                    .size(minSide)
-                    .background(colors.background)
-                    .cornerRadius(widgetCornerRadius)
-                    .padding(16.dp)
+            WidgetFrame(
+                modifier = GlanceModifier.size(minSide),
+                backgroundColor = colors.background,
+                cornerRadius = widgetCornerRadius,
+                padding = 16.dp,
+                size = DpSize(minSide, minSide)
             ) {
+                val itemCornerRadius = 16.sdp
+
                 Column(
                     modifier = GlanceModifier.fillMaxSize()
                 ) {
@@ -92,12 +95,12 @@ class GridWidget2x2 : GlanceAppWidget() {
                                 .fillMaxHeight(),
                             bitmapData = albumArtBitmapData,
                             albumArtUri = albumArtUri,
-                            size = albumArtSize,
+                            size = albumArtSize.scaled,
                             context = context,
                             cornerRadius = itemCornerRadius
                         )
 
-                        Spacer(GlanceModifier.width(6.dp))
+                        Spacer(GlanceModifier.width(6.sdp))
 
                         PlayPauseButton(
                             modifier = GlanceModifier
@@ -107,11 +110,11 @@ class GridWidget2x2 : GlanceAppWidget() {
                             backgroundColor = colors.playPauseBackground,
                             iconColor = colors.playPauseIcon,
                             cornerRadius = itemCornerRadius,
-                            iconSize = dynamicPlayIconSize
+                            iconSize = dynamicPlayIconSize.scaled
                         )
                     }
 
-                    Spacer(GlanceModifier.height(6.dp))
+                    Spacer(GlanceModifier.height(6.sdp))
 
                     Row(
                         modifier = GlanceModifier
@@ -125,10 +128,10 @@ class GridWidget2x2 : GlanceAppWidget() {
                             backgroundColor = colors.prevNextBackground,
                             iconColor = colors.prevNextIcon,
                             cornerRadius = itemCornerRadius,
-                            iconSize = dynamicIconSize
+                            iconSize = dynamicIconSize.scaled
                         )
 
-                        Spacer(GlanceModifier.width(6.dp))
+                        Spacer(GlanceModifier.width(6.sdp))
 
                         NextButton(
                             modifier = GlanceModifier
@@ -137,7 +140,7 @@ class GridWidget2x2 : GlanceAppWidget() {
                             backgroundColor = colors.prevNextBackground,
                             iconColor = colors.prevNextIcon,
                             cornerRadius = itemCornerRadius,
-                            iconSize = dynamicIconSize
+                            iconSize = dynamicIconSize.scaled
                         )
                     }
                 }

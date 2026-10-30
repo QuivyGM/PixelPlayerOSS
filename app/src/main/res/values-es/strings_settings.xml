@@ -87,6 +87,8 @@
     <string name="setcat_auto_rotate_patterns_subtitle">Ciclar a través de los patrones de collage cada vez que visitas el Inicio.</string>
     <string name="setcat_widget">Widget</string>
     <string name="setcat_widget_background_opacity_title">Opacidad del fondo</string>
+    <string name="setcat_widget_fill_title">Rellenar</string>
+    <string name="setcat_widget_fill_subtitle">Quitar el fondo del widget y ampliar los controles hasta los bordes.</string>
     <string name="setcat_auto_rotate_patterns_title">Rotar patrones automáticamente</string>
     <string name="setcat_auto_scan_lrc_subtitle">Buscar y asignar automáticamente archivos .lrc en la misma carpeta durante la sincronización de la biblioteca.</string>
     <string name="setcat_folder_album_art_title">Usar imágenes de portada de la carpeta</string>

@@ -87,6 +87,8 @@
     <string name="setcat_auto_rotate_patterns_subtitle">Berganti-ganti pola kolase setiap kali Anda mengunjungi Beranda.</string>
     <string name="setcat_widget">Widget</string>
     <string name="setcat_widget_background_opacity_title">Opasitas latar belakang</string>
+    <string name="setcat_widget_fill_title">Isi penuh</string>
+    <string name="setcat_widget_fill_subtitle">Hapus latar belakang widget dan perbesar kontrol hingga ke tepi.</string>
     <string name="setcat_auto_rotate_patterns_title">Putar Pola Otomatis</string>
     <string name="setcat_auto_scan_lrc_subtitle">Secara otomatis memindai dan menetapkan file .lrc di folder yang sama selama sinkronisasi pustaka.</string>
     <string name="setcat_folder_album_art_title">Gunakan gambar sampul dari folder</string>

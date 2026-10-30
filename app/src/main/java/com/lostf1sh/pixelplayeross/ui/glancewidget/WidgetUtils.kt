@@ -5,7 +5,13 @@ import android.content.res.Configuration
 import android.graphics.Bitmap
 import android.util.LruCache
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.Dp
+import androidx.compose.ui.unit.DpSize
+import androidx.compose.ui.unit.TextUnit
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.glance.GlanceTheme
 import androidx.glance.LocalContext
 import androidx.glance.color.ColorProvider
@@ -15,6 +21,41 @@ import androidx.glance.unit.ColorProvider
 import com.lostf1sh.pixelplayeross.data.model.PlayerInfo
 import com.lostf1sh.pixelplayeross.data.model.WidgetThemeColors
 import kotlin.math.roundToInt
+
+/** Whether the widget is in fill mode: no background, content scaled up to the edges. */
+val LocalWidgetFill = staticCompositionLocalOf { false }
+
+/** Factor every size inside a [WidgetFrame] is multiplied by; 1 unless in fill mode. */
+val LocalWidgetScale = staticCompositionLocalOf { 1f }
+
+/** This size multiplied by the enclosing [WidgetFrame]'s scale. */
+val Dp.scaled: Dp
+    @Composable get() = this * LocalWidgetScale.current
+
+/** [this] dp, scaled with the widget content. */
+val Int.sdp: Dp
+    @Composable get() = this.dp.scaled
+
+/** [this] sp, scaled with the widget content. */
+val Int.ssp: TextUnit
+    @Composable get() = (this * LocalWidgetScale.current).sp
+
+/**
+ * Scale that grows content laid out inside [padding] on every side of [size] until it
+ * reaches the nearest edges once that padding is removed. Width and height grow by the
+ * same factor so sizes and spacing keep their proportions.
+ */
+fun fillScale(size: DpSize, padding: Dp): Float {
+    val inset = padding.value * 2
+    val width = size.width.value
+    val height = size.height.value
+    if (width <= inset || height <= inset) return 1f
+    return minOf(width / (width - inset), height / (height - inset))
+}
+
+/** Background opacity the widget is drawn with; fill mode has no background at all. */
+val PlayerInfo.effectiveBackgroundOpacity: Float
+    get() = if (fillMode) 0f else backgroundOpacity
 
 object AlbumArtBitmapCache {
     private const val CACHE_SIZE_BYTES = 4 * 1024 * 1024
@@ -64,10 +105,10 @@ data class TextBackdrop(
 }
 
 /** Combined coverage behind the artwork side of the text backdrop. */
-const val TEXT_BACKDROP_START_COVERAGE = 0.95f
+const val TEXT_BACKDROP_START_COVERAGE = 0.7f
 
 /** The title and artist never sit on a background that is more transparent than this. */
-const val MIN_TEXT_BACKDROP_OPACITY = 0.7f
+const val MIN_TEXT_BACKDROP_OPACITY = 0.3f
 
 /**
  * Builds the backdrop for a widget whose background has [backgroundOpacity]. Layered
@@ -170,8 +211,8 @@ fun PlayerInfo.getWidgetColors(): WidgetColors {
         )
     }
     return colors.copy(
-        background = colors.surface.withOpacity(context, backgroundOpacity),
-        textBackdrop = textBackdrop(colors.surface, backgroundOpacity)
+        background = colors.surface.withOpacity(context, effectiveBackgroundOpacity),
+        textBackdrop = textBackdrop(colors.surface, effectiveBackgroundOpacity)
     )
 }
 

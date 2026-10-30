@@ -87,6 +87,8 @@
     <string name="setcat_auto_rotate_patterns_subtitle">Bei jedem Home-Besuch ein anderes Collage-Muster zeigen.</string>
     <string name="setcat_widget">Widget</string>
     <string name="setcat_widget_background_opacity_title">Hintergrund-Deckkraft</string>
+    <string name="setcat_widget_fill_title">Füllen</string>
+    <string name="setcat_widget_fill_subtitle">Widget-Hintergrund entfernen und die Bedienelemente bis an den Rand vergrößern.</string>
     <string name="setcat_auto_rotate_patterns_title">Muster automatisch wechseln</string>
     <string name="setcat_auto_scan_lrc_subtitle">.lrc-Dateien im selben Ordner werden beim Sync automatisch erkannt und zugewiesen.</string>
     <string name="setcat_folder_album_art_title">Ordner-Coverbilder verwenden</string>

@@ -87,6 +87,8 @@
     <string name="setcat_auto_rotate_patterns_subtitle">Cicla tra i pattern collage ogni volta che visiti Home.</string>
     <string name="setcat_widget">Widget</string>
     <string name="setcat_widget_background_opacity_title">Opacità dello sfondo</string>
+    <string name="setcat_widget_fill_title">Riempi</string>
+    <string name="setcat_widget_fill_subtitle">Rimuovi lo sfondo del widget e ingrandisci i controlli fino ai bordi.</string>
     <string name="setcat_auto_rotate_patterns_title">Rotazione automatica pattern</string>
     <string name="setcat_auto_scan_lrc_subtitle">Scansiona e assegna automaticamente file .lrc nella stessa cartella durante la sincronizzazione libreria.</string>
     <string name="setcat_folder_album_art_title">Usa le copertine della cartella</string>

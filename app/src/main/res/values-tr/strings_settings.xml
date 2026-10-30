@@ -97,6 +97,8 @@
     <string name="setcat_auto_rotate_patterns_subtitle">Ana Sayfa\'yı her ziyaret ettiğinizde kolaj desenleri arasında geçiş yapın.</string>
     <string name="setcat_widget">Widget</string>
     <string name="setcat_widget_background_opacity_title">Arka plan opaklığı</string>
+    <string name="setcat_widget_fill_title">Doldur</string>
+    <string name="setcat_widget_fill_subtitle">Widget arka planını kaldırın ve kontrolleri kenarlara kadar büyütün.</string>
     <string name="setcat_auto_rotate_patterns_title">Desenleri Otomatik Döndür</string>
     <string name="setcat_auto_scan_lrc_subtitle">Kitaplık senkronizasyonu sırasında aynı klasördeki .lrc dosyalarını otomatik olarak tara ve ata.</string>
     <string name="setcat_folder_album_art_title">Klasördeki kapak görsellerini kullan</string>

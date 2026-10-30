@@ -481,6 +481,18 @@ object SettingsRegistry {
                 onToggle = { viewModel, checked -> viewModel.setCollageAutoRotate(checked) }
             ),
             SettingSpec(
+                id = "appearance_widget_fill",
+                itemKey = "item_appearance_widget_fill",
+                titleRes = R.string.setcat_widget_fill_title,
+                subtitleRes = R.string.setcat_widget_fill_subtitle,
+                category = SettingsCategory.APPEARANCE,
+                subscreenRoute = Screen.SettingsCategory.createRoute("appearance"),
+                type = SettingType.SWITCH,
+                keywordsStatic = listOf("widget", "home screen", "fill", "edge", "background", "scale"),
+                getValue = { it.widgetFill },
+                onToggle = { viewModel, checked -> viewModel.setWidgetFill(checked) }
+            ),
+            SettingSpec(
                 id = "appearance_widget_background_opacity",
                 itemKey = "item_appearance_widget_background_opacity",
                 titleRes = R.string.setcat_widget_background_opacity_title,

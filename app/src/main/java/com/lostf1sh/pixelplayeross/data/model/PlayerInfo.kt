@@ -76,6 +76,7 @@ data class PlayerInfo(
     val isShuffleEnabled: Boolean = false,
     val repeatMode: Int = 0,
     val backgroundOpacity: Float = 1f,
+    val fillMode: Boolean = false,
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -101,6 +102,7 @@ data class PlayerInfo(
         if (isShuffleEnabled != other.isShuffleEnabled) return false
         if (repeatMode != other.repeatMode) return false
         if (backgroundOpacity != other.backgroundOpacity) return false
+        if (fillMode != other.fillMode) return false
 
         return true
     }
@@ -121,6 +123,7 @@ data class PlayerInfo(
         result = 31 * result + isShuffleEnabled.hashCode()
         result = 31 * result + repeatMode
         result = 31 * result + backgroundOpacity.hashCode()
+        result = 31 * result + fillMode.hashCode()
         return result
     }
 }

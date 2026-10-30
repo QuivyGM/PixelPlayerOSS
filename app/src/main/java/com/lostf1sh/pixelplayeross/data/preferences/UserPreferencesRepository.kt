@@ -261,6 +261,7 @@ constructor(
         val COLLAGE_PATTERN = stringPreferencesKey("collage_pattern")
         val COLLAGE_AUTO_ROTATE = booleanPreferencesKey("collage_auto_rotate")
         val WIDGET_BACKGROUND_OPACITY = androidx.datastore.preferences.core.floatPreferencesKey("widget_background_opacity")
+        val WIDGET_FILL = booleanPreferencesKey("widget_fill")
         val SIDEBAR_SHORTCUTS = stringSetPreferencesKey("sidebar_shortcuts")
 
         val LAST_PLAYLIST_ID = stringPreferencesKey("last_playlist_id")
@@ -2204,6 +2205,18 @@ constructor(
     suspend fun setWidgetBackgroundOpacity(opacity: Float) {
         dataStore.edit { preferences ->
             preferences[PreferencesKeys.WIDGET_BACKGROUND_OPACITY] = opacity.coerceIn(0f, 1f)
+        }
+    }
+
+    /** Whether the home screen widgets drop their background and scale their content to the edges. */
+    val widgetFillFlow: Flow<Boolean> =
+        dataStore.data.map { preferences ->
+            preferences[PreferencesKeys.WIDGET_FILL] ?: false
+        }
+
+    suspend fun setWidgetFill(enabled: Boolean) {
+        dataStore.edit { preferences ->
+            preferences[PreferencesKeys.WIDGET_FILL] = enabled
         }
     }
 

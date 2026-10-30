@@ -127,6 +127,7 @@ data class SettingsUiState(
     val collagePattern: CollagePattern = CollagePattern.default,
     val collageAutoRotate: Boolean = false,
     val widgetBackgroundOpacity: Float = 1f,
+    val widgetFill: Boolean = false,
     val minSongDuration: Int = 10000,
     val minTracksPerAlbum: Int = 1,
     val replayGainEnabled: Boolean = false,
@@ -265,6 +266,12 @@ class SettingsViewModel @Inject constructor(
         viewModelScope.launch {
             userPreferencesRepository.widgetBackgroundOpacityFlow.collect { opacity ->
                 _uiState.update { it.copy(widgetBackgroundOpacity = opacity) }
+            }
+        }
+
+        viewModelScope.launch {
+            userPreferencesRepository.widgetFillFlow.collect { fill ->
+                _uiState.update { it.copy(widgetFill = fill) }
             }
         }
 
@@ -679,6 +686,12 @@ class SettingsViewModel @Inject constructor(
     fun setWidgetBackgroundOpacity(opacity: Float) {
         viewModelScope.launch {
             userPreferencesRepository.setWidgetBackgroundOpacity(opacity)
+        }
+    }
+
+    fun setWidgetFill(enabled: Boolean) {
+        viewModelScope.launch {
+            userPreferencesRepository.setWidgetFill(enabled)
         }
     }
 

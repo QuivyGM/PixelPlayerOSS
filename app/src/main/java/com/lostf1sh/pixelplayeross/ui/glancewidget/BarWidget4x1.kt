@@ -2,8 +2,8 @@ package com.lostf1sh.pixelplayeross.ui.glancewidget
 
 import android.content.Context
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.glance.GlanceId
 import androidx.glance.GlanceModifier
 import androidx.glance.GlanceTheme
@@ -11,7 +11,6 @@ import androidx.glance.action.actionStartActivity
 import androidx.glance.action.clickable
 import androidx.glance.appwidget.GlanceAppWidget
 import androidx.glance.appwidget.SizeMode
-import androidx.glance.appwidget.cornerRadius
 import androidx.glance.appwidget.provideContent
 import androidx.glance.background
 import androidx.glance.currentState
@@ -40,8 +39,10 @@ class BarWidget4x1 : GlanceAppWidget() {
     override suspend fun provideGlance(context: Context, id: GlanceId) {
         provideContent {
             val playerInfo = currentState<PlayerInfo>()
-            GlanceTheme {
-                BarWidget4x1Content(playerInfo = playerInfo, context = context)
+            CompositionLocalProvider(LocalWidgetFill provides playerInfo.fillMode) {
+                GlanceTheme {
+                    BarWidget4x1Content(playerInfo = playerInfo, context = context)
+                }
             }
         }
     }
@@ -59,18 +60,16 @@ class BarWidget4x1 : GlanceAppWidget() {
 
         val colors = playerInfo.getWidgetColors()
 
-        val widgetCornerRadius = 28.dp
-        val albumArtCornerRadius = 16.dp
-        val playButtonCornerRadius = if (isPlaying) 16.dp else 20.dp
-        val controlButtonCornerRadius = 16.dp
-
-        Box(
-            modifier = GlanceModifier
-                .background(colors.background)
-                .cornerRadius(widgetCornerRadius)
-                .padding(16.dp)
-                .clickable(actionStartActivity<MainActivity>())
+        WidgetFrame(
+            modifier = GlanceModifier.clickable(actionStartActivity<MainActivity>()),
+            backgroundColor = colors.background,
+            cornerRadius = 28.dp,
+            padding = 16.dp
         ) {
+            val albumArtCornerRadius = 16.sdp
+            val playButtonCornerRadius = if (isPlaying) 16.sdp else 20.sdp
+            val controlButtonCornerRadius = 16.sdp
+
             Row(
                 modifier = GlanceModifier.fillMaxSize(),
                 verticalAlignment = Alignment.CenterVertically,
@@ -78,20 +77,20 @@ class BarWidget4x1 : GlanceAppWidget() {
             ) {
                 WidgetTextBackdrop(
                     backdrop = colors.textBackdrop,
-                    height = 44.dp,
+                    height = 44.sdp,
                     cornerRadius = albumArtCornerRadius,
                     modifier = GlanceModifier.defaultWeight()
                 ) {
                     AlbumArtImage(
-                        modifier = GlanceModifier.size(44.dp),
+                        modifier = GlanceModifier.size(44.sdp),
                         bitmapData = albumArtBitmapData,
                         albumArtUri = albumArtUri,
-                        size = 44.dp,
+                        size = 44.sdp,
                         context = context,
                         cornerRadius = albumArtCornerRadius
                     )
 
-                    Spacer(GlanceModifier.width(8.dp))
+                    Spacer(GlanceModifier.width(8.sdp))
 
                     Column(
                         modifier = GlanceModifier.defaultWeight(),
@@ -100,17 +99,17 @@ class BarWidget4x1 : GlanceAppWidget() {
                         Text(
                             text = title,
                             style = TextStyle(
-                                fontSize = 14.sp,
+                                fontSize = 14.ssp,
                                 fontWeight = FontWeight.Bold,
                                 color = colors.onSurface
                             ),
                             maxLines = 1
                         )
-                        Spacer(GlanceModifier.height(2.dp))
+                        Spacer(GlanceModifier.height(2.sdp))
                         Text(
                             text = artist,
                             style = TextStyle(
-                                fontSize = 12.sp,
+                                fontSize = 12.ssp,
                                 color = colors.artist
                             ),
                             maxLines = 1
@@ -118,29 +117,29 @@ class BarWidget4x1 : GlanceAppWidget() {
                     }
                 }
 
-                Spacer(GlanceModifier.width(8.dp))
+                Spacer(GlanceModifier.width(8.sdp))
 
                 PreviousButton(
-                    modifier = GlanceModifier.size(40.dp),
+                    modifier = GlanceModifier.size(40.sdp),
                     backgroundColor = colors.prevNextBackground,
                     iconColor = colors.prevNextIcon,
                     cornerRadius = controlButtonCornerRadius
                 )
 
-                Spacer(GlanceModifier.width(6.dp))
+                Spacer(GlanceModifier.width(6.sdp))
 
                 PlayPauseButton(
-                    modifier = GlanceModifier.size(40.dp),
+                    modifier = GlanceModifier.size(40.sdp),
                     isPlaying = isPlaying,
                     backgroundColor = colors.playPauseBackground,
                     iconColor = colors.playPauseIcon,
                     cornerRadius = playButtonCornerRadius
                 )
 
-                Spacer(GlanceModifier.width(6.dp))
+                Spacer(GlanceModifier.width(6.sdp))
 
                 NextButton(
-                    modifier = GlanceModifier.size(40.dp),
+                    modifier = GlanceModifier.size(40.sdp),
                     backgroundColor = colors.prevNextBackground,
                     iconColor = colors.prevNextIcon,
                     cornerRadius = controlButtonCornerRadius

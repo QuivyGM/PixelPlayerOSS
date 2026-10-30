@@ -67,6 +67,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ClearAll
 import androidx.compose.material.icons.outlined.Folder
+import androidx.compose.material.icons.outlined.Fullscreen
 import androidx.compose.material.icons.outlined.Image
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Language
@@ -811,28 +812,40 @@ fun SettingsCategoryScreen(
                             }
 
                             SettingsSubsection(title = stringResource(R.string.setcat_widget)) {
-                                var widgetOpacityDraft by remember(uiState.widgetBackgroundOpacity) {
-                                    mutableStateOf(uiState.widgetBackgroundOpacity)
-                                }
-                                SliderSettingsItem(
-                                    label = stringResource(R.string.setcat_widget_background_opacity_title),
-                                    value = widgetOpacityDraft,
-                                    valueRange = 0f..1f,
-                                    steps = 19,
-                                    onValueChange = { widgetOpacityDraft = it },
-                                    onValueChangeFinished = {
-                                        if (widgetOpacityDraft != uiState.widgetBackgroundOpacity) {
-                                            settingsViewModel.setWidgetBackgroundOpacity(widgetOpacityDraft)
-                                        }
-                                    },
-                                    valueText = { value ->
-                                        context.getString(
-                                            R.string.setcat_widget_background_opacity_value,
-                                            (value * 100).roundToInt()
-                                        )
-                                    },
-                                    modifier = Modifier.settingHighlight("item_appearance_widget_background_opacity", highlightKey)
+                                SwitchSettingItem(
+                                    title = stringResource(R.string.setcat_widget_fill_title),
+                                    subtitle = stringResource(R.string.setcat_widget_fill_subtitle),
+                                    checked = uiState.widgetFill,
+                                    onCheckedChange = settingsViewModel::setWidgetFill,
+                                    leadingIcon = { Icon(Icons.Outlined.Fullscreen, null, tint = MaterialTheme.colorScheme.secondary) },
+                                    modifier = Modifier.settingHighlight("item_appearance_widget_fill", highlightKey)
                                 )
+
+                                // Fill mode has no background, so its opacity has nothing to apply to.
+                                if (!uiState.widgetFill) {
+                                    var widgetOpacityDraft by remember(uiState.widgetBackgroundOpacity) {
+                                        mutableStateOf(uiState.widgetBackgroundOpacity)
+                                    }
+                                    SliderSettingsItem(
+                                        label = stringResource(R.string.setcat_widget_background_opacity_title),
+                                        value = widgetOpacityDraft,
+                                        valueRange = 0f..1f,
+                                        steps = 19,
+                                        onValueChange = { widgetOpacityDraft = it },
+                                        onValueChangeFinished = {
+                                            if (widgetOpacityDraft != uiState.widgetBackgroundOpacity) {
+                                                settingsViewModel.setWidgetBackgroundOpacity(widgetOpacityDraft)
+                                            }
+                                        },
+                                        valueText = { value ->
+                                            context.getString(
+                                                R.string.setcat_widget_background_opacity_value,
+                                                (value * 100).roundToInt()
+                                            )
+                                        },
+                                        modifier = Modifier.settingHighlight("item_appearance_widget_background_opacity", highlightKey)
+                                    )
+                                }
                             }
 
                             SettingsSubsection(title = stringResource(R.string.setcat_navigation_bar)) {
