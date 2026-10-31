@@ -301,8 +301,8 @@ class UserPreferencesRepositoryTest {
 
             assertEquals(1f, repository.widgetScaleFlow.first())
 
-            repository.setWidgetScale(1.25f)
-            assertEquals(1.25f, repository.widgetScaleFlow.first())
+            repository.setWidgetScale(0.9f)
+            assertEquals(0.9f, repository.widgetScaleFlow.first())
             assertEquals(0.35f, repository.widgetBackgroundOpacityFlow.first())
 
             repository.setWidgetScale(3f)

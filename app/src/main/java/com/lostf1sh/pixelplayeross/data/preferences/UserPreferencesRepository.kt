@@ -59,7 +59,7 @@ internal fun sanitizeNavBarCornerRadius(radius: Int): Int =
         radius.coerceIn(MIN_NAV_BAR_CORNER_RADIUS, MAX_NAV_BAR_CORNER_RADIUS)
 
 // [Chomu] Range of the home screen widgets' content scale setting.
-val WIDGET_SCALE_RANGE = 1f..1.5f
+val WIDGET_SCALE_RANGE = 0.8f..1.2f
 
 /**
  * Album art quality settings for developer options.
@@ -2236,7 +2236,7 @@ constructor(
         }
     }
 
-    /** Factor the home screen widgets' text and buttons are enlarged by, within [WIDGET_SCALE_RANGE]. */
+    /** Factor the home screen widgets' text and buttons are scaled by, within [WIDGET_SCALE_RANGE]. */
     val widgetScaleFlow: Flow<Float> =
         dataStore.data.map { preferences ->
             (preferences[PreferencesKeys.WIDGET_SCALE] ?: 1f).coerceIn(WIDGET_SCALE_RANGE)
