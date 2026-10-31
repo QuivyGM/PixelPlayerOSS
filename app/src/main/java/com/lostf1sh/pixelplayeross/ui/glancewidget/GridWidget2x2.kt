@@ -78,7 +78,7 @@ class GridWidget2x2 : GlanceAppWidget() {
                 modifier = GlanceModifier.size(minSide),
                 backgroundColor = colors.background,
                 cornerRadius = widgetCornerRadius,
-                padding = 16.dp,
+                padding = 8.dp,
                 size = DpSize(minSide, minSide)
             ) {
                 val itemCornerRadius = 16.sdp

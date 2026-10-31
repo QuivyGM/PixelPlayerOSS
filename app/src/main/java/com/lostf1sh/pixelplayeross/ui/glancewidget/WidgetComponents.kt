@@ -44,8 +44,8 @@ import timber.log.Timber
  * content. It is marked as the widget background, so Android 12+ launchers clip it and
  * animate app launches from it consistently.
  *
- * Sizes inside should use [sdp], [ssp] and [scaled] to follow the widget scale
- * ([LocalWidgetScale]), and fit fixed sizes to [LocalWidgetContentSize], the space inside
+ * The padding follows the widget scale ([LocalWidgetScale]) 1:1, like the content. Sizes
+ * inside should use [sdp], [ssp] and [scaled] to follow the scale, and fit fixed sizes to [LocalWidgetContentSize], the space inside
  * the padding. [size] is the area the frame covers.
  */
 @Composable
@@ -58,16 +58,18 @@ fun WidgetFrame(
     size: DpSize = LocalSize.current,
     content: @Composable () -> Unit
 ) {
+    // The padding grows with the widget scale, 1:1 with the content.
+    val scaledPadding = padding.scaled
     val contentSize = DpSize(
-        width = (size.width - padding * 2).coerceAtLeast(0.dp),
-        height = (size.height - padding * 2).coerceAtLeast(0.dp)
+        width = (size.width - scaledPadding * 2).coerceAtLeast(0.dp),
+        height = (size.height - scaledPadding * 2).coerceAtLeast(0.dp)
     )
     Box(
         modifier = modifier
             .appWidgetBackground()
             .cornerRadius(widgetBorderRadius(LocalContext.current, cornerRadius, size))
             .background(backgroundColor)
-            .padding(padding),
+            .padding(scaledPadding),
         contentAlignment = contentAlignment
     ) {
         CompositionLocalProvider(LocalWidgetContentSize provides contentSize) {

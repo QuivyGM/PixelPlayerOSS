@@ -280,7 +280,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
             modifier = modifier,
             backgroundColor = backgroundColor,
             cornerRadius = bgCornerRadius,
-            padding = 16.dp
+            padding = 8.dp
         ) {
             // Fit the artwork and buttons to the space so short or narrow widgets don't overflow.
             val content = LocalWidgetContentSize.current
@@ -370,7 +370,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
             modifier = modifier,
             backgroundColor = backgroundColor,
             cornerRadius = bgCornerRadius,
-            padding = 16.dp
+            padding = 8.dp
         ) {
             // Fit the artwork and buttons to the space so short or narrow widgets don't overflow.
             val content = LocalWidgetContentSize.current
@@ -456,7 +456,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
             modifier = modifier,
             backgroundColor = backgroundColor,
             cornerRadius = bgCornerRadius,
-            padding = 16.dp
+            padding = 8.dp
         ) {
             Column(
                 modifier = GlanceModifier.fillMaxSize(),
@@ -525,7 +525,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
             modifier = modifier,
             backgroundColor = backgroundColor,
             cornerRadius = bgCornerRadius,
-            padding = 16.dp
+            padding = 8.dp
         ) {
             Column(
                 modifier = GlanceModifier.fillMaxSize(),
@@ -598,7 +598,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
             modifier = modifier,
             backgroundColor = backgroundColor,
             cornerRadius = bgCornerRadius,
-            padding = 16.dp,
+            padding = 8.dp,
             contentAlignment = Alignment.Center
         ) {
             PlayPauseButtonGlance(
@@ -630,7 +630,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
             modifier = modifier,
             backgroundColor = backgroundColor,
             cornerRadius = bgCornerRadius,
-            padding = 16.dp
+            padding = 8.dp
         ) {
             Row(
                 modifier = GlanceModifier
@@ -689,7 +689,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
             modifier = modifier,
             backgroundColor = backgroundColor,
             cornerRadius = bgCornerRadius,
-            padding = 12.dp
+            padding = 6.dp
         ) {
             // The two button rows share the height with the artwork, which keeps at least a third.
             val buttonHeight = minOf(
@@ -786,7 +786,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
             modifier = modifier,
             backgroundColor = backgroundColor,
             cornerRadius = bgCornerRadius,
-            padding = 16.dp
+            padding = 8.dp
         ) {
             // With large fonts a two-line title and the artist would overflow the 80 dp backdrop.
             val titleLines = if (textHeight(16.ssp, lines = 2) + 4.sdp + textHeight(13.ssp) <= 80.sdp) 2 else 1
@@ -893,7 +893,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
             modifier = modifier,
             backgroundColor = backgroundColor,
             cornerRadius = bgCornerRadius,
-            padding = 16.dp
+            padding = 8.dp
         ) {
             Column(modifier = GlanceModifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
                 Row(verticalAlignment = Alignment.CenterVertically, modifier = GlanceModifier.fillMaxWidth().padding(bottom = 8.sdp)) {
@@ -992,7 +992,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
             modifier = modifier,
             backgroundColor = backgroundColor,
             cornerRadius = bgCornerRadius,
-            padding = 16.dp
+            padding = 8.dp
         ) {
             // Header, buttons and queue with their spacing; without room for all, the queue is left out.
             val showQueue = LocalWidgetContentSize.current.height >= 210.sdp
