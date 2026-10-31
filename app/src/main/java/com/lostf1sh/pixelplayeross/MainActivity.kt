@@ -720,7 +720,7 @@ class MainActivity : ComponentActivity() {
                 Screen.SettingsCategory.route,
                 Screen.DelimiterConfig.route,
                 Screen.PaletteStyle.route,
-                Screen.NotificationButtons.route,
+                Screen.NotificationButtons.route, // [Chomu] Notification buttons settings subscreen
                 Screen.RecentlyPlayed.route,
                 Screen.DeviceCapabilities.route,
                 Screen.EasterEgg.route,

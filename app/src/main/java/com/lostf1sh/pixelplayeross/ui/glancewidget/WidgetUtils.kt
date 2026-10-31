@@ -1,3 +1,5 @@
+// [Chomu] Modified: widget fill mode scaling (sdp/ssp/scaled), layout fitting helpers,
+// background opacity and the text backdrop. Changes are inside [Chomu] regions below.
 package com.lostf1sh.pixelplayeross.ui.glancewidget
 
 import android.content.Context
@@ -24,6 +26,7 @@ import com.lostf1sh.pixelplayeross.data.model.WidgetThemeColors
 import kotlin.math.roundToInt
 import kotlin.math.sqrt
 
+// region [Chomu] Widget fill mode scaling and layout fitting
 /** Whether the widget is in fill mode: content enlarged into the frame's padding. */
 val LocalWidgetFill = staticCompositionLocalOf { false }
 
@@ -115,6 +118,7 @@ fun fillPadding(length: Dp, padding: Dp, scale: Float): Dp =
 fun textHeight(fontSize: TextUnit, lines: Int = 1): Dp =
     (fontSize.value * LINE_HEIGHT_FACTOR * lines *
         LocalContext.current.resources.configuration.fontScale).dp
+// endregion [Chomu]
 
 object AlbumArtBitmapCache {
     private const val CACHE_SIZE_BYTES = 4 * 1024 * 1024
@@ -145,12 +149,15 @@ data class WidgetColors(
     val playPauseIcon: ColorProvider,
     val prevNextBackground: ColorProvider,
     val prevNextIcon: ColorProvider,
+    // region [Chomu] Widget background opacity and text backdrop
     /** [surface] with the user's background opacity applied; only for the widget's outer background. */
     val background: ColorProvider = surface,
     /** Plate drawn behind the artwork, title and artist. */
     val textBackdrop: TextBackdrop = TextBackdrop(surface, startOpacity = 0f, endOpacity = 0f)
+    // endregion [Chomu]
 )
 
+// region [Chomu] Widget background opacity and text backdrop
 /**
  * Plate behind the artwork and text, fading from [startOpacity] at the artwork side to
  * [endOpacity] at the far end of the text. [color] is the opaque color it is tinted with.
@@ -221,13 +228,14 @@ fun ColorProvider.withOpacity(context: Context, opacity: Float): ColorProvider {
 
     return ColorProvider(day = resolve(night = false), night = resolve(night = true))
 }
+// endregion [Chomu]
 
 @Composable
 fun PlayerInfo.getWidgetColors(): WidgetColors {
     val theme = this.themeColors
-    val context = LocalContext.current
+    val context = LocalContext.current // [Chomu]
 
-    val colors = if (theme != null) {
+    val colors = if (theme != null) { // [Chomu] was `return`, the opacity is applied below
         WidgetColors(
             surface = ColorProvider(
                 day = Color(theme.lightSurfaceContainer),
@@ -269,10 +277,12 @@ fun PlayerInfo.getWidgetColors(): WidgetColors {
             prevNextIcon = GlanceTheme.colors.onSecondaryContainer
         )
     }
+    // region [Chomu] Apply the widget background opacity and text backdrop
     return colors.copy(
         background = colors.surface.withOpacity(context, backgroundOpacity),
         textBackdrop = textBackdrop(colors.surface, backgroundOpacity)
     )
+    // endregion [Chomu]
 }
 
 /**

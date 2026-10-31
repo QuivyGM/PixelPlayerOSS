@@ -284,6 +284,7 @@ class UserPreferencesRepositoryTest {
         }
     }
 
+    // region [Chomu] Widget fill mode and background opacity
     @Test
     fun `toggling widget fill keeps the widget background opacity`() = runTest {
         val tempDir = Files.createTempDirectory("user-preferences-repository-test")
@@ -309,6 +310,7 @@ class UserPreferencesRepositoryTest {
             tempDir.toFile().deleteRecursively()
         }
     }
+    // endregion [Chomu]
 
     @Test
     fun `artist albums collapsed by default is off by default and persists`() = runTest {

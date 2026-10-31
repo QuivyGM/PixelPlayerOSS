@@ -1,8 +1,9 @@
+// [Chomu] Modified: fill mode, background opacity, text backdrop and fitting to small sizes.
 package com.lostf1sh.pixelplayeross.ui.glancewidget
 
 import android.content.Context
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.CompositionLocalProvider // [Chomu]
 import androidx.compose.ui.unit.dp
 import androidx.glance.GlanceId
 import androidx.glance.GlanceModifier
@@ -39,7 +40,7 @@ class BarWidget4x1 : GlanceAppWidget() {
     override suspend fun provideGlance(context: Context, id: GlanceId) {
         provideContent {
             val playerInfo = currentState<PlayerInfo>()
-            CompositionLocalProvider(LocalWidgetFill provides playerInfo.fillMode) {
+            CompositionLocalProvider(LocalWidgetFill provides playerInfo.fillMode) { // [Chomu] fill mode
                 GlanceTheme {
                     BarWidget4x1Content(playerInfo = playerInfo, context = context)
                 }
@@ -60,6 +61,7 @@ class BarWidget4x1 : GlanceAppWidget() {
 
         val colors = playerInfo.getWidgetColors()
 
+        // region [Chomu] Widget frame, scaled sizes (sdp/ssp), text backdrop and small-size fitting
         WidgetFrame(
             modifier = GlanceModifier.clickable(actionStartActivity<MainActivity>()),
             backgroundColor = colors.background,
@@ -159,5 +161,6 @@ class BarWidget4x1 : GlanceAppWidget() {
                 )
             }
         }
+        // endregion [Chomu]
     }
 }

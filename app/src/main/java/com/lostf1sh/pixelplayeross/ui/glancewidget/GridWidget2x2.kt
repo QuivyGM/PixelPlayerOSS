@@ -1,9 +1,10 @@
+// [Chomu] Modified: fill mode and background opacity through WidgetFrame and scaled sizes.
 package com.lostf1sh.pixelplayeross.ui.glancewidget
 
 import android.content.Context
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
-import androidx.compose.ui.unit.DpSize
+import androidx.compose.runtime.CompositionLocalProvider // [Chomu]
+import androidx.compose.ui.unit.DpSize // [Chomu]
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.min
 import androidx.glance.GlanceId
@@ -39,7 +40,7 @@ class GridWidget2x2 : GlanceAppWidget() {
     override suspend fun provideGlance(context: Context, id: GlanceId) {
         provideContent {
             val playerInfo = currentState<PlayerInfo>()
-            CompositionLocalProvider(LocalWidgetFill provides playerInfo.fillMode) {
+            CompositionLocalProvider(LocalWidgetFill provides playerInfo.fillMode) { // [Chomu] fill mode
                 GlanceTheme {
                     GridWidget2x2Content(playerInfo = playerInfo, context = context)
                 }
@@ -72,6 +73,7 @@ class GridWidget2x2 : GlanceAppWidget() {
                 .clickable(actionStartActivity<MainActivity>()),
             contentAlignment = Alignment.Center,
         ) {
+            // region [Chomu] Widget frame and scaled sizes (sdp/scaled)
             WidgetFrame(
                 modifier = GlanceModifier.size(minSide),
                 backgroundColor = colors.background,
@@ -146,6 +148,7 @@ class GridWidget2x2 : GlanceAppWidget() {
                     }
                 }
             }
+            // endregion [Chomu]
         }
     }
 }

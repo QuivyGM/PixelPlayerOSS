@@ -75,8 +75,10 @@ data class PlayerInfo(
     val themeColors: WidgetThemeColors? = null,
     val isShuffleEnabled: Boolean = false,
     val repeatMode: Int = 0,
+    // region [Chomu] Widget background opacity and fill mode
     val backgroundOpacity: Float = 1f,
     val fillMode: Boolean = false,
+    // endregion [Chomu]
 ) {
     override fun equals(other: Any?): Boolean {
         if (this === other) return true
@@ -101,8 +103,10 @@ data class PlayerInfo(
         if (themeColors != other.themeColors) return false
         if (isShuffleEnabled != other.isShuffleEnabled) return false
         if (repeatMode != other.repeatMode) return false
+        // region [Chomu] Widget background opacity and fill mode
         if (backgroundOpacity != other.backgroundOpacity) return false
         if (fillMode != other.fillMode) return false
+        // endregion [Chomu]
 
         return true
     }
@@ -122,8 +126,10 @@ data class PlayerInfo(
         result = 31 * result + (themeColors?.hashCode() ?: 0)
         result = 31 * result + isShuffleEnabled.hashCode()
         result = 31 * result + repeatMode
+        // region [Chomu] Widget background opacity and fill mode
         result = 31 * result + backgroundOpacity.hashCode()
         result = 31 * result + fillMode.hashCode()
+        // endregion [Chomu]
         return result
     }
 }

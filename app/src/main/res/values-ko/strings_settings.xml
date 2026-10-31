@@ -85,6 +85,7 @@
     <string name="setcat_auto_hide_delay_desc">컨트롤이 숨겨지기 전까지의 시간입니다.</string>
     <string name="setcat_auto_hide_delay_label">자동 숨김 지연 시간</string>
     <string name="setcat_auto_rotate_patterns_subtitle">홈을 방문할 때마다 콜라주 패턴을 순환합니다.</string>
+    <!-- [Chomu] Widget settings: the 4 setcat_widget* strings below -->
     <string name="setcat_widget">위젯</string>
     <string name="setcat_widget_background_opacity_title">배경 불투명도</string>
     <string name="setcat_widget_fill_title">채우기</string>

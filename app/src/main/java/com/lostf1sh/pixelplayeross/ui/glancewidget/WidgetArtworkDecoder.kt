@@ -7,8 +7,8 @@ import android.net.Uri
 import com.lostf1sh.pixelplayeross.utils.AlbumArtUtils
 import com.lostf1sh.pixelplayeross.utils.ArtworkTransportSanitizer
 import com.lostf1sh.pixelplayeross.utils.LocalArtworkUri
-import timber.log.Timber
-import java.io.IOException
+import timber.log.Timber // [Chomu]
+import java.io.IOException // [Chomu]
 
 private val SUPPORTED_WIDGET_LOCAL_ARTWORK_SCHEMES = setOf(
     "content",
@@ -33,6 +33,7 @@ internal fun decodeWidgetAlbumArtBitmap(
         return null
     }
 
+    // region [Chomu] Fall back to the placeholder when the artwork can't be read
     // Songs without artwork make the artwork provider throw FileNotFoundException; that and
     // any other read failure means the widget shows the placeholder instead of failing.
     val appContext = context.applicationContext
@@ -47,6 +48,7 @@ internal fun decodeWidgetAlbumArtBitmap(
         Timber.tag("WidgetArtworkDecoder").w(e, "Artwork not readable for %s", rawUri)
         null
     } ?: return null
+    // endregion [Chomu]
 
     val bounds = BitmapFactory.Options().apply { inJustDecodeBounds = true }
     BitmapFactory.decodeByteArray(encodedBytes, 0, encodedBytes.size, bounds)
@@ -54,10 +56,11 @@ internal fun decodeWidgetAlbumArtBitmap(
         return null
     }
 
-    // A target below 1 px would never stop the halving below.
+    // region [Chomu] A target below 1 px would never stop the halving below.
     if (targetWidthPx <= 0 || targetHeightPx <= 0) {
         return null
     }
+    // endregion [Chomu]
 
     var inSampleSize = 1
     if (bounds.outHeight > targetHeightPx || bounds.outWidth > targetWidthPx) {

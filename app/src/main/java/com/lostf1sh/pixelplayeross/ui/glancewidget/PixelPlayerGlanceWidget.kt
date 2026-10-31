@@ -1,10 +1,13 @@
+// [Chomu] Modified: fill mode, background opacity, text backdrop and fitting to small sizes.
+// Every layout marked "[Chomu] Modified" below now draws through WidgetFrame and uses the
+// fill-mode scaled units (sdp/ssp/scaled) in place of dp/sp.
 package com.lostf1sh.pixelplayeross.ui.glancewidget
 
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.CompositionLocalProvider // [Chomu]
 import androidx.compose.runtime.remember
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.DpSize
@@ -86,7 +89,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
             val albumColors = remember(playerInfo.themeColors) {
                 playerInfo.themeColors?.toGlanceColorProviders()
             }
-            CompositionLocalProvider(LocalWidgetFill provides playerInfo.fillMode) {
+            CompositionLocalProvider(LocalWidgetFill provides playerInfo.fillMode) { // [Chomu] fill mode
                 if (albumColors != null) {
                     GlanceTheme(colors = albumColors) {
                         WidgetUi(playerInfo = playerInfo, size = currentSize, context = context)
@@ -117,8 +120,8 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
             .d("WidgetUi: PlayerInfo received. Title: $title, Artist: $artist, HasBitmapData: ${albumArtBitmapData != null}, BitmapDataSize: ${albumArtBitmapData?.size ?: "N/A"}")
 
         val actualBackgroundColor = GlanceTheme.colors.surface
-            .withOpacity(context, playerInfo.backgroundOpacity)
-        val backdrop = textBackdrop(GlanceTheme.colors.surface, playerInfo.backgroundOpacity)
+            .withOpacity(context, playerInfo.backgroundOpacity) // [Chomu] background opacity
+        val backdrop = textBackdrop(GlanceTheme.colors.surface, playerInfo.backgroundOpacity) // [Chomu] text backdrop
         val onBackgroundColor = GlanceTheme.colors.onSurface
 
         val baseModifier = GlanceModifier
@@ -177,7 +180,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
                         albumArtUri = albumArtUri,
                         isPlaying = isPlaying,
                         textColor = onBackgroundColor,
-                        textBackdrop = backdrop,
+                        textBackdrop = backdrop, // [Chomu]
                         context = context,
                         backgroundColor = actualBackgroundColor,
                         bgCornerRadius = 60.dp
@@ -192,7 +195,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
                         albumArtUri = albumArtUri,
                         isPlaying = isPlaying,
                         textColor = onBackgroundColor,
-                        textBackdrop = backdrop,
+                        textBackdrop = backdrop, // [Chomu]
                         context = context
                     )
                 }
@@ -215,7 +218,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
                         albumArtUri = albumArtUri,
                         isPlaying = isPlaying,
                         textColor = onBackgroundColor,
-                        textBackdrop = backdrop,
+                        textBackdrop = backdrop, // [Chomu]
                         context = context,
                         backgroundColor = actualBackgroundColor,
                         bgCornerRadius = 28.dp
@@ -231,7 +234,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
                         isPlaying = isPlaying,
                         isFavorite = isFavorite,
                         textColor = onBackgroundColor,
-                        textBackdrop = backdrop,
+                        textBackdrop = backdrop, // [Chomu]
                         context = context
                     )
                     else -> ExtraLargeWidgetLayout(
@@ -245,7 +248,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
                         bgCornerRadius = 28.dp,
                         textColor = onBackgroundColor,
                         context = context,
-                        textBackdrop = backdrop,
+                        textBackdrop = backdrop, // [Chomu]
                         queue = playerInfo.queue
                     )
                 }
@@ -253,6 +256,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
         }
     }
 
+    // [Chomu] Modified: WidgetFrame, scaled sizes, text backdrop and fitting to the content size.
     @Composable
     fun VeryThinWidgetLayout(
         modifier: GlanceModifier,
@@ -264,7 +268,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
         albumArtUri: String?,
         isPlaying: Boolean,
         textColor: ColorProvider,
-        textBackdrop: TextBackdrop,
+        textBackdrop: TextBackdrop, // [Chomu]
         context: Context
     ) {
         val secondaryColor = GlanceTheme.colors.secondaryContainer
@@ -343,6 +347,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
     }
 
 
+    // [Chomu] Modified: WidgetFrame, scaled sizes, text backdrop and fitting to the content size.
     @Composable
     fun ThinWidgetLayout(
         modifier: GlanceModifier,
@@ -354,7 +359,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
         albumArtUri: String?,
         isPlaying: Boolean,
         textColor: ColorProvider,
-        textBackdrop: TextBackdrop,
+        textBackdrop: TextBackdrop, // [Chomu]
         context: Context
     ) {
         val secondaryColor = GlanceTheme.colors.secondaryContainer
@@ -433,6 +438,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
         }
     }
 
+    // [Chomu] Modified: WidgetFrame and scaled sizes.
     @Composable
     fun GabeTwoHeightWidgetLayout(
         modifier: GlanceModifier,
@@ -502,6 +508,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
         }
     }
 
+    // [Chomu] Modified: WidgetFrame and scaled sizes.
     @Composable
     fun GabeWidgetLayout(
         modifier: GlanceModifier,
@@ -580,6 +587,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
         }
     }
 
+    // [Chomu] Modified: WidgetFrame and scaled sizes.
     @Composable
     fun OneByOneWidgetLayout(
         modifier: GlanceModifier,
@@ -609,6 +617,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
         }
     }
 
+    // [Chomu] Modified: WidgetFrame, scaled sizes and fitting to the content size.
     @Composable
     fun SmallHorizontalWidgetLayout(
         modifier: GlanceModifier,
@@ -664,6 +673,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
         }
     }
 
+    // [Chomu] Modified: WidgetFrame, scaled sizes and fitting to the content size.
     @Composable
     fun SmallWidgetLayout(
         modifier: GlanceModifier,
@@ -757,6 +767,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
         }
     }
 
+    // [Chomu] Modified: WidgetFrame, scaled sizes, text backdrop and title line fitting.
     @Composable
     fun MediumWidgetLayout(
         modifier: GlanceModifier,
@@ -768,7 +779,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
         albumArtUri: String?,
         isPlaying: Boolean,
         textColor: ColorProvider,
-        textBackdrop: TextBackdrop,
+        textBackdrop: TextBackdrop, // [Chomu]
         context: Context
     ) {
         val secondaryColor = GlanceTheme.colors.secondaryContainer
@@ -870,6 +881,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
         }
     }
 
+    // [Chomu] Modified: WidgetFrame, scaled sizes and text backdrop (favorite button moved onto it).
     @Composable
     fun LargeWidgetLayout(
         modifier: GlanceModifier,
@@ -882,7 +894,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
         isPlaying: Boolean,
         isFavorite: Boolean,
         textColor: ColorProvider,
-        textBackdrop: TextBackdrop,
+        textBackdrop: TextBackdrop, // [Chomu]
         context: Context
     ) {
         WidgetFrame(
@@ -972,6 +984,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
         }
     }
 
+    // [Chomu] Modified: WidgetFrame, scaled sizes, text backdrop and hiding the queue when short.
     @Composable
     fun ExtraLargeWidgetLayout(
         modifier: GlanceModifier, title: String, artist: String, albumArtBitmapData: ByteArray?,
@@ -979,7 +992,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
         isPlaying: Boolean, backgroundColor: ColorProvider, bgCornerRadius: Dp,
         textColor: ColorProvider,
         context: Context,
-        textBackdrop: TextBackdrop,
+        textBackdrop: TextBackdrop, // [Chomu]
         queue: List<QueueItem>
     ) {
         val playButtonCornerRadius = if (isPlaying) 16.dp else 60.dp
@@ -1181,7 +1194,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
                     val targetHeightPx: Int
                     with(context.resources.displayMetrics) {
                         if (size != null) {
-                            // At least 1 px: layouts can shrink the artwork to nothing, and 0 would never stop halving.
+                            // [Chomu] At least 1 px: layouts can shrink the artwork to nothing, and 0 would never stop halving.
                             val targetSizePx = (size.value * density).toInt().coerceAtLeast(1)
                             targetWidthPx = targetSizePx
                             targetHeightPx = targetSizePx
@@ -1305,6 +1318,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
         )
     }
 
+    // [Chomu] Modified: default sizes scaled in fill mode (sdp).
     @Composable
     fun PlayPauseButtonGlance(
         modifier: GlanceModifier = GlanceModifier,
@@ -1332,6 +1346,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
         }
     }
 
+    // [Chomu] Modified: default sizes scaled in fill mode (sdp).
     @Composable
     fun NextButtonDGlance(
         modifier: GlanceModifier = GlanceModifier,
@@ -1385,6 +1400,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
         }
     }
 
+    // [Chomu] Modified: default sizes scaled in fill mode (sdp).
     @Composable
     fun NextButtonGlance(
         modifier: GlanceModifier = GlanceModifier,
@@ -1411,6 +1427,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
         }
     }
 
+    // [Chomu] Modified: default sizes scaled in fill mode (sdp).
     @Composable
     fun PreviousButtonGlance(
         modifier: GlanceModifier = GlanceModifier,

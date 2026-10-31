@@ -85,6 +85,7 @@
     <string name="setcat_auto_hide_delay_desc">Tid før kontrollene skjules.</string>
     <string name="setcat_auto_hide_delay_label">Forsinkelse for autoskjuling</string>
     <string name="setcat_auto_rotate_patterns_subtitle">Bytt mønster hver gang du besøker Hjem-skjermen.</string>
+    <!-- [Chomu] Widget settings: the 4 setcat_widget* strings below -->
     <string name="setcat_widget">Widget</string>
     <string name="setcat_widget_background_opacity_title">Bakgrunnens dekkevne</string>
     <string name="setcat_widget_fill_title">Fyll</string>

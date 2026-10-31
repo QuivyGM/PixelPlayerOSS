@@ -1,3 +1,4 @@
+// [Chomu] New file: tests for the notification button slots.
 package com.lostf1sh.pixelplayeross.data.preferences
 
 import com.google.common.truth.Truth.assertThat

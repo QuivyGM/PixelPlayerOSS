@@ -85,6 +85,7 @@
     <string name="setcat_auto_hide_delay_desc">Waktu sebelum kontrol disembunyikan.</string>
     <string name="setcat_auto_hide_delay_label">Penundaan Sembunyi Otomatis</string>
     <string name="setcat_auto_rotate_patterns_subtitle">Berganti-ganti pola kolase setiap kali Anda mengunjungi Beranda.</string>
+    <!-- [Chomu] Widget settings: the 4 setcat_widget* strings below -->
     <string name="setcat_widget">Widget</string>
     <string name="setcat_widget_background_opacity_title">Opasitas latar belakang</string>
     <string name="setcat_widget_fill_title">Isi penuh</string>

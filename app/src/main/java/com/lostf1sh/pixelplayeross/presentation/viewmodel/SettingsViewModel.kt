@@ -19,8 +19,8 @@ import com.lostf1sh.pixelplayeross.data.preferences.AppLanguage
 import com.lostf1sh.pixelplayeross.data.preferences.AppThemeMode
 import com.lostf1sh.pixelplayeross.data.preferences.CarouselStyle
 import com.lostf1sh.pixelplayeross.data.preferences.LibraryNavigationMode
-import com.lostf1sh.pixelplayeross.data.preferences.NotificationButtonAction
-import com.lostf1sh.pixelplayeross.data.preferences.NotificationButtons
+import com.lostf1sh.pixelplayeross.data.preferences.NotificationButtonAction // [Chomu]
+import com.lostf1sh.pixelplayeross.data.preferences.NotificationButtons // [Chomu]
 import com.lostf1sh.pixelplayeross.data.preferences.PreviousButtonBehavior
 import com.lostf1sh.pixelplayeross.data.preferences.DEFAULT_LYRICS_DUET_LAYOUT_ENABLED
 import com.lostf1sh.pixelplayeross.data.preferences.DEFAULT_LYRICS_FONT_SIZE_SP
@@ -107,7 +107,7 @@ data class SettingsUiState(
     val miniPlayerSwipeToSkip: Boolean = false,
     val autoplayOnSkip: Boolean = true,
     val previousButtonBehavior: PreviousButtonBehavior = PreviousButtonBehavior.DEFAULT,
-    val notificationButtons: NotificationButtons = NotificationButtons.DEFAULT,
+    val notificationButtons: NotificationButtons = NotificationButtons.DEFAULT, // [Chomu] Notification buttons
     val hapticsEnabled: Boolean = true,
     val immersiveLyricsEnabled: Boolean = false,
     val immersiveLyricsTimeout: Long = 4000L,
@@ -129,8 +129,8 @@ data class SettingsUiState(
     val wrongBackupPassword: Boolean = false,
     val collagePattern: CollagePattern = CollagePattern.default,
     val collageAutoRotate: Boolean = false,
-    val widgetBackgroundOpacity: Float = 1f,
-    val widgetFill: Boolean = false,
+    val widgetBackgroundOpacity: Float = 1f, // [Chomu] Widget background opacity
+    val widgetFill: Boolean = false, // [Chomu] Widget fill mode
     val minSongDuration: Int = 10000,
     val minTracksPerAlbum: Int = 1,
     val replayGainEnabled: Boolean = false,
@@ -266,6 +266,7 @@ class SettingsViewModel @Inject constructor(
             }
         }
 
+        // region [Chomu] Widget background opacity and fill mode
         viewModelScope.launch {
             userPreferencesRepository.widgetBackgroundOpacityFlow.collect { opacity ->
                 _uiState.update { it.copy(widgetBackgroundOpacity = opacity) }
@@ -277,6 +278,7 @@ class SettingsViewModel @Inject constructor(
                 _uiState.update { it.copy(widgetFill = fill) }
             }
         }
+        // endregion [Chomu]
 
         viewModelScope.launch {
             themePreferencesRepository.themePresetFlow.collect { preset ->
@@ -528,11 +530,13 @@ class SettingsViewModel @Inject constructor(
             }
         }
 
+        // region [Chomu] Notification buttons
         viewModelScope.launch {
             userPreferencesRepository.notificationButtonsFlow.collect { buttons ->
                 _uiState.update { it.copy(notificationButtons = buttons) }
             }
         }
+        // endregion [Chomu]
 
         viewModelScope.launch {
             userPreferencesRepository.minSongDurationFlow.collect { duration ->
@@ -692,6 +696,7 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
+    // region [Chomu] Widget background opacity and fill mode
     fun setWidgetBackgroundOpacity(opacity: Float) {
         viewModelScope.launch {
             userPreferencesRepository.setWidgetBackgroundOpacity(opacity)
@@ -703,6 +708,7 @@ class SettingsViewModel @Inject constructor(
             userPreferencesRepository.setWidgetFill(enabled)
         }
     }
+    // endregion [Chomu]
 
     fun setAppLanguage(languageTag: String) {
         val normalized = AppLanguage.normalize(languageTag)
@@ -1117,6 +1123,7 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
+    // region [Chomu] Notification buttons
     /** Assigns the first notification button; ignored if the second button already has [action]. */
     fun setFirstNotificationButton(action: NotificationButtonAction) {
         val current = _uiState.value.notificationButtons
@@ -1134,6 +1141,7 @@ class SettingsViewModel @Inject constructor(
             userPreferencesRepository.setNotificationButtons(current.copy(second = action))
         }
     }
+    // endregion [Chomu]
 
     fun setTapBackgroundClosesPlayer(enabled: Boolean) {
         viewModelScope.launch {

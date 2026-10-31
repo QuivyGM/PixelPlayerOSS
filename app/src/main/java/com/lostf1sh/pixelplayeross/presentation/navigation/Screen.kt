@@ -34,10 +34,12 @@ sealed class Screen(val route: String) {
         fun createRoute(highlightKey: String? = null) =
             if (highlightKey != null) "nav_bar_corner_radius?highlightKey=$highlightKey" else "nav_bar_corner_radius"
     }
+    // region [Chomu] Notification buttons settings subscreen
     object NotificationButtons : Screen("notification_buttons_settings?highlightKey={highlightKey}") {
         fun createRoute(highlightKey: String? = null) =
             if (highlightKey != null) "notification_buttons_settings?highlightKey=$highlightKey" else "notification_buttons_settings"
     }
+    // endregion [Chomu]
     object PlaylistDetail : Screen("playlist_detail/{playlistId}") {
         fun createRoute(playlistId: String) = "playlist_detail/$playlistId"
     }

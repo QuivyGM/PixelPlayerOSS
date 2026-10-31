@@ -1,3 +1,4 @@
+// [Chomu] New file: Appearance subscreen for choosing the media notification's extra buttons.
 package com.lostf1sh.pixelplayeross.presentation.screens
 
 import androidx.annotation.DrawableRes

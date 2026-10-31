@@ -67,13 +67,13 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ClearAll
 import androidx.compose.material.icons.outlined.Folder
-import androidx.compose.material.icons.outlined.Fullscreen
+import androidx.compose.material.icons.outlined.Fullscreen // [Chomu]
 import androidx.compose.material.icons.outlined.Image
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Language
 import androidx.compose.material.icons.outlined.Contrast
 import androidx.compose.material.icons.outlined.LightMode
-import androidx.compose.material.icons.outlined.Notifications
+import androidx.compose.material.icons.outlined.Notifications // [Chomu]
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.PlayCircle
 import androidx.compose.material.icons.outlined.Style
@@ -788,6 +788,7 @@ fun SettingsCategoryScreen(
                                     leadingIcon = { Icon(painterResource(R.drawable.rounded_view_carousel_24), null, tint = MaterialTheme.colorScheme.secondary) },
                                     modifier = Modifier.settingHighlight("item_appearance_carousel_style", highlightKey)
                                 )
+                                // region [Chomu] Notification buttons entry
                                 SettingsItem(
                                     title = stringResource(R.string.setcat_notification_buttons_title),
                                     subtitle = stringResource(
@@ -800,6 +801,7 @@ fun SettingsCategoryScreen(
                                     modifier = Modifier.settingHighlight("item_appearance_notification_buttons", highlightKey),
                                     onClick = { navController.navigateSafely(Screen.NotificationButtons.createRoute()) }
                                 )
+                                // endregion [Chomu]
                             }
 
                             SettingsSubsection(title = stringResource(R.string.setcat_home_collage)) {
@@ -824,6 +826,7 @@ fun SettingsCategoryScreen(
                                 )
                             }
 
+                            // region [Chomu] Widget settings (fill mode and background opacity)
                             SettingsSubsection(title = stringResource(R.string.setcat_widget)) {
                                 SwitchSettingItem(
                                     title = stringResource(R.string.setcat_widget_fill_title),
@@ -857,6 +860,7 @@ fun SettingsCategoryScreen(
                                     modifier = Modifier.settingHighlight("item_appearance_widget_background_opacity", highlightKey)
                                 )
                             }
+                            // endregion [Chomu]
 
                             SettingsSubsection(title = stringResource(R.string.setcat_navigation_bar)) {
                                 ThemeSelectorItem(

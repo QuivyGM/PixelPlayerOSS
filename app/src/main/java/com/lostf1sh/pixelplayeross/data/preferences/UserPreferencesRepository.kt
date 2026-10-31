@@ -239,8 +239,10 @@ constructor(
         val MINI_PLAYER_SWIPE_TO_SKIP = booleanPreferencesKey("mini_player_swipe_to_skip")
         val AUTOPLAY_ON_SKIP = booleanPreferencesKey("autoplay_on_skip")
         val PREVIOUS_BUTTON_BEHAVIOR = stringPreferencesKey("previous_button_behavior")
+        // region [Chomu] Notification buttons
         val NOTIFICATION_BUTTON_FIRST = stringPreferencesKey("notification_button_first")
         val NOTIFICATION_BUTTON_SECOND = stringPreferencesKey("notification_button_second")
+        // endregion [Chomu]
         val HAPTICS_ENABLED = booleanPreferencesKey("haptics_enabled")
         val ADVANCED_PERFORMANCE_DIAGNOSTICS_ENABLED =
             booleanPreferencesKey("advanced_performance_diagnostics_enabled")
@@ -262,8 +264,10 @@ constructor(
 
         val COLLAGE_PATTERN = stringPreferencesKey("collage_pattern")
         val COLLAGE_AUTO_ROTATE = booleanPreferencesKey("collage_auto_rotate")
+        // region [Chomu] Widget background opacity and fill mode
         val WIDGET_BACKGROUND_OPACITY = androidx.datastore.preferences.core.floatPreferencesKey("widget_background_opacity")
         val WIDGET_FILL = booleanPreferencesKey("widget_fill")
+        // endregion [Chomu]
         val SIDEBAR_SHORTCUTS = stringSetPreferencesKey("sidebar_shortcuts")
 
         val LAST_PLAYLIST_ID = stringPreferencesKey("last_playlist_id")
@@ -1989,6 +1993,7 @@ constructor(
         }
     }
 
+    // region [Chomu] Notification buttons
     /** The two custom buttons the media notification shows. Like and close by default. */
     val notificationButtonsFlow: Flow<NotificationButtons> =
         dataStore.data.map { preferences ->
@@ -2004,6 +2009,7 @@ constructor(
             preferences[PreferencesKeys.NOTIFICATION_BUTTON_SECOND] = buttons.second.storageKey
         }
     }
+    // endregion [Chomu]
 
     val hapticsEnabledFlow: Flow<Boolean> =
         dataStore.data.map { preferences ->
@@ -2214,6 +2220,7 @@ constructor(
         }
     }
 
+    // region [Chomu] Widget background opacity and fill mode
     /** Opacity of the home screen widgets' background, from 0 (fully transparent) to 1 (solid). */
     val widgetBackgroundOpacityFlow: Flow<Float> =
         dataStore.data.map { preferences ->
@@ -2237,6 +2244,7 @@ constructor(
             preferences[PreferencesKeys.WIDGET_FILL] = enabled
         }
     }
+    // endregion [Chomu]
 
     val lastPlaylistIdFlow: Flow<String?> =
         dataStore.data.map { preferences ->

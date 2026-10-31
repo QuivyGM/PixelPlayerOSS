@@ -1,3 +1,4 @@
+// [Chomu] New file: tests for the widget fill mode math.
 package com.lostf1sh.pixelplayeross.ui.glancewidget
 
 import androidx.compose.ui.unit.DpSize

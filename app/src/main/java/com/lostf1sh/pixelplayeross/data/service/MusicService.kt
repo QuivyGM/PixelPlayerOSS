@@ -49,8 +49,8 @@ import com.lostf1sh.pixelplayeross.data.model.PlaybackQueueItemSnapshot
 import com.lostf1sh.pixelplayeross.data.model.PlaybackQueueSnapshot
 import com.lostf1sh.pixelplayeross.data.model.Song
 import com.lostf1sh.pixelplayeross.data.preferences.EqualizerPreferencesRepository
-import com.lostf1sh.pixelplayeross.data.preferences.NotificationButtonAction
-import com.lostf1sh.pixelplayeross.data.preferences.NotificationButtons
+import com.lostf1sh.pixelplayeross.data.preferences.NotificationButtonAction // [Chomu]
+import com.lostf1sh.pixelplayeross.data.preferences.NotificationButtons // [Chomu]
 import com.lostf1sh.pixelplayeross.data.preferences.PreviousButtonBehavior
 import com.lostf1sh.pixelplayeross.data.preferences.ThemePreferencesRepository
 import com.lostf1sh.pixelplayeross.data.preferences.UserPreferencesRepository
@@ -234,7 +234,7 @@ class MusicService : MediaSessionService() {
     private var isManualShuffleEnabled = false
     private var persistentShuffleEnabled = false
     private var previousButtonBehavior = PreviousButtonBehavior.DEFAULT
-    private var notificationButtons = NotificationButtons.DEFAULT
+    private var notificationButtons = NotificationButtons.DEFAULT // [Chomu] Notification buttons
     private var previousMainThreadExceptionHandler: Thread.UncaughtExceptionHandler? = null
     private val sleepTimerController by lazy {
         SleepTimerController(
@@ -526,12 +526,14 @@ class MusicService : MediaSessionService() {
             }
         }
 
+        // region [Chomu] Notification buttons
         serviceScope.launch {
             userPreferencesRepository.notificationButtonsFlow.collect { buttons ->
                 notificationButtons = buttons
                 mediaSession?.let { refreshMediaSessionUi(it) }
             }
         }
+        // endregion [Chomu]
 
         serviceScope.launch {
             userPreferencesRepository.replayGainEnabledFlow.collect { enabled ->
@@ -546,6 +548,7 @@ class MusicService : MediaSessionService() {
             }
         }
 
+        // region [Chomu] Widget background opacity and fill mode
         serviceScope.launch {
             userPreferencesRepository.widgetBackgroundOpacityFlow.collect {
                 requestWidgetFullUpdate(force = true)
@@ -557,6 +560,7 @@ class MusicService : MediaSessionService() {
                 requestWidgetFullUpdate(force = true)
             }
         }
+        // endregion [Chomu]
 
         serviceScope.launch {
             userPreferencesRepository.playbackSpeedFlow.collect { speed ->
@@ -1714,8 +1718,10 @@ class MusicService : MediaSessionService() {
         if (old.themeColors != new.themeColors) return true
         if (old.isShuffleEnabled != new.isShuffleEnabled) return true
         if (old.repeatMode != new.repeatMode) return true
+        // region [Chomu] Widget background opacity and fill mode
         if (old.backgroundOpacity != new.backgroundOpacity) return true
         if (old.fillMode != new.fillMode) return true
+        // endregion [Chomu]
         if (old.totalDurationMs != new.totalDurationMs) return true
 
         val drift = kotlin.math.abs(old.currentPositionMs - new.currentPositionMs)
@@ -1836,10 +1842,12 @@ class MusicService : MediaSessionService() {
             )
         }
         val isFavorite = isSongFavorite(mediaId)
+        // region [Chomu] Widget background opacity and fill mode
         val (backgroundOpacity, fillMode) = withContext(Dispatchers.IO) {
             userPreferencesRepository.widgetBackgroundOpacityFlow.first() to
                 userPreferencesRepository.widgetFillFlow.first()
         }
+        // endregion [Chomu]
         val queueItems = mutableListOf<com.lostf1sh.pixelplayeross.data.model.QueueItem>()
         // Follow the player's actual navigation order so shuffle and repeat-all previews match.
         if (!snapshotTimeline.isEmpty) {
@@ -1912,8 +1920,8 @@ class MusicService : MediaSessionService() {
             themeColors = widgetColors,
             isShuffleEnabled = shuffleEnabled,
             repeatMode = repeatMode,
-            backgroundOpacity = backgroundOpacity,
-            fillMode = fillMode,
+            backgroundOpacity = backgroundOpacity, // [Chomu]
+            fillMode = fillMode, // [Chomu]
         )
     }
 
@@ -2534,8 +2542,10 @@ class MusicService : MediaSessionService() {
             append(isManualShuffleEnabled)
             append('|')
             append(player.repeatMode)
+            // region [Chomu] Rebuild the session UI when the notification buttons change
             append('|')
             append(notificationButtons)
+            // endregion [Chomu]
         }
     }
 
@@ -2584,6 +2594,7 @@ class MusicService : MediaSessionService() {
             .setSlots(CommandButton.SLOT_OVERFLOW)
             .build()
 
+        // region [Chomu] User-chosen notification button order
         // System media controls show only the first two; the rest go to the overflow.
         return notificationButtons.orderedActions.map { action ->
             when (action) {
@@ -2593,6 +2604,7 @@ class MusicService : MediaSessionService() {
                 NotificationButtonAction.REPEAT -> repeatButton
             }
         }
+        // endregion [Chomu]
     }
 
     /**

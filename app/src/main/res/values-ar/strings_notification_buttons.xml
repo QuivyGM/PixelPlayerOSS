@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!-- [Chomu] New file: strings for the notification buttons settings. -->
 <resources>
     <string name="setcat_notification_buttons_title">أزرار الإشعار</string>
     <string name="setcat_notification_buttons_summary">اختر الزرين الإضافيين اللذين يظهران في إشعار الوسائط.</string>

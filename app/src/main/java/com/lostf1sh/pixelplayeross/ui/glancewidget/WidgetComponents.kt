@@ -1,3 +1,5 @@
+// [Chomu] Modified: added WidgetFrame and WidgetTextBackdrop; default icon sizes use the
+// fill-mode scaled units (sdp) and the artwork decode target is clamped to 1 px.
 package com.lostf1sh.pixelplayeross.ui.glancewidget
 
 import android.content.Context
@@ -36,6 +38,7 @@ import androidx.glance.unit.ColorProvider
 import com.lostf1sh.pixelplayeross.R
 import timber.log.Timber
 
+// region [Chomu] Widget frame (fill mode, Android 12+ corners) and text backdrop
 /**
  * Outer container of a widget layout: the rounded background with [padding] around the
  * content. It is marked as the widget background, so Android 12+ launchers clip it and
@@ -125,6 +128,7 @@ fun WidgetTextBackdrop(
         content = content
     )
 }
+// endregion [Chomu]
 
 @Composable
 fun AlbumArtImage(
@@ -147,7 +151,7 @@ fun AlbumArtImage(
                 BitmapFactory.decodeByteArray(data, 0, data.size, options)
 
                 var inSampleSize = 1
-                // At least 1 px: layouts can shrink the artwork to nothing, and 0 would never stop halving.
+                // [Chomu] At least 1 px: layouts can shrink the artwork to nothing, and 0 would never stop halving.
                 val targetSizePx = (size.value * context.resources.displayMetrics.density).toInt()
                     .coerceAtLeast(1)
 
@@ -244,7 +248,7 @@ fun WidgetIconButton(
     iconColor: ColorProvider,
     imageProvider: ImageProvider,
     contentDescription: String,
-    iconSize: Dp = 20.sdp,
+    iconSize: Dp = 20.sdp, // [Chomu] scaled in fill mode
     cornerRadius: Dp
 ) {
     Box(
@@ -269,7 +273,7 @@ fun PreviousButton(
     backgroundColor: ColorProvider,
     iconColor: ColorProvider,
     cornerRadius: Dp,
-    iconSize: Dp = 20.sdp
+    iconSize: Dp = 20.sdp // [Chomu] scaled in fill mode
 ) {
     val context = LocalContext.current
     val params = actionParametersOf(PlayerActions.key to PlayerActions.PREVIOUS)
@@ -291,7 +295,7 @@ fun NextButton(
     backgroundColor: ColorProvider,
     iconColor: ColorProvider,
     cornerRadius: Dp,
-    iconSize: Dp = 20.sdp
+    iconSize: Dp = 20.sdp // [Chomu] scaled in fill mode
 ) {
     val context = LocalContext.current
     val params = actionParametersOf(PlayerActions.key to PlayerActions.NEXT)
@@ -314,7 +318,7 @@ fun PlayPauseButton(
     backgroundColor: ColorProvider,
     iconColor: ColorProvider,
     cornerRadius: Dp,
-    iconSize: Dp = 22.sdp
+    iconSize: Dp = 22.sdp // [Chomu] scaled in fill mode
 ) {
     val context = LocalContext.current
     val params = actionParametersOf(PlayerActions.key to PlayerActions.PLAY_PAUSE)

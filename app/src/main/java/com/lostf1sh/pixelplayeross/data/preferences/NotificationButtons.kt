@@ -1,3 +1,4 @@
+// [Chomu] New file: the media notification's user-chosen extra buttons.
 package com.lostf1sh.pixelplayeross.data.preferences
 
 /** A custom button the media notification can show next to previous, play and next. */

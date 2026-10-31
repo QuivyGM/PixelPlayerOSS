@@ -458,6 +458,7 @@ object SettingsRegistry {
                 type = SettingType.NAVIGABLE_CARD,
                 keywordsStatic = listOf("carousel", "peek", "album covers", "swipe")
             ),
+            // region [Chomu] Notification buttons search entries
             SettingSpec(
                 id = "appearance_notification_buttons",
                 itemKey = "item_appearance_notification_buttons",
@@ -494,6 +495,7 @@ object SettingsRegistry {
                     "notification", "media controls", "button", "like", "close", "shuffle", "repeat"
                 )
             ),
+            // endregion [Chomu]
             SettingSpec(
                 id = "appearance_collage_pattern",
                 itemKey = "item_appearance_collage_pattern",
@@ -516,6 +518,7 @@ object SettingsRegistry {
                 getValue = { it.collageAutoRotate },
                 onToggle = { viewModel, checked -> viewModel.setCollageAutoRotate(checked) }
             ),
+            // region [Chomu] Widget fill mode and background opacity search entries
             SettingSpec(
                 id = "appearance_widget_fill",
                 itemKey = "item_appearance_widget_fill",
@@ -537,6 +540,7 @@ object SettingsRegistry {
                 type = SettingType.NAVIGABLE_CARD,
                 keywordsStatic = listOf("widget", "home screen", "transparency", "translucent", "opacity", "background")
             ),
+            // endregion [Chomu]
             SettingSpec(
                 id = "appearance_navbar_style",
                 itemKey = "item_appearance_navbar_style",

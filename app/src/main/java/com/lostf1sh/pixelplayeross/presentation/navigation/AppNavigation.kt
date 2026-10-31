@@ -47,7 +47,7 @@ import com.lostf1sh.pixelplayeross.presentation.screens.EditTransitionScreen
 import com.lostf1sh.pixelplayeross.presentation.screens.EasterEggScreen
 import com.lostf1sh.pixelplayeross.presentation.screens.ExperimentalSettingsScreen
 import com.lostf1sh.pixelplayeross.presentation.screens.LyricsSettingsScreen
-import com.lostf1sh.pixelplayeross.presentation.screens.NotificationButtonsSettingsScreen
+import com.lostf1sh.pixelplayeross.presentation.screens.NotificationButtonsSettingsScreen // [Chomu]
 import com.lostf1sh.pixelplayeross.presentation.screens.GenreDetailScreen
 import com.lostf1sh.pixelplayeross.presentation.screens.HomeScreen
 import com.lostf1sh.pixelplayeross.presentation.screens.LibraryScreen
@@ -295,6 +295,7 @@ fun AppNavigation(
                     )
                 }
             }
+            // region [Chomu] Notification buttons settings subscreen
             composable(
                 route = Screen.NotificationButtons.route,
                 arguments = listOf(navArgument("highlightKey") { type = NavType.StringType; nullable = true; defaultValue = null }),
@@ -313,6 +314,7 @@ fun AppNavigation(
                     }
                 }
             }
+            // endregion [Chomu]
             composable(
                 route = Screen.Experimental.route,
                 arguments = listOf(navArgument("highlightKey") { type = NavType.StringType; nullable = true; defaultValue = null }),

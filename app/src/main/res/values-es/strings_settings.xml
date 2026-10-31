@@ -85,6 +85,7 @@
     <string name="setcat_auto_hide_delay_desc">Tiempo antes de que se oculten los controles.</string>
     <string name="setcat_auto_hide_delay_label">Retraso de ocultación automática</string>
     <string name="setcat_auto_rotate_patterns_subtitle">Ciclar a través de los patrones de collage cada vez que visitas el Inicio.</string>
+    <!-- [Chomu] Widget settings: the 4 setcat_widget* strings below -->
     <string name="setcat_widget">Widget</string>
     <string name="setcat_widget_background_opacity_title">Opacidad del fondo</string>
     <string name="setcat_widget_fill_title">Rellenar</string>
