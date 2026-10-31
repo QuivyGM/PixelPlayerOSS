@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="setcat_notification_buttons_title">Varslingsknapper</string>
+    <string name="setcat_notification_buttons_summary">Velg de to ekstra knappene medievarselet viser.</string>
     <string name="setcat_notification_button_first_title">Varslingsknapp 1</string>
     <string name="setcat_notification_button_second_title">Varslingsknapp 2</string>
     <string name="setcat_notification_buttons_description">En ekstra knapp som medievarselet viser ved siden av forrige, spill av og neste. Hver handling kan bare brukes én gang.</string>

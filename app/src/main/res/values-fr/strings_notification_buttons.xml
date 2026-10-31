@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="setcat_notification_buttons_title">Boutons de la notification</string>
+    <string name="setcat_notification_buttons_summary">Choisissez les deux boutons supplémentaires affichés dans la notification multimédia.</string>
     <string name="setcat_notification_button_first_title">Bouton de notification 1</string>
     <string name="setcat_notification_button_second_title">Bouton de notification 2</string>
     <string name="setcat_notification_buttons_description">Un bouton supplémentaire affiché dans la notification multimédia à côté de précédent, lecture et suivant. Chaque action ne peut être utilisée qu\'une fois.</string>

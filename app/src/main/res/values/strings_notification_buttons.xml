@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="setcat_notification_buttons_title">Notification buttons</string>
+    <string name="setcat_notification_buttons_summary">Choose the two extra buttons the media notification shows.</string>
+    <string name="setcat_notification_buttons_value" translatable="false">%1$s · %2$s</string>
     <string name="setcat_notification_button_first_title">Notification button 1</string>
     <string name="setcat_notification_button_second_title">Notification button 2</string>
     <string name="setcat_notification_buttons_description">An extra button the media notification shows next to previous, play and next. Each action can only be used once.</string>

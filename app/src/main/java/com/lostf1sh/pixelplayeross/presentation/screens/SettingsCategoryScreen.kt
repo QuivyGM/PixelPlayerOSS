@@ -73,6 +73,7 @@ import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Language
 import androidx.compose.material.icons.outlined.Contrast
 import androidx.compose.material.icons.outlined.LightMode
+import androidx.compose.material.icons.outlined.Notifications
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material.icons.outlined.PlayCircle
 import androidx.compose.material.icons.outlined.Style
@@ -175,7 +176,6 @@ import com.lostf1sh.pixelplayeross.data.preferences.CarouselStyle
 import com.lostf1sh.pixelplayeross.data.preferences.LaunchTab
 import com.lostf1sh.pixelplayeross.data.preferences.LibraryNavigationMode
 import com.lostf1sh.pixelplayeross.data.preferences.NavBarStyle
-import com.lostf1sh.pixelplayeross.data.preferences.NotificationButtonAction
 import com.lostf1sh.pixelplayeross.data.preferences.PreviousButtonBehavior
 import com.lostf1sh.pixelplayeross.data.preferences.ThemePreference
 import com.lostf1sh.pixelplayeross.data.preferences.ThemePreset
@@ -788,49 +788,17 @@ fun SettingsCategoryScreen(
                                     leadingIcon = { Icon(painterResource(R.drawable.rounded_view_carousel_24), null, tint = MaterialTheme.colorScheme.secondary) },
                                     modifier = Modifier.settingHighlight("item_appearance_carousel_style", highlightKey)
                                 )
-                                // Each action can fill only one slot, so the other slot's action is disabled.
-                                val notificationButtons = uiState.notificationButtons
-                                val notificationButtonOptions = linkedMapOf(
-                                    NotificationButtonAction.LIKE.storageKey to
-                                        stringResource(R.string.setcat_notification_button_like),
-                                    NotificationButtonAction.CLOSE.storageKey to
-                                        stringResource(R.string.setcat_notification_button_close),
-                                    NotificationButtonAction.SHUFFLE.storageKey to
-                                        stringResource(R.string.setcat_notification_button_shuffle),
-                                    NotificationButtonAction.REPEAT.storageKey to
-                                        stringResource(R.string.setcat_notification_button_repeat)
-                                )
-                                fun notificationButtonIcon(action: NotificationButtonAction): Int = when (action) {
-                                    NotificationButtonAction.LIKE -> R.drawable.rounded_favorite_24
-                                    NotificationButtonAction.CLOSE -> R.drawable.rounded_close_24
-                                    NotificationButtonAction.SHUFFLE -> R.drawable.rounded_shuffle_24
-                                    NotificationButtonAction.REPEAT -> R.drawable.rounded_repeat_24
-                                }
-                                ThemeSelectorItem(
-                                    label = stringResource(R.string.setcat_notification_button_first_title),
-                                    description = stringResource(R.string.setcat_notification_buttons_description),
-                                    options = notificationButtonOptions,
-                                    disabledOptionKeys = setOf(notificationButtons.second.storageKey),
-                                    selectedKey = notificationButtons.first.storageKey,
-                                    onSelectionChanged = { key ->
-                                        NotificationButtonAction.fromStorageKey(key)
-                                            ?.let(settingsViewModel::setFirstNotificationButton)
-                                    },
-                                    leadingIcon = { Icon(painterResource(notificationButtonIcon(notificationButtons.first)), null, tint = MaterialTheme.colorScheme.secondary) },
-                                    modifier = Modifier.settingHighlight("item_appearance_notification_button_first", highlightKey)
-                                )
-                                ThemeSelectorItem(
-                                    label = stringResource(R.string.setcat_notification_button_second_title),
-                                    description = stringResource(R.string.setcat_notification_buttons_description),
-                                    options = notificationButtonOptions,
-                                    disabledOptionKeys = setOf(notificationButtons.first.storageKey),
-                                    selectedKey = notificationButtons.second.storageKey,
-                                    onSelectionChanged = { key ->
-                                        NotificationButtonAction.fromStorageKey(key)
-                                            ?.let(settingsViewModel::setSecondNotificationButton)
-                                    },
-                                    leadingIcon = { Icon(painterResource(notificationButtonIcon(notificationButtons.second)), null, tint = MaterialTheme.colorScheme.secondary) },
-                                    modifier = Modifier.settingHighlight("item_appearance_notification_button_second", highlightKey)
+                                SettingsItem(
+                                    title = stringResource(R.string.setcat_notification_buttons_title),
+                                    subtitle = stringResource(
+                                        R.string.setcat_notification_buttons_value,
+                                        notificationButtonLabel(uiState.notificationButtons.first),
+                                        notificationButtonLabel(uiState.notificationButtons.second)
+                                    ),
+                                    leadingIcon = { Icon(Icons.Outlined.Notifications, null, tint = MaterialTheme.colorScheme.secondary) },
+                                    trailingIcon = { Icon(Icons.Rounded.ChevronRight, null, tint = MaterialTheme.colorScheme.onSurfaceVariant) },
+                                    modifier = Modifier.settingHighlight("item_appearance_notification_buttons", highlightKey),
+                                    onClick = { navController.navigateSafely(Screen.NotificationButtons.createRoute()) }
                                 )
                             }
 

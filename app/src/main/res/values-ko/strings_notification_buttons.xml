@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="setcat_notification_buttons_title">알림 버튼</string>
+    <string name="setcat_notification_buttons_summary">미디어 알림에 표시할 추가 버튼 두 개를 선택합니다.</string>
     <string name="setcat_notification_button_first_title">알림 버튼 1</string>
     <string name="setcat_notification_button_second_title">알림 버튼 2</string>
     <string name="setcat_notification_buttons_description">미디어 알림에서 이전, 재생, 다음 버튼 옆에 표시되는 추가 버튼입니다. 각 기능은 한 번만 지정할 수 있습니다.</string>

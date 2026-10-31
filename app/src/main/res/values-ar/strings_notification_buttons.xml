@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="setcat_notification_buttons_title">أزرار الإشعار</string>
+    <string name="setcat_notification_buttons_summary">اختر الزرين الإضافيين اللذين يظهران في إشعار الوسائط.</string>
     <string name="setcat_notification_button_first_title">زر الإشعار 1</string>
     <string name="setcat_notification_button_second_title">زر الإشعار 2</string>
     <string name="setcat_notification_buttons_description">زر إضافي يظهر في إشعار الوسائط بجانب السابق والتشغيل والتالي. يمكن تعيين كل إجراء مرة واحدة فقط.</string>

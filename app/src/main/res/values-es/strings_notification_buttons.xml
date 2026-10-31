@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="setcat_notification_buttons_title">Botones de la notificación</string>
+    <string name="setcat_notification_buttons_summary">Elige los dos botones adicionales que muestra la notificación multimedia.</string>
     <string name="setcat_notification_button_first_title">Botón de notificación 1</string>
     <string name="setcat_notification_button_second_title">Botón de notificación 2</string>
     <string name="setcat_notification_buttons_description">Un botón adicional que muestra la notificación multimedia junto a anterior, reproducir y siguiente. Cada acción solo se puede asignar una vez.</string>

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="setcat_notification_buttons_title">Pulsanti della notifica</string>
+    <string name="setcat_notification_buttons_summary">Scegli i due pulsanti aggiuntivi mostrati nella notifica multimediale.</string>
     <string name="setcat_notification_button_first_title">Pulsante notifica 1</string>
     <string name="setcat_notification_button_second_title">Pulsante notifica 2</string>
     <string name="setcat_notification_buttons_description">Un pulsante aggiuntivo mostrato nella notifica multimediale accanto a precedente, riproduci e successivo. Ogni azione può essere assegnata una sola volta.</string>

@@ -47,6 +47,7 @@ import com.lostf1sh.pixelplayeross.presentation.screens.EditTransitionScreen
 import com.lostf1sh.pixelplayeross.presentation.screens.EasterEggScreen
 import com.lostf1sh.pixelplayeross.presentation.screens.ExperimentalSettingsScreen
 import com.lostf1sh.pixelplayeross.presentation.screens.LyricsSettingsScreen
+import com.lostf1sh.pixelplayeross.presentation.screens.NotificationButtonsSettingsScreen
 import com.lostf1sh.pixelplayeross.presentation.screens.GenreDetailScreen
 import com.lostf1sh.pixelplayeross.presentation.screens.HomeScreen
 import com.lostf1sh.pixelplayeross.presentation.screens.LibraryScreen
@@ -292,6 +293,24 @@ fun AppNavigation(
                         playerViewModel = playerViewModel,
                         onBackClick = { navController.popBackStack() }
                     )
+                }
+            }
+            composable(
+                route = Screen.NotificationButtons.route,
+                arguments = listOf(navArgument("highlightKey") { type = NavType.StringType; nullable = true; defaultValue = null }),
+                enterTransition = { enterTransition() },
+                exitTransition = { exitTransition() },
+                popEnterTransition = { popEnterTransition() },
+                popExitTransition = { popExitTransition() },
+            ) { backStackEntry ->
+                val highlightKey = backStackEntry.arguments?.getString("highlightKey")
+                ScreenWrapper(navController = navController, playerViewModel = playerViewModel) {
+                    ProvideSettingsHighlight(highlightKey) {
+                        NotificationButtonsSettingsScreen(
+                            navController = navController,
+                            highlightKey = highlightKey
+                        )
+                    }
                 }
             }
             composable(

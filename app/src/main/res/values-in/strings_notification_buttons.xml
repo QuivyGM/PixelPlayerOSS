@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="setcat_notification_buttons_title">Tombol notifikasi</string>
+    <string name="setcat_notification_buttons_summary">Pilih dua tombol tambahan yang ditampilkan notifikasi media.</string>
     <string name="setcat_notification_button_first_title">Tombol notifikasi 1</string>
     <string name="setcat_notification_button_second_title">Tombol notifikasi 2</string>
     <string name="setcat_notification_buttons_description">Tombol tambahan yang ditampilkan notifikasi media di samping sebelumnya, putar, dan berikutnya. Setiap tindakan hanya dapat dipilih sekali.</string>

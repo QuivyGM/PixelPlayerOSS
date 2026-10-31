@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="setcat_notification_buttons_title">通知按钮</string>
+    <string name="setcat_notification_buttons_summary">选择媒体通知中显示的两个额外按钮。</string>
     <string name="setcat_notification_button_first_title">通知按钮 1</string>
     <string name="setcat_notification_button_second_title">通知按钮 2</string>
     <string name="setcat_notification_buttons_description">媒体通知中显示在上一曲、播放和下一曲旁边的额外按钮。每个操作只能分配一次。</string>

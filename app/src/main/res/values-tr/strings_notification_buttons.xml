@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="setcat_notification_buttons_title">Bildirim düğmeleri</string>
+    <string name="setcat_notification_buttons_summary">Medya bildiriminde gösterilecek iki ek düğmeyi seçin.</string>
     <string name="setcat_notification_button_first_title">Bildirim düğmesi 1</string>
     <string name="setcat_notification_button_second_title">Bildirim düğmesi 2</string>
     <string name="setcat_notification_buttons_description">Medya bildiriminde önceki, oynat ve sonraki düğmelerinin yanında gösterilen ek düğme. Her işlem yalnızca bir kez atanabilir.</string>

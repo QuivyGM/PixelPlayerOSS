@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="setcat_notification_buttons_title">Benachrichtigungstasten</string>
+    <string name="setcat_notification_buttons_summary">Wähle die zwei zusätzlichen Tasten der Medienbenachrichtigung.</string>
     <string name="setcat_notification_button_first_title">Benachrichtigungstaste 1</string>
     <string name="setcat_notification_button_second_title">Benachrichtigungstaste 2</string>
     <string name="setcat_notification_buttons_description">Eine zusätzliche Taste, die die Medienbenachrichtigung neben Zurück, Wiedergabe und Weiter anzeigt. Jede Aktion kann nur einmal belegt werden.</string>

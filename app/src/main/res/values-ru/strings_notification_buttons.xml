@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="setcat_notification_buttons_title">Кнопки уведомления</string>
+    <string name="setcat_notification_buttons_summary">Выберите две дополнительные кнопки медиауведомления.</string>
     <string name="setcat_notification_button_first_title">Кнопка уведомления 1</string>
     <string name="setcat_notification_button_second_title">Кнопка уведомления 2</string>
     <string name="setcat_notification_buttons_description">Дополнительная кнопка в медиауведомлении рядом с кнопками «Назад», «Воспроизвести» и «Далее». Каждое действие можно назначить только один раз.</string>
