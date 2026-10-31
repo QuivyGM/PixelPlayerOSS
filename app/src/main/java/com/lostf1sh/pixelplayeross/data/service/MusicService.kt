@@ -49,6 +49,7 @@ import com.lostf1sh.pixelplayeross.data.model.PlaybackQueueItemSnapshot
 import com.lostf1sh.pixelplayeross.data.model.PlaybackQueueSnapshot
 import com.lostf1sh.pixelplayeross.data.model.Song
 import com.lostf1sh.pixelplayeross.data.preferences.EqualizerPreferencesRepository
+import com.lostf1sh.pixelplayeross.data.preferences.NotificationButtonLayout
 import com.lostf1sh.pixelplayeross.data.preferences.PreviousButtonBehavior
 import com.lostf1sh.pixelplayeross.data.preferences.ThemePreferencesRepository
 import com.lostf1sh.pixelplayeross.data.preferences.UserPreferencesRepository
@@ -232,6 +233,7 @@ class MusicService : MediaSessionService() {
     private var isManualShuffleEnabled = false
     private var persistentShuffleEnabled = false
     private var previousButtonBehavior = PreviousButtonBehavior.DEFAULT
+    private var notificationButtonLayout = NotificationButtonLayout.DEFAULT
     private var previousMainThreadExceptionHandler: Thread.UncaughtExceptionHandler? = null
     private val sleepTimerController by lazy {
         SleepTimerController(
@@ -520,6 +522,13 @@ class MusicService : MediaSessionService() {
         serviceScope.launch {
             userPreferencesRepository.previousButtonBehaviorFlow.collect { behavior ->
                 previousButtonBehavior = behavior
+            }
+        }
+
+        serviceScope.launch {
+            userPreferencesRepository.notificationButtonLayoutFlow.collect { layout ->
+                notificationButtonLayout = layout
+                mediaSession?.let { refreshMediaSessionUi(it) }
             }
         }
 
@@ -2524,6 +2533,8 @@ class MusicService : MediaSessionService() {
             append(isManualShuffleEnabled)
             append('|')
             append(player.repeatMode)
+            append('|')
+            append(notificationButtonLayout)
         }
     }
 
@@ -2572,7 +2583,13 @@ class MusicService : MediaSessionService() {
             .setSlots(CommandButton.SLOT_OVERFLOW)
             .build()
 
-        return listOf(likeButton, closeButton, shuffleButton, repeatButton)
+        // System media controls show only the first two; the rest go to the overflow.
+        return when (notificationButtonLayout) {
+            NotificationButtonLayout.LIKE_AND_CLOSE ->
+                listOf(likeButton, closeButton, shuffleButton, repeatButton)
+            NotificationButtonLayout.SHUFFLE_AND_REPEAT ->
+                listOf(shuffleButton, repeatButton, likeButton, closeButton)
+        }
     }
 
     /**

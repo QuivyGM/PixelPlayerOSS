@@ -19,6 +19,7 @@ import com.lostf1sh.pixelplayeross.data.preferences.AppLanguage
 import com.lostf1sh.pixelplayeross.data.preferences.AppThemeMode
 import com.lostf1sh.pixelplayeross.data.preferences.CarouselStyle
 import com.lostf1sh.pixelplayeross.data.preferences.LibraryNavigationMode
+import com.lostf1sh.pixelplayeross.data.preferences.NotificationButtonLayout
 import com.lostf1sh.pixelplayeross.data.preferences.PreviousButtonBehavior
 import com.lostf1sh.pixelplayeross.data.preferences.DEFAULT_LYRICS_DUET_LAYOUT_ENABLED
 import com.lostf1sh.pixelplayeross.data.preferences.DEFAULT_LYRICS_FONT_SIZE_SP
@@ -105,6 +106,7 @@ data class SettingsUiState(
     val miniPlayerSwipeToSkip: Boolean = false,
     val autoplayOnSkip: Boolean = true,
     val previousButtonBehavior: PreviousButtonBehavior = PreviousButtonBehavior.DEFAULT,
+    val notificationButtonLayout: NotificationButtonLayout = NotificationButtonLayout.DEFAULT,
     val hapticsEnabled: Boolean = true,
     val immersiveLyricsEnabled: Boolean = false,
     val immersiveLyricsTimeout: Long = 4000L,
@@ -522,6 +524,12 @@ class SettingsViewModel @Inject constructor(
         viewModelScope.launch {
             userPreferencesRepository.previousButtonBehaviorFlow.collect { behavior ->
                 _uiState.update { it.copy(previousButtonBehavior = behavior) }
+            }
+        }
+
+        viewModelScope.launch {
+            userPreferencesRepository.notificationButtonLayoutFlow.collect { layout ->
+                _uiState.update { it.copy(notificationButtonLayout = layout) }
             }
         }
 
@@ -1105,6 +1113,12 @@ class SettingsViewModel @Inject constructor(
     fun setPreviousButtonBehavior(behavior: PreviousButtonBehavior) {
         viewModelScope.launch {
             userPreferencesRepository.setPreviousButtonBehavior(behavior)
+        }
+    }
+
+    fun setNotificationButtonLayout(layout: NotificationButtonLayout) {
+        viewModelScope.launch {
+            userPreferencesRepository.setNotificationButtonLayout(layout)
         }
     }
 

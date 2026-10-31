@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="setcat_notification_buttons_title">Benachrichtigungstasten</string>
+    <string name="setcat_notification_buttons_description">Wähle, welche zwei zusätzlichen Tasten die Medienbenachrichtigung neben Zurück, Wiedergabe und Weiter anzeigt.</string>
+    <string name="setcat_notification_buttons_like_and_close">Gefällt mir und Schließen</string>
+    <string name="setcat_notification_buttons_like_and_close_description">Markiere den aktuellen Titel mit „Gefällt mir“ oder schließe den Player über die Benachrichtigung.</string>
+    <string name="setcat_notification_buttons_shuffle_and_repeat">Zufall und Wiederholen</string>
+    <string name="setcat_notification_buttons_shuffle_and_repeat_description">Schalte die Zufallswiedergabe um oder ändere den Wiederholungsmodus über die Benachrichtigung.</string>
+</resources>

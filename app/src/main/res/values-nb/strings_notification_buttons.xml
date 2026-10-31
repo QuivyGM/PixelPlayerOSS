@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="setcat_notification_buttons_title">Varslingsknapper</string>
+    <string name="setcat_notification_buttons_description">Velg hvilke to ekstra knapper medievarselet viser ved siden av forrige, spill av og neste.</string>
+    <string name="setcat_notification_buttons_like_and_close">Lik og lukk</string>
+    <string name="setcat_notification_buttons_like_and_close_description">Lik sangen som spilles, eller lukk spilleren fra varselet.</string>
+    <string name="setcat_notification_buttons_shuffle_and_repeat">Tilfeldig rekkefølge og gjenta</string>
+    <string name="setcat_notification_buttons_shuffle_and_repeat_description">Slå tilfeldig rekkefølge av eller på, eller endre gjentakelsesmodus fra varselet.</string>
+</resources>

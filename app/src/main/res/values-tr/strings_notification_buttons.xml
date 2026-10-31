@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="setcat_notification_buttons_title">Bildirim düğmeleri</string>
+    <string name="setcat_notification_buttons_description">Medya bildiriminde önceki, oynat ve sonraki düğmelerinin yanında hangi iki ek düğmenin gösterileceğini seçin.</string>
+    <string name="setcat_notification_buttons_like_and_close">Beğen ve kapat</string>
+    <string name="setcat_notification_buttons_like_and_close_description">Bildirimden çalan şarkıyı beğenin veya oynatıcıyı kapatın.</string>
+    <string name="setcat_notification_buttons_shuffle_and_repeat">Karıştır ve tekrarla</string>
+    <string name="setcat_notification_buttons_shuffle_and_repeat_description">Bildirimden karıştırmayı açıp kapatın veya tekrar modunu değiştirin.</string>
+</resources>

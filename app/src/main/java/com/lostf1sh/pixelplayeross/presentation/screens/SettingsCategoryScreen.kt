@@ -175,6 +175,7 @@ import com.lostf1sh.pixelplayeross.data.preferences.CarouselStyle
 import com.lostf1sh.pixelplayeross.data.preferences.LaunchTab
 import com.lostf1sh.pixelplayeross.data.preferences.LibraryNavigationMode
 import com.lostf1sh.pixelplayeross.data.preferences.NavBarStyle
+import com.lostf1sh.pixelplayeross.data.preferences.NotificationButtonLayout
 import com.lostf1sh.pixelplayeross.data.preferences.PreviousButtonBehavior
 import com.lostf1sh.pixelplayeross.data.preferences.ThemePreference
 import com.lostf1sh.pixelplayeross.data.preferences.ThemePreset
@@ -786,6 +787,30 @@ fun SettingsCategoryScreen(
                                     onSelectionChanged = { settingsViewModel.setCarouselStyle(it) },
                                     leadingIcon = { Icon(painterResource(R.drawable.rounded_view_carousel_24), null, tint = MaterialTheme.colorScheme.secondary) },
                                     modifier = Modifier.settingHighlight("item_appearance_carousel_style", highlightKey)
+                                )
+                                ThemeSelectorItem(
+                                    label = stringResource(R.string.setcat_notification_buttons_title),
+                                    description = stringResource(R.string.setcat_notification_buttons_description),
+                                    options = linkedMapOf(
+                                        NotificationButtonLayout.LIKE_AND_CLOSE.storageKey to
+                                            stringResource(R.string.setcat_notification_buttons_like_and_close),
+                                        NotificationButtonLayout.SHUFFLE_AND_REPEAT.storageKey to
+                                            stringResource(R.string.setcat_notification_buttons_shuffle_and_repeat)
+                                    ),
+                                    optionDescriptions = mapOf(
+                                        NotificationButtonLayout.LIKE_AND_CLOSE.storageKey to
+                                            stringResource(R.string.setcat_notification_buttons_like_and_close_description),
+                                        NotificationButtonLayout.SHUFFLE_AND_REPEAT.storageKey to
+                                            stringResource(R.string.setcat_notification_buttons_shuffle_and_repeat_description)
+                                    ),
+                                    selectedKey = uiState.notificationButtonLayout.storageKey,
+                                    onSelectionChanged = { key ->
+                                        settingsViewModel.setNotificationButtonLayout(
+                                            NotificationButtonLayout.fromStorageKey(key)
+                                        )
+                                    },
+                                    leadingIcon = { Icon(painterResource(R.drawable.rounded_shuffle_24), null, tint = MaterialTheme.colorScheme.secondary) },
+                                    modifier = Modifier.settingHighlight("item_appearance_notification_buttons", highlightKey)
                                 )
                             }
 

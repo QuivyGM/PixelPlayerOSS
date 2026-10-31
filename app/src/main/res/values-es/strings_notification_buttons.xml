@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="setcat_notification_buttons_title">Botones de la notificación</string>
+    <string name="setcat_notification_buttons_description">Elige qué dos botones adicionales muestra la notificación multimedia junto a anterior, reproducir y siguiente.</string>
+    <string name="setcat_notification_buttons_like_and_close">Me gusta y cerrar</string>
+    <string name="setcat_notification_buttons_like_and_close_description">Marca la canción actual como favorita o cierra el reproductor desde la notificación.</string>
+    <string name="setcat_notification_buttons_shuffle_and_repeat">Aleatorio y repetir</string>
+    <string name="setcat_notification_buttons_shuffle_and_repeat_description">Activa el modo aleatorio o cambia el modo de repetición desde la notificación.</string>
+</resources>

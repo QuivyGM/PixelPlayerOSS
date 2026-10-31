@@ -459,6 +459,18 @@ object SettingsRegistry {
                 keywordsStatic = listOf("carousel", "peek", "album covers", "swipe")
             ),
             SettingSpec(
+                id = "appearance_notification_buttons",
+                itemKey = "item_appearance_notification_buttons",
+                titleRes = R.string.setcat_notification_buttons_title,
+                subtitleRes = R.string.setcat_notification_buttons_description,
+                category = SettingsCategory.APPEARANCE,
+                subscreenRoute = Screen.SettingsCategory.createRoute("appearance"),
+                type = SettingType.NAVIGABLE_CARD,
+                keywordsStatic = listOf(
+                    "notification", "media controls", "buttons", "like", "close", "shuffle", "repeat"
+                )
+            ),
+            SettingSpec(
                 id = "appearance_collage_pattern",
                 itemKey = "item_appearance_collage_pattern",
                 titleRes = R.string.setcat_collage_pattern_label,

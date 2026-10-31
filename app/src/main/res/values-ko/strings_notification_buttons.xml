@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="setcat_notification_buttons_title">알림 버튼</string>
+    <string name="setcat_notification_buttons_description">미디어 알림에서 이전, 재생, 다음 버튼 옆에 표시할 추가 버튼 두 개를 선택합니다.</string>
+    <string name="setcat_notification_buttons_like_and_close">좋아요 및 닫기</string>
+    <string name="setcat_notification_buttons_like_and_close_description">알림에서 현재 곡에 좋아요를 표시하거나 플레이어를 닫습니다.</string>
+    <string name="setcat_notification_buttons_shuffle_and_repeat">셔플 및 반복</string>
+    <string name="setcat_notification_buttons_shuffle_and_repeat_description">알림에서 셔플을 켜고 끄거나 반복 모드를 변경합니다.</string>
+</resources>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="setcat_notification_buttons_title">Boutons de la notification</string>
+    <string name="setcat_notification_buttons_description">Choisissez les deux boutons supplémentaires affichés dans la notification multimédia à côté de précédent, lecture et suivant.</string>
+    <string name="setcat_notification_buttons_like_and_close">J\'aime et fermer</string>
+    <string name="setcat_notification_buttons_like_and_close_description">Aimez le titre en cours ou fermez le lecteur depuis la notification.</string>
+    <string name="setcat_notification_buttons_shuffle_and_repeat">Aléatoire et répétition</string>
+    <string name="setcat_notification_buttons_shuffle_and_repeat_description">Activez la lecture aléatoire ou changez le mode de répétition depuis la notification.</string>
+</resources>

@@ -239,6 +239,7 @@ constructor(
         val MINI_PLAYER_SWIPE_TO_SKIP = booleanPreferencesKey("mini_player_swipe_to_skip")
         val AUTOPLAY_ON_SKIP = booleanPreferencesKey("autoplay_on_skip")
         val PREVIOUS_BUTTON_BEHAVIOR = stringPreferencesKey("previous_button_behavior")
+        val NOTIFICATION_BUTTON_LAYOUT = stringPreferencesKey("notification_button_layout")
         val HAPTICS_ENABLED = booleanPreferencesKey("haptics_enabled")
         val ADVANCED_PERFORMANCE_DIAGNOSTICS_ENABLED =
             booleanPreferencesKey("advanced_performance_diagnostics_enabled")
@@ -1984,6 +1985,18 @@ constructor(
     suspend fun setPreviousButtonBehavior(behavior: PreviousButtonBehavior) {
         dataStore.edit { preferences ->
             preferences[PreferencesKeys.PREVIOUS_BUTTON_BEHAVIOR] = behavior.storageKey
+        }
+    }
+
+    /** Which pair of custom buttons the media notification shows. Like and close by default. */
+    val notificationButtonLayoutFlow: Flow<NotificationButtonLayout> =
+        dataStore.data.map { preferences ->
+            NotificationButtonLayout.fromStorageKey(preferences[PreferencesKeys.NOTIFICATION_BUTTON_LAYOUT])
+        }.distinctUntilChanged()
+
+    suspend fun setNotificationButtonLayout(layout: NotificationButtonLayout) {
+        dataStore.edit { preferences ->
+            preferences[PreferencesKeys.NOTIFICATION_BUTTON_LAYOUT] = layout.storageKey
         }
     }
 
