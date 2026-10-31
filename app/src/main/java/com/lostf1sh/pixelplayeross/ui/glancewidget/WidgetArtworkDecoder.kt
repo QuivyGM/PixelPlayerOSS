@@ -7,6 +7,8 @@ import android.net.Uri
 import com.lostf1sh.pixelplayeross.utils.AlbumArtUtils
 import com.lostf1sh.pixelplayeross.utils.ArtworkTransportSanitizer
 import com.lostf1sh.pixelplayeross.utils.LocalArtworkUri
+import timber.log.Timber
+import java.io.IOException
 
 private val SUPPORTED_WIDGET_LOCAL_ARTWORK_SCHEMES = setOf(
     "content",
@@ -31,9 +33,19 @@ internal fun decodeWidgetAlbumArtBitmap(
         return null
     }
 
+    // Songs without artwork make the artwork provider throw FileNotFoundException; that and
+    // any other read failure means the widget shows the placeholder instead of failing.
     val appContext = context.applicationContext
-    val encodedBytes = AlbumArtUtils.openArtworkInputStream(appContext, uri)?.use { input ->
-        readBytesCapped(input, ArtworkTransportSanitizer.WIDGET_CONFIG.sourceBytesLimit)
+    val encodedBytes = try {
+        AlbumArtUtils.openArtworkInputStream(appContext, uri)?.use { input ->
+            readBytesCapped(input, ArtworkTransportSanitizer.WIDGET_CONFIG.sourceBytesLimit)
+        }
+    } catch (e: IOException) {
+        Timber.tag("WidgetArtworkDecoder").d("No readable artwork for %s: %s", rawUri, e.message)
+        null
+    } catch (e: SecurityException) {
+        Timber.tag("WidgetArtworkDecoder").w(e, "Artwork not readable for %s", rawUri)
+        null
     } ?: return null
 
     val bounds = BitmapFactory.Options().apply { inJustDecodeBounds = true }
