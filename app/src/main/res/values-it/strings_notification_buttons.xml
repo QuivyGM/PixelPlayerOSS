@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="setcat_notification_buttons_title">Pulsanti della notifica</string>
-    <string name="setcat_notification_buttons_description">Scegli quali due pulsanti aggiuntivi mostra la notifica multimediale accanto a precedente, riproduci e successivo.</string>
-    <string name="setcat_notification_buttons_like_and_close">Mi piace e chiudi</string>
-    <string name="setcat_notification_buttons_like_and_close_description">Metti mi piace al brano in riproduzione o chiudi il lettore dalla notifica.</string>
-    <string name="setcat_notification_buttons_shuffle_and_repeat">Casuale e ripeti</string>
-    <string name="setcat_notification_buttons_shuffle_and_repeat_description">Attiva la riproduzione casuale o cambia la modalità di ripetizione dalla notifica.</string>
+    <string name="setcat_notification_button_first_title">Pulsante notifica 1</string>
+    <string name="setcat_notification_button_second_title">Pulsante notifica 2</string>
+    <string name="setcat_notification_buttons_description">Un pulsante aggiuntivo mostrato nella notifica multimediale accanto a precedente, riproduci e successivo. Ogni azione può essere assegnata una sola volta.</string>
+    <string name="setcat_notification_button_like">Mi piace</string>
+    <string name="setcat_notification_button_close">Chiudi</string>
+    <string name="setcat_notification_button_shuffle">Casuale</string>
+    <string name="setcat_notification_button_repeat">Ripeti</string>
 </resources>

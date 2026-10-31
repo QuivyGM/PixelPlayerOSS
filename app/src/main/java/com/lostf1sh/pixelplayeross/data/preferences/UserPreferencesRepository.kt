@@ -239,7 +239,8 @@ constructor(
         val MINI_PLAYER_SWIPE_TO_SKIP = booleanPreferencesKey("mini_player_swipe_to_skip")
         val AUTOPLAY_ON_SKIP = booleanPreferencesKey("autoplay_on_skip")
         val PREVIOUS_BUTTON_BEHAVIOR = stringPreferencesKey("previous_button_behavior")
-        val NOTIFICATION_BUTTON_LAYOUT = stringPreferencesKey("notification_button_layout")
+        val NOTIFICATION_BUTTON_FIRST = stringPreferencesKey("notification_button_first")
+        val NOTIFICATION_BUTTON_SECOND = stringPreferencesKey("notification_button_second")
         val HAPTICS_ENABLED = booleanPreferencesKey("haptics_enabled")
         val ADVANCED_PERFORMANCE_DIAGNOSTICS_ENABLED =
             booleanPreferencesKey("advanced_performance_diagnostics_enabled")
@@ -1988,15 +1989,19 @@ constructor(
         }
     }
 
-    /** Which pair of custom buttons the media notification shows. Like and close by default. */
-    val notificationButtonLayoutFlow: Flow<NotificationButtonLayout> =
+    /** The two custom buttons the media notification shows. Like and close by default. */
+    val notificationButtonsFlow: Flow<NotificationButtons> =
         dataStore.data.map { preferences ->
-            NotificationButtonLayout.fromStorageKey(preferences[PreferencesKeys.NOTIFICATION_BUTTON_LAYOUT])
+            NotificationButtons.fromStorageKeys(
+                preferences[PreferencesKeys.NOTIFICATION_BUTTON_FIRST],
+                preferences[PreferencesKeys.NOTIFICATION_BUTTON_SECOND]
+            )
         }.distinctUntilChanged()
 
-    suspend fun setNotificationButtonLayout(layout: NotificationButtonLayout) {
+    suspend fun setNotificationButtons(buttons: NotificationButtons) {
         dataStore.edit { preferences ->
-            preferences[PreferencesKeys.NOTIFICATION_BUTTON_LAYOUT] = layout.storageKey
+            preferences[PreferencesKeys.NOTIFICATION_BUTTON_FIRST] = buttons.first.storageKey
+            preferences[PreferencesKeys.NOTIFICATION_BUTTON_SECOND] = buttons.second.storageKey
         }
     }
 

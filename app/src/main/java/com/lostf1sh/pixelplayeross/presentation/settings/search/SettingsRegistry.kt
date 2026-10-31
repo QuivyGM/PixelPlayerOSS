@@ -459,15 +459,27 @@ object SettingsRegistry {
                 keywordsStatic = listOf("carousel", "peek", "album covers", "swipe")
             ),
             SettingSpec(
-                id = "appearance_notification_buttons",
-                itemKey = "item_appearance_notification_buttons",
-                titleRes = R.string.setcat_notification_buttons_title,
+                id = "appearance_notification_button_first",
+                itemKey = "item_appearance_notification_button_first",
+                titleRes = R.string.setcat_notification_button_first_title,
                 subtitleRes = R.string.setcat_notification_buttons_description,
                 category = SettingsCategory.APPEARANCE,
                 subscreenRoute = Screen.SettingsCategory.createRoute("appearance"),
                 type = SettingType.NAVIGABLE_CARD,
                 keywordsStatic = listOf(
-                    "notification", "media controls", "buttons", "like", "close", "shuffle", "repeat"
+                    "notification", "media controls", "button", "like", "close", "shuffle", "repeat"
+                )
+            ),
+            SettingSpec(
+                id = "appearance_notification_button_second",
+                itemKey = "item_appearance_notification_button_second",
+                titleRes = R.string.setcat_notification_button_second_title,
+                subtitleRes = R.string.setcat_notification_buttons_description,
+                category = SettingsCategory.APPEARANCE,
+                subscreenRoute = Screen.SettingsCategory.createRoute("appearance"),
+                type = SettingType.NAVIGABLE_CARD,
+                keywordsStatic = listOf(
+                    "notification", "media controls", "button", "like", "close", "shuffle", "repeat"
                 )
             ),
             SettingSpec(

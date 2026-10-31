@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="setcat_notification_buttons_title">أزرار الإشعار</string>
-    <string name="setcat_notification_buttons_description">اختر الزرين الإضافيين اللذين يظهران في إشعار الوسائط بجانب السابق والتشغيل والتالي.</string>
-    <string name="setcat_notification_buttons_like_and_close">الإعجاب والإغلاق</string>
-    <string name="setcat_notification_buttons_like_and_close_description">أعجب بالأغنية الحالية أو أغلق المشغل من الإشعار.</string>
-    <string name="setcat_notification_buttons_shuffle_and_repeat">الترتيب العشوائي والتكرار</string>
-    <string name="setcat_notification_buttons_shuffle_and_repeat_description">شغّل الترتيب العشوائي أو غيّر وضع التكرار من الإشعار.</string>
+    <string name="setcat_notification_button_first_title">زر الإشعار 1</string>
+    <string name="setcat_notification_button_second_title">زر الإشعار 2</string>
+    <string name="setcat_notification_buttons_description">زر إضافي يظهر في إشعار الوسائط بجانب السابق والتشغيل والتالي. يمكن تعيين كل إجراء مرة واحدة فقط.</string>
+    <string name="setcat_notification_button_like">إعجاب</string>
+    <string name="setcat_notification_button_close">إغلاق</string>
+    <string name="setcat_notification_button_shuffle">ترتيب عشوائي</string>
+    <string name="setcat_notification_button_repeat">تكرار</string>
 </resources>

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="setcat_notification_buttons_title">通知按钮</string>
-    <string name="setcat_notification_buttons_description">选择媒体通知中在上一曲、播放和下一曲旁边显示的两个额外按钮。</string>
-    <string name="setcat_notification_buttons_like_and_close">收藏和关闭</string>
-    <string name="setcat_notification_buttons_like_and_close_description">在通知中收藏当前歌曲或关闭播放器。</string>
-    <string name="setcat_notification_buttons_shuffle_and_repeat">随机播放和循环</string>
-    <string name="setcat_notification_buttons_shuffle_and_repeat_description">在通知中切换随机播放或更改循环模式。</string>
+    <string name="setcat_notification_button_first_title">通知按钮 1</string>
+    <string name="setcat_notification_button_second_title">通知按钮 2</string>
+    <string name="setcat_notification_buttons_description">媒体通知中显示在上一曲、播放和下一曲旁边的额外按钮。每个操作只能分配一次。</string>
+    <string name="setcat_notification_button_like">收藏</string>
+    <string name="setcat_notification_button_close">关闭</string>
+    <string name="setcat_notification_button_shuffle">随机播放</string>
+    <string name="setcat_notification_button_repeat">循环</string>
 </resources>

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="setcat_notification_buttons_title">Tombol notifikasi</string>
-    <string name="setcat_notification_buttons_description">Pilih dua tombol tambahan yang ditampilkan notifikasi media di samping sebelumnya, putar, dan berikutnya.</string>
-    <string name="setcat_notification_buttons_like_and_close">Suka dan tutup</string>
-    <string name="setcat_notification_buttons_like_and_close_description">Sukai lagu yang sedang diputar atau tutup pemutar dari notifikasi.</string>
-    <string name="setcat_notification_buttons_shuffle_and_repeat">Acak dan ulangi</string>
-    <string name="setcat_notification_buttons_shuffle_and_repeat_description">Aktifkan acak atau ubah mode ulangi dari notifikasi.</string>
+    <string name="setcat_notification_button_first_title">Tombol notifikasi 1</string>
+    <string name="setcat_notification_button_second_title">Tombol notifikasi 2</string>
+    <string name="setcat_notification_buttons_description">Tombol tambahan yang ditampilkan notifikasi media di samping sebelumnya, putar, dan berikutnya. Setiap tindakan hanya dapat dipilih sekali.</string>
+    <string name="setcat_notification_button_like">Suka</string>
+    <string name="setcat_notification_button_close">Tutup</string>
+    <string name="setcat_notification_button_shuffle">Acak</string>
+    <string name="setcat_notification_button_repeat">Ulangi</string>
 </resources>

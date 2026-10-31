@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="setcat_notification_buttons_title">Notification buttons</string>
-    <string name="setcat_notification_buttons_description">Choose which two extra buttons the media notification shows next to previous, play and next.</string>
-    <string name="setcat_notification_buttons_like_and_close">Like and close</string>
-    <string name="setcat_notification_buttons_like_and_close_description">Like the current song or close the player from the notification.</string>
-    <string name="setcat_notification_buttons_shuffle_and_repeat">Shuffle and repeat</string>
-    <string name="setcat_notification_buttons_shuffle_and_repeat_description">Toggle shuffle or change the repeat mode from the notification.</string>
+    <string name="setcat_notification_button_first_title">Notification button 1</string>
+    <string name="setcat_notification_button_second_title">Notification button 2</string>
+    <string name="setcat_notification_buttons_description">An extra button the media notification shows next to previous, play and next. Each action can only be used once.</string>
+    <string name="setcat_notification_button_like">Like</string>
+    <string name="setcat_notification_button_close">Close</string>
+    <string name="setcat_notification_button_shuffle">Shuffle</string>
+    <string name="setcat_notification_button_repeat">Repeat</string>
 </resources>

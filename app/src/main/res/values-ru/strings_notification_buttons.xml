@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="setcat_notification_buttons_title">Кнопки уведомления</string>
-    <string name="setcat_notification_buttons_description">Выберите, какие две дополнительные кнопки показывать в медиауведомлении рядом с кнопками «Назад», «Воспроизвести» и «Далее».</string>
-    <string name="setcat_notification_buttons_like_and_close">«Нравится» и «Закрыть»</string>
-    <string name="setcat_notification_buttons_like_and_close_description">Отметьте текущий трек или закройте плеер прямо из уведомления.</string>
-    <string name="setcat_notification_buttons_shuffle_and_repeat">Перемешивание и повтор</string>
-    <string name="setcat_notification_buttons_shuffle_and_repeat_description">Включайте перемешивание или меняйте режим повтора прямо из уведомления.</string>
+    <string name="setcat_notification_button_first_title">Кнопка уведомления 1</string>
+    <string name="setcat_notification_button_second_title">Кнопка уведомления 2</string>
+    <string name="setcat_notification_buttons_description">Дополнительная кнопка в медиауведомлении рядом с кнопками «Назад», «Воспроизвести» и «Далее». Каждое действие можно назначить только один раз.</string>
+    <string name="setcat_notification_button_like">Нравится</string>
+    <string name="setcat_notification_button_close">Закрыть</string>
+    <string name="setcat_notification_button_shuffle">Перемешать</string>
+    <string name="setcat_notification_button_repeat">Повтор</string>
 </resources>

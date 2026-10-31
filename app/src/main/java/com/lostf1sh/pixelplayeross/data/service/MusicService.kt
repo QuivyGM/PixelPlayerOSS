@@ -49,7 +49,8 @@ import com.lostf1sh.pixelplayeross.data.model.PlaybackQueueItemSnapshot
 import com.lostf1sh.pixelplayeross.data.model.PlaybackQueueSnapshot
 import com.lostf1sh.pixelplayeross.data.model.Song
 import com.lostf1sh.pixelplayeross.data.preferences.EqualizerPreferencesRepository
-import com.lostf1sh.pixelplayeross.data.preferences.NotificationButtonLayout
+import com.lostf1sh.pixelplayeross.data.preferences.NotificationButtonAction
+import com.lostf1sh.pixelplayeross.data.preferences.NotificationButtons
 import com.lostf1sh.pixelplayeross.data.preferences.PreviousButtonBehavior
 import com.lostf1sh.pixelplayeross.data.preferences.ThemePreferencesRepository
 import com.lostf1sh.pixelplayeross.data.preferences.UserPreferencesRepository
@@ -233,7 +234,7 @@ class MusicService : MediaSessionService() {
     private var isManualShuffleEnabled = false
     private var persistentShuffleEnabled = false
     private var previousButtonBehavior = PreviousButtonBehavior.DEFAULT
-    private var notificationButtonLayout = NotificationButtonLayout.DEFAULT
+    private var notificationButtons = NotificationButtons.DEFAULT
     private var previousMainThreadExceptionHandler: Thread.UncaughtExceptionHandler? = null
     private val sleepTimerController by lazy {
         SleepTimerController(
@@ -526,8 +527,8 @@ class MusicService : MediaSessionService() {
         }
 
         serviceScope.launch {
-            userPreferencesRepository.notificationButtonLayoutFlow.collect { layout ->
-                notificationButtonLayout = layout
+            userPreferencesRepository.notificationButtonsFlow.collect { buttons ->
+                notificationButtons = buttons
                 mediaSession?.let { refreshMediaSessionUi(it) }
             }
         }
@@ -2534,7 +2535,7 @@ class MusicService : MediaSessionService() {
             append('|')
             append(player.repeatMode)
             append('|')
-            append(notificationButtonLayout)
+            append(notificationButtons)
         }
     }
 
@@ -2584,11 +2585,13 @@ class MusicService : MediaSessionService() {
             .build()
 
         // System media controls show only the first two; the rest go to the overflow.
-        return when (notificationButtonLayout) {
-            NotificationButtonLayout.LIKE_AND_CLOSE ->
-                listOf(likeButton, closeButton, shuffleButton, repeatButton)
-            NotificationButtonLayout.SHUFFLE_AND_REPEAT ->
-                listOf(shuffleButton, repeatButton, likeButton, closeButton)
+        return notificationButtons.orderedActions.map { action ->
+            when (action) {
+                NotificationButtonAction.LIKE -> likeButton
+                NotificationButtonAction.CLOSE -> closeButton
+                NotificationButtonAction.SHUFFLE -> shuffleButton
+                NotificationButtonAction.REPEAT -> repeatButton
+            }
         }
     }
 
