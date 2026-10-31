@@ -119,7 +119,7 @@
     <string name="setcat_widget">小部件</string>
     <string name="setcat_widget_background_opacity_title">背景不透明度</string>
     <string name="setcat_widget_fill_title">填充</string>
-    <string name="setcat_widget_fill_subtitle">移除小部件背景，并将控件放大至边缘。</string>
+    <string name="setcat_widget_fill_subtitle">略微放大小部件内容以更好地利用空间。非常小的小部件保持不变。</string>
     <string name="setcat_navigation_bar">导航栏</string>
     <string name="setcat_navbar_style_label">导航栏样式</string>
     <string name="setcat_navbar_style_desc">设置底部导航栏外观</string>

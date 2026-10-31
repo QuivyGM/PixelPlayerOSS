@@ -88,7 +88,7 @@
     <string name="setcat_widget">위젯</string>
     <string name="setcat_widget_background_opacity_title">배경 불투명도</string>
     <string name="setcat_widget_fill_title">채우기</string>
-    <string name="setcat_widget_fill_subtitle">위젯 배경을 없애고 컨트롤을 가장자리까지 키웁니다.</string>
+    <string name="setcat_widget_fill_subtitle">위젯 콘텐츠를 약간 키워 공간을 더 활용합니다. 아주 작은 위젯은 그대로 유지됩니다.</string>
     <string name="setcat_auto_rotate_patterns_title">패턴 자동 회전</string>
     <string name="setcat_auto_scan_lrc_subtitle">라이브러리 동기화 중 같은 폴더에 있는 .lrc 파일을 자동으로 스캔하여 할당합니다.</string>
     <string name="setcat_folder_album_art_title">폴더의 커버 이미지 사용</string>

@@ -141,7 +141,7 @@
     <string name="setcat_widget">Widget</string>
     <string name="setcat_widget_background_opacity_title">Background opacity</string>
     <string name="setcat_widget_fill_title">Fill</string>
-    <string name="setcat_widget_fill_subtitle">Remove the widget background and enlarge the controls to reach the edges.</string>
+    <string name="setcat_widget_fill_subtitle">Enlarge the widget content slightly to use more of its space. Very small widgets stay as they are.</string>
     <string name="setcat_widget_background_opacity_value" translatable="false">%1$d%%</string>
     <string name="setcat_navigation_bar">Navigation Bar</string>
     <string name="setcat_navbar_style_label">NavBar Style</string>

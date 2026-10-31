@@ -41,11 +41,12 @@ import timber.log.Timber
  * content. It is marked as the widget background, so Android 12+ launchers clip it and
  * animate app launches from it consistently.
  *
- * In fill mode ([LocalWidgetFill]) the background and padding are dropped and the content
- * is scaled by [fillScale] until it reaches the outline the background had, never past
- * it: it keeps just enough inset for its outer corners, rounded by [contentCornerRadius],
- * to fit the outline's, and is clipped to that outline. Sizes inside should use [sdp],
- * [ssp] and [scaled] to follow the scale. [size] is the area the frame covers.
+ * In fill mode ([LocalWidgetFill]) the background stays and the content is scaled by
+ * [fillScale] into part of the padding: by at most [MAX_FILL_SCALE], and never closer to
+ * the outline than its outer corners, rounded by [contentCornerRadius], allow plus
+ * [FILL_SAFETY_MARGIN]. Widgets smaller than [MIN_FILL_SIZE] are not scaled. Sizes inside
+ * should use [sdp], [ssp] and [scaled] to follow the scale, and fit fixed sizes to
+ * [LocalWidgetContentSize]. [size] is the area the frame covers.
  */
 @Composable
 fun WidgetFrame(
@@ -58,22 +59,30 @@ fun WidgetFrame(
     size: DpSize = LocalSize.current,
     content: @Composable () -> Unit
 ) {
-    val fill = LocalWidgetFill.current
     val borderRadius = widgetBorderRadius(LocalContext.current, cornerRadius, size)
-    val outline = modifier
-        .appWidgetBackground()
-        .cornerRadius(borderRadius)
-    val inset = fillInset(borderRadius, contentCornerRadius)
-    val frameModifier = if (fill) {
-        outline.padding(inset)
+    val scale = if (LocalWidgetFill.current && canFill(size)) {
+        fillScale(size, padding, fillInset(borderRadius, contentCornerRadius) + FILL_SAFETY_MARGIN)
     } else {
-        outline
-            .background(backgroundColor)
-            .padding(padding)
+        1f
     }
-    val scale = if (fill) fillScale(size, padding, inset) else 1f
-    Box(modifier = frameModifier, contentAlignment = contentAlignment) {
-        CompositionLocalProvider(LocalWidgetScale provides scale) {
+    val horizontalPadding = fillPadding(size.width, padding, scale)
+    val verticalPadding = fillPadding(size.height, padding, scale)
+    val contentSize = DpSize(
+        width = (size.width - horizontalPadding * 2).coerceAtLeast(0.dp),
+        height = (size.height - verticalPadding * 2).coerceAtLeast(0.dp)
+    )
+    Box(
+        modifier = modifier
+            .appWidgetBackground()
+            .cornerRadius(borderRadius)
+            .background(backgroundColor)
+            .padding(horizontal = horizontalPadding, vertical = verticalPadding),
+        contentAlignment = contentAlignment
+    ) {
+        CompositionLocalProvider(
+            LocalWidgetScale provides scale,
+            LocalWidgetContentSize provides contentSize
+        ) {
             content()
         }
     }
@@ -138,7 +147,9 @@ fun AlbumArtImage(
                 BitmapFactory.decodeByteArray(data, 0, data.size, options)
 
                 var inSampleSize = 1
+                // At least 1 px: layouts can shrink the artwork to nothing, and 0 would never stop halving.
                 val targetSizePx = (size.value * context.resources.displayMetrics.density).toInt()
+                    .coerceAtLeast(1)
 
                 if (options.outHeight > targetSizePx || options.outWidth > targetSizePx) {
                     val halfHeight = options.outHeight / 2

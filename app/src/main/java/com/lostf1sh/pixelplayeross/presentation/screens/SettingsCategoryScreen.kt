@@ -866,31 +866,28 @@ fun SettingsCategoryScreen(
                                     modifier = Modifier.settingHighlight("item_appearance_widget_fill", highlightKey)
                                 )
 
-                                // Fill mode has no background, so its opacity has nothing to apply to.
-                                if (!uiState.widgetFill) {
-                                    var widgetOpacityDraft by remember(uiState.widgetBackgroundOpacity) {
-                                        mutableStateOf(uiState.widgetBackgroundOpacity)
-                                    }
-                                    SliderSettingsItem(
-                                        label = stringResource(R.string.setcat_widget_background_opacity_title),
-                                        value = widgetOpacityDraft,
-                                        valueRange = 0f..1f,
-                                        steps = 19,
-                                        onValueChange = { widgetOpacityDraft = it },
-                                        onValueChangeFinished = {
-                                            if (widgetOpacityDraft != uiState.widgetBackgroundOpacity) {
-                                                settingsViewModel.setWidgetBackgroundOpacity(widgetOpacityDraft)
-                                            }
-                                        },
-                                        valueText = { value ->
-                                            context.getString(
-                                                R.string.setcat_widget_background_opacity_value,
-                                                (value * 100).roundToInt()
-                                            )
-                                        },
-                                        modifier = Modifier.settingHighlight("item_appearance_widget_background_opacity", highlightKey)
-                                    )
+                                var widgetOpacityDraft by remember(uiState.widgetBackgroundOpacity) {
+                                    mutableStateOf(uiState.widgetBackgroundOpacity)
                                 }
+                                SliderSettingsItem(
+                                    label = stringResource(R.string.setcat_widget_background_opacity_title),
+                                    value = widgetOpacityDraft,
+                                    valueRange = 0f..1f,
+                                    steps = 19,
+                                    onValueChange = { widgetOpacityDraft = it },
+                                    onValueChangeFinished = {
+                                        if (widgetOpacityDraft != uiState.widgetBackgroundOpacity) {
+                                            settingsViewModel.setWidgetBackgroundOpacity(widgetOpacityDraft)
+                                        }
+                                    },
+                                    valueText = { value ->
+                                        context.getString(
+                                            R.string.setcat_widget_background_opacity_value,
+                                            (value * 100).roundToInt()
+                                        )
+                                    },
+                                    modifier = Modifier.settingHighlight("item_appearance_widget_background_opacity", highlightKey)
+                                )
                             }
 
                             SettingsSubsection(title = stringResource(R.string.setcat_navigation_bar)) {

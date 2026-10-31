@@ -285,6 +285,32 @@ class UserPreferencesRepositoryTest {
     }
 
     @Test
+    fun `toggling widget fill keeps the widget background opacity`() = runTest {
+        val tempDir = Files.createTempDirectory("user-preferences-repository-test")
+        try {
+            val repository = UserPreferencesRepository(
+                dataStore = PreferenceDataStoreFactory.create(
+                    scope = backgroundScope,
+                    produceFile = { tempDir.resolve("settings.preferences_pb").toFile() }
+                ),
+                json = Json
+            )
+
+            repository.setWidgetBackgroundOpacity(0.35f)
+
+            repository.setWidgetFill(true)
+            assertEquals(true, repository.widgetFillFlow.first())
+            assertEquals(0.35f, repository.widgetBackgroundOpacityFlow.first())
+
+            repository.setWidgetFill(false)
+            assertEquals(false, repository.widgetFillFlow.first())
+            assertEquals(0.35f, repository.widgetBackgroundOpacityFlow.first())
+        } finally {
+            tempDir.toFile().deleteRecursively()
+        }
+    }
+
+    @Test
     fun `artist albums collapsed by default is off by default and persists`() = runTest {
         val tempDir = Files.createTempDirectory("user-preferences-repository-test")
         try {

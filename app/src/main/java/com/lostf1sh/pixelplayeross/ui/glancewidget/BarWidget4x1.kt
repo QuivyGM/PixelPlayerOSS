@@ -71,6 +71,16 @@ class BarWidget4x1 : GlanceAppWidget() {
             val playButtonCornerRadius = if (isPlaying) 16.sdp else 20.sdp
             val controlButtonCornerRadius = 16.sdp
 
+            // The artwork and buttons shrink together when the widget is too short or too narrow
+            // for them; the spacing and backdrop padding stay, and the text keeps at least 48 dp.
+            val content = LocalWidgetContentSize.current
+            val fixedWidth = 8.sdp + 12.sdp + 8.sdp + 6.sdp * 2 + 48.sdp
+            val fit = minOf(1f, content.height / 44.sdp, (content.width - fixedWidth) / 164.sdp)
+                .coerceAtLeast(0f)
+            val albumArtSize = 44.sdp * fit
+            val buttonSize = 40.sdp * fit
+            val showArtist = textHeight(14.ssp) + 2.sdp + textHeight(12.ssp) <= albumArtSize
+
             Row(
                 modifier = GlanceModifier.fillMaxSize(),
                 verticalAlignment = Alignment.CenterVertically,
@@ -78,15 +88,15 @@ class BarWidget4x1 : GlanceAppWidget() {
             ) {
                 WidgetTextBackdrop(
                     backdrop = colors.textBackdrop,
-                    height = 44.sdp,
+                    height = albumArtSize,
                     cornerRadius = albumArtCornerRadius,
                     modifier = GlanceModifier.defaultWeight()
                 ) {
                     AlbumArtImage(
-                        modifier = GlanceModifier.size(44.sdp),
+                        modifier = GlanceModifier.size(albumArtSize),
                         bitmapData = albumArtBitmapData,
                         albumArtUri = albumArtUri,
-                        size = 44.sdp,
+                        size = albumArtSize,
                         context = context,
                         cornerRadius = albumArtCornerRadius
                     )
@@ -106,22 +116,24 @@ class BarWidget4x1 : GlanceAppWidget() {
                             ),
                             maxLines = 1
                         )
-                        Spacer(GlanceModifier.height(2.sdp))
-                        Text(
-                            text = artist,
-                            style = TextStyle(
-                                fontSize = 12.ssp,
-                                color = colors.artist
-                            ),
-                            maxLines = 1
-                        )
+                        if (showArtist) {
+                            Spacer(GlanceModifier.height(2.sdp))
+                            Text(
+                                text = artist,
+                                style = TextStyle(
+                                    fontSize = 12.ssp,
+                                    color = colors.artist
+                                ),
+                                maxLines = 1
+                            )
+                        }
                     }
                 }
 
                 Spacer(GlanceModifier.width(8.sdp))
 
                 PreviousButton(
-                    modifier = GlanceModifier.size(40.sdp),
+                    modifier = GlanceModifier.size(buttonSize),
                     backgroundColor = colors.prevNextBackground,
                     iconColor = colors.prevNextIcon,
                     cornerRadius = controlButtonCornerRadius
@@ -130,7 +142,7 @@ class BarWidget4x1 : GlanceAppWidget() {
                 Spacer(GlanceModifier.width(6.sdp))
 
                 PlayPauseButton(
-                    modifier = GlanceModifier.size(40.sdp),
+                    modifier = GlanceModifier.size(buttonSize),
                     isPlaying = isPlaying,
                     backgroundColor = colors.playPauseBackground,
                     iconColor = colors.playPauseIcon,
@@ -140,7 +152,7 @@ class BarWidget4x1 : GlanceAppWidget() {
                 Spacer(GlanceModifier.width(6.sdp))
 
                 NextButton(
-                    modifier = GlanceModifier.size(40.sdp),
+                    modifier = GlanceModifier.size(buttonSize),
                     backgroundColor = colors.prevNextBackground,
                     iconColor = colors.prevNextIcon,
                     cornerRadius = controlButtonCornerRadius

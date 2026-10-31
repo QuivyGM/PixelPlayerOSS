@@ -2226,7 +2226,7 @@ constructor(
         }
     }
 
-    /** Whether the home screen widgets drop their background and scale their content to the edges. */
+    /** Whether the home screen widgets enlarge their content into part of their padding. */
     val widgetFillFlow: Flow<Boolean> =
         dataStore.data.map { preferences ->
             preferences[PreferencesKeys.WIDGET_FILL] ?: false

@@ -76,6 +76,15 @@ class ControlWidget4x2 : GlanceAppWidget() {
             val playButtonCornerRadius = if (isPlaying) 16.sdp else 20.sdp
             val controlButtonCornerRadius = 16.sdp
 
+            // Short widgets shrink the buttons to at most 40% of the height and give the artwork
+            // what is left, then drop text lines that would no longer fit beside it.
+            val content = LocalWidgetContentSize.current
+            val buttonHeight = minOf(48.sdp, content.height * 0.4f)
+            val albumArtSize = minOf(80.sdp, content.height - buttonHeight - 8.sdp, content.width / 2)
+                .coerceAtLeast(0.dp)
+            val showArtist = textHeight(16.ssp) + 2.sdp + textHeight(14.ssp) <= albumArtSize
+            val titleLines = if (textHeight(16.ssp, lines = 2) + 2.sdp + textHeight(14.ssp) <= albumArtSize) 2 else 1
+
             Column(
                 modifier = GlanceModifier.fillMaxSize(),
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -86,15 +95,15 @@ class ControlWidget4x2 : GlanceAppWidget() {
                 ) {
                     WidgetTextBackdrop(
                         backdrop = colors.textBackdrop,
-                        height = 80.sdp,
+                        height = albumArtSize,
                         cornerRadius = albumArtCornerRadius,
                         modifier = GlanceModifier.defaultWeight()
                     ) {
                         AlbumArtImage(
-                            modifier = GlanceModifier.size(80.sdp),
+                            modifier = GlanceModifier.size(albumArtSize),
                             bitmapData = albumArtBitmapData,
                             albumArtUri = albumArtUri,
-                            size = 80.sdp,
+                            size = albumArtSize,
                             context = context,
                             cornerRadius = albumArtCornerRadius
                         )
@@ -112,17 +121,19 @@ class ControlWidget4x2 : GlanceAppWidget() {
                                     fontWeight = FontWeight.Bold,
                                     color = colors.onSurface
                                 ),
-                                maxLines = 2
+                                maxLines = titleLines
                             )
-                            Spacer(GlanceModifier.height(2.sdp))
-                            Text(
-                                text = artist,
-                                style = TextStyle(
-                                    fontSize = 14.ssp,
-                                    color = colors.artist
-                                ),
-                                maxLines = 1
-                            )
+                            if (showArtist) {
+                                Spacer(GlanceModifier.height(2.sdp))
+                                Text(
+                                    text = artist,
+                                    style = TextStyle(
+                                        fontSize = 14.ssp,
+                                        color = colors.artist
+                                    ),
+                                    maxLines = 1
+                                )
+                            }
                         }
                     }
                 }
@@ -137,7 +148,7 @@ class ControlWidget4x2 : GlanceAppWidget() {
                 ) {
                     val buttonModifier = GlanceModifier
                         .defaultWeight()
-                        .height(48.sdp)
+                        .height(buttonHeight)
 
                     ShuffleButton(
                         modifier = buttonModifier,

@@ -42,6 +42,11 @@ internal fun decodeWidgetAlbumArtBitmap(
         return null
     }
 
+    // A target below 1 px would never stop the halving below.
+    if (targetWidthPx <= 0 || targetHeightPx <= 0) {
+        return null
+    }
+
     var inSampleSize = 1
     if (bounds.outHeight > targetHeightPx || bounds.outWidth > targetWidthPx) {
         val halfHeight = bounds.outHeight / 2

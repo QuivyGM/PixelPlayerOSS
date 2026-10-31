@@ -88,7 +88,7 @@
     <string name="setcat_widget">Виджет</string>
     <string name="setcat_widget_background_opacity_title">Непрозрачность фона</string>
     <string name="setcat_widget_fill_title">Заполнение</string>
-    <string name="setcat_widget_fill_subtitle">Убрать фон виджета и увеличить элементы управления до краёв.</string>
+    <string name="setcat_widget_fill_subtitle">Немного увеличить содержимое виджета, чтобы лучше использовать место. Очень маленькие виджеты не меняются.</string>
     <string name="setcat_auto_rotate_patterns_title">Автосмена шаблонов</string>
     <string name="setcat_auto_scan_lrc_subtitle">Автоматически искать и привязывать .lrc-файлы из той же папки во время синхронизации.</string>
     <string name="setcat_folder_album_art_title">Использовать обложки из папки</string>
