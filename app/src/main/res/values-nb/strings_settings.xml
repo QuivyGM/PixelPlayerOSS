@@ -88,8 +88,7 @@
     <!-- [Chomu] Widget settings: the 4 setcat_widget* strings below -->
     <string name="setcat_widget">Widget</string>
     <string name="setcat_widget_background_opacity_title">Bakgrunnens dekkevne</string>
-    <string name="setcat_widget_fill_title">Fyll</string>
-    <string name="setcat_widget_fill_subtitle">Forstørr innholdet i widgeten litt for å bruke mer av plassen. Svært små widgeter forblir uendret.</string>
+    <string name="setcat_widget_scale_title">Innholdsskala</string>
     <string name="setcat_auto_rotate_patterns_title">Roter mønstre automatisk</string>
     <string name="setcat_auto_scan_lrc_subtitle">Skann og tildel .lrc-filer i samme mappe automatisk under synkronisering.</string>
     <string name="setcat_folder_album_art_title">Bruk omslagsbilder fra mappen</string>

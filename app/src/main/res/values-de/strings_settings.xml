@@ -88,8 +88,7 @@
     <!-- [Chomu] Widget settings: the 4 setcat_widget* strings below -->
     <string name="setcat_widget">Widget</string>
     <string name="setcat_widget_background_opacity_title">Hintergrund-Deckkraft</string>
-    <string name="setcat_widget_fill_title">Füllen</string>
-    <string name="setcat_widget_fill_subtitle">Den Widget-Inhalt leicht vergrößern, um mehr Platz zu nutzen. Sehr kleine Widgets bleiben unverändert.</string>
+    <string name="setcat_widget_scale_title">Inhaltsgröße</string>
     <string name="setcat_auto_rotate_patterns_title">Muster automatisch wechseln</string>
     <string name="setcat_auto_scan_lrc_subtitle">.lrc-Dateien im selben Ordner werden beim Sync automatisch erkannt und zugewiesen.</string>
     <string name="setcat_folder_album_art_title">Ordner-Coverbilder verwenden</string>

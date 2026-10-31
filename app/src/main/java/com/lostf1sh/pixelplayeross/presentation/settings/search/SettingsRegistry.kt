@@ -518,18 +518,15 @@ object SettingsRegistry {
                 getValue = { it.collageAutoRotate },
                 onToggle = { viewModel, checked -> viewModel.setCollageAutoRotate(checked) }
             ),
-            // region [Chomu] Widget fill mode and background opacity search entries
+            // region [Chomu] Widget content scale and background opacity search entries
             SettingSpec(
-                id = "appearance_widget_fill",
-                itemKey = "item_appearance_widget_fill",
-                titleRes = R.string.setcat_widget_fill_title,
-                subtitleRes = R.string.setcat_widget_fill_subtitle,
+                id = "appearance_widget_scale",
+                itemKey = "item_appearance_widget_scale",
+                titleRes = R.string.setcat_widget_scale_title,
                 category = SettingsCategory.APPEARANCE,
                 subscreenRoute = Screen.SettingsCategory.createRoute("appearance"),
-                type = SettingType.SWITCH,
-                keywordsStatic = listOf("widget", "home screen", "fill", "edge", "background", "scale"),
-                getValue = { it.widgetFill },
-                onToggle = { viewModel, checked -> viewModel.setWidgetFill(checked) }
+                type = SettingType.NAVIGABLE_CARD,
+                keywordsStatic = listOf("widget", "home screen", "scale", "size", "text", "buttons", "bigger", "larger")
             ),
             SettingSpec(
                 id = "appearance_widget_background_opacity",

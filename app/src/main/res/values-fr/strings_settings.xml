@@ -88,8 +88,7 @@
     <!-- [Chomu] Widget settings: the 4 setcat_widget* strings below -->
     <string name="setcat_widget">Widget</string>
     <string name="setcat_widget_background_opacity_title">Opacité de l\'arrière-plan</string>
-    <string name="setcat_widget_fill_title">Remplir</string>
-    <string name="setcat_widget_fill_subtitle">Agrandir légèrement le contenu du widget pour mieux utiliser son espace. Les très petits widgets restent inchangés.</string>
+    <string name="setcat_widget_scale_title">Échelle du contenu</string>
     <string name="setcat_auto_rotate_patterns_title">Rotation auto des motifs</string>
     <string name="setcat_auto_scan_lrc_subtitle">Analyser et assigner automatiquement les fichiers .lrc du même dossier lors de la synchro.</string>
     <string name="setcat_folder_album_art_title">Utiliser les pochettes du dossier</string>

@@ -88,8 +88,7 @@
     <!-- [Chomu] Widget settings: the 4 setcat_widget* strings below -->
     <string name="setcat_widget">الأداة</string>
     <string name="setcat_widget_background_opacity_title">عتامة الخلفية</string>
-    <string name="setcat_widget_fill_title">ملء</string>
-    <string name="setcat_widget_fill_subtitle">تكبير محتوى الأداة قليلاً للاستفادة من مساحتها أكثر. تبقى الأدوات الصغيرة جدًا كما هي.</string>
+    <string name="setcat_widget_scale_title">حجم المحتوى</string>
     <string name="setcat_auto_rotate_patterns_title">تدوير الأنماط تلقائياً</string>
     <string name="setcat_auto_scan_lrc_subtitle">فحص وتعيين ملفات الكلمات المزامنة (.lrc) المتواجدة في نفس المجلد تلقائياً أثناء المزامنة.</string>
     <string name="setcat_folder_album_art_title">استخدام صور الغلاف من المجلد</string>

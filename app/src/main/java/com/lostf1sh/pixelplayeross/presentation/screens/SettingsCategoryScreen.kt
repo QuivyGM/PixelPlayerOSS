@@ -67,7 +67,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.ClearAll
 import androidx.compose.material.icons.outlined.Folder
-import androidx.compose.material.icons.outlined.Fullscreen // [Chomu]
+import com.lostf1sh.pixelplayeross.data.preferences.WIDGET_SCALE_RANGE // [Chomu]
 import androidx.compose.material.icons.outlined.Image
 import androidx.compose.material.icons.outlined.Info
 import androidx.compose.material.icons.outlined.Language
@@ -826,16 +826,31 @@ fun SettingsCategoryScreen(
                                 )
                             }
 
-                            // region [Chomu] Widget settings (fill mode and background opacity)
+                            // region [Chomu] Widget settings (content scale and background opacity)
                             SettingsSubsection(title = stringResource(R.string.setcat_widget)) {
-                                SwitchSettingItem(
-                                    title = stringResource(R.string.setcat_widget_fill_title),
-                                    subtitle = stringResource(R.string.setcat_widget_fill_subtitle),
-                                    checked = uiState.widgetFill,
-                                    onCheckedChange = settingsViewModel::setWidgetFill,
-                                    leadingIcon = { Icon(Icons.Outlined.Fullscreen, null, tint = MaterialTheme.colorScheme.secondary) },
-                                    modifier = Modifier.settingHighlight("item_appearance_widget_fill", highlightKey)
+                                var widgetScaleDraft by remember(uiState.widgetScale) {
+                                    mutableStateOf(uiState.widgetScale)
+                                }
+                                SliderSettingsItem(
+                                    label = stringResource(R.string.setcat_widget_scale_title),
+                                    value = widgetScaleDraft,
+                                    valueRange = WIDGET_SCALE_RANGE,
+                                    steps = 9,
+                                    onValueChange = { widgetScaleDraft = it },
+                                    onValueChangeFinished = {
+                                        if (widgetScaleDraft != uiState.widgetScale) {
+                                            settingsViewModel.setWidgetScale(widgetScaleDraft)
+                                        }
+                                    },
+                                    valueText = { value ->
+                                        context.getString(
+                                            R.string.setcat_widget_background_opacity_value,
+                                            (value * 100).roundToInt()
+                                        )
+                                    },
+                                    modifier = Modifier.settingHighlight("item_appearance_widget_scale", highlightKey)
                                 )
+
 
                                 var widgetOpacityDraft by remember(uiState.widgetBackgroundOpacity) {
                                     mutableStateOf(uiState.widgetBackgroundOpacity)

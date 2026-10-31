@@ -548,7 +548,7 @@ class MusicService : MediaSessionService() {
             }
         }
 
-        // region [Chomu] Widget background opacity and fill mode
+        // region [Chomu] Widget background opacity and content scale
         serviceScope.launch {
             userPreferencesRepository.widgetBackgroundOpacityFlow.collect {
                 requestWidgetFullUpdate(force = true)
@@ -556,7 +556,7 @@ class MusicService : MediaSessionService() {
         }
 
         serviceScope.launch {
-            userPreferencesRepository.widgetFillFlow.collect {
+            userPreferencesRepository.widgetScaleFlow.collect {
                 requestWidgetFullUpdate(force = true)
             }
         }
@@ -1718,9 +1718,9 @@ class MusicService : MediaSessionService() {
         if (old.themeColors != new.themeColors) return true
         if (old.isShuffleEnabled != new.isShuffleEnabled) return true
         if (old.repeatMode != new.repeatMode) return true
-        // region [Chomu] Widget background opacity and fill mode
+        // region [Chomu] Widget background opacity and content scale
         if (old.backgroundOpacity != new.backgroundOpacity) return true
-        if (old.fillMode != new.fillMode) return true
+        if (old.widgetScale != new.widgetScale) return true
         // endregion [Chomu]
         if (old.totalDurationMs != new.totalDurationMs) return true
 
@@ -1842,10 +1842,10 @@ class MusicService : MediaSessionService() {
             )
         }
         val isFavorite = isSongFavorite(mediaId)
-        // region [Chomu] Widget background opacity and fill mode
-        val (backgroundOpacity, fillMode) = withContext(Dispatchers.IO) {
+        // region [Chomu] Widget background opacity and content scale
+        val (backgroundOpacity, widgetScale) = withContext(Dispatchers.IO) {
             userPreferencesRepository.widgetBackgroundOpacityFlow.first() to
-                userPreferencesRepository.widgetFillFlow.first()
+                userPreferencesRepository.widgetScaleFlow.first()
         }
         // endregion [Chomu]
         val queueItems = mutableListOf<com.lostf1sh.pixelplayeross.data.model.QueueItem>()
@@ -1921,7 +1921,7 @@ class MusicService : MediaSessionService() {
             isShuffleEnabled = shuffleEnabled,
             repeatMode = repeatMode,
             backgroundOpacity = backgroundOpacity, // [Chomu]
-            fillMode = fillMode, // [Chomu]
+            widgetScale = widgetScale, // [Chomu]
         )
     }
 

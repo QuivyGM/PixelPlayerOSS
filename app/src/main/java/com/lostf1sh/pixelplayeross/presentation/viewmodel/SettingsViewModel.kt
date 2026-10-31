@@ -130,7 +130,7 @@ data class SettingsUiState(
     val collagePattern: CollagePattern = CollagePattern.default,
     val collageAutoRotate: Boolean = false,
     val widgetBackgroundOpacity: Float = 1f, // [Chomu] Widget background opacity
-    val widgetFill: Boolean = false, // [Chomu] Widget fill mode
+    val widgetScale: Float = 1f, // [Chomu] Widget content scale
     val minSongDuration: Int = 10000,
     val minTracksPerAlbum: Int = 1,
     val replayGainEnabled: Boolean = false,
@@ -266,7 +266,7 @@ class SettingsViewModel @Inject constructor(
             }
         }
 
-        // region [Chomu] Widget background opacity and fill mode
+        // region [Chomu] Widget background opacity and content scale
         viewModelScope.launch {
             userPreferencesRepository.widgetBackgroundOpacityFlow.collect { opacity ->
                 _uiState.update { it.copy(widgetBackgroundOpacity = opacity) }
@@ -274,8 +274,8 @@ class SettingsViewModel @Inject constructor(
         }
 
         viewModelScope.launch {
-            userPreferencesRepository.widgetFillFlow.collect { fill ->
-                _uiState.update { it.copy(widgetFill = fill) }
+            userPreferencesRepository.widgetScaleFlow.collect { scale ->
+                _uiState.update { it.copy(widgetScale = scale) }
             }
         }
         // endregion [Chomu]
@@ -696,16 +696,16 @@ class SettingsViewModel @Inject constructor(
         }
     }
 
-    // region [Chomu] Widget background opacity and fill mode
+    // region [Chomu] Widget background opacity and content scale
     fun setWidgetBackgroundOpacity(opacity: Float) {
         viewModelScope.launch {
             userPreferencesRepository.setWidgetBackgroundOpacity(opacity)
         }
     }
 
-    fun setWidgetFill(enabled: Boolean) {
+    fun setWidgetScale(scale: Float) {
         viewModelScope.launch {
-            userPreferencesRepository.setWidgetFill(enabled)
+            userPreferencesRepository.setWidgetScale(scale)
         }
     }
     // endregion [Chomu]

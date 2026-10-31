@@ -58,6 +58,9 @@ const val MAX_NAV_BAR_CORNER_RADIUS = 60
 internal fun sanitizeNavBarCornerRadius(radius: Int): Int =
         radius.coerceIn(MIN_NAV_BAR_CORNER_RADIUS, MAX_NAV_BAR_CORNER_RADIUS)
 
+// [Chomu] Range of the home screen widgets' content scale setting.
+val WIDGET_SCALE_RANGE = 1f..1.5f
+
 /**
  * Album art quality settings for developer options.
  * Controls maximum resolution for album artwork in player view.
@@ -264,9 +267,9 @@ constructor(
 
         val COLLAGE_PATTERN = stringPreferencesKey("collage_pattern")
         val COLLAGE_AUTO_ROTATE = booleanPreferencesKey("collage_auto_rotate")
-        // region [Chomu] Widget background opacity and fill mode
+        // region [Chomu] Widget background opacity and content scale
         val WIDGET_BACKGROUND_OPACITY = androidx.datastore.preferences.core.floatPreferencesKey("widget_background_opacity")
-        val WIDGET_FILL = booleanPreferencesKey("widget_fill")
+        val WIDGET_SCALE = androidx.datastore.preferences.core.floatPreferencesKey("widget_scale")
         // endregion [Chomu]
         val SIDEBAR_SHORTCUTS = stringSetPreferencesKey("sidebar_shortcuts")
 
@@ -2220,7 +2223,7 @@ constructor(
         }
     }
 
-    // region [Chomu] Widget background opacity and fill mode
+    // region [Chomu] Widget background opacity and content scale
     /** Opacity of the home screen widgets' background, from 0 (fully transparent) to 1 (solid). */
     val widgetBackgroundOpacityFlow: Flow<Float> =
         dataStore.data.map { preferences ->
@@ -2233,15 +2236,15 @@ constructor(
         }
     }
 
-    /** Whether the home screen widgets enlarge their content into part of their padding. */
-    val widgetFillFlow: Flow<Boolean> =
+    /** Factor the home screen widgets' text and buttons are enlarged by, within [WIDGET_SCALE_RANGE]. */
+    val widgetScaleFlow: Flow<Float> =
         dataStore.data.map { preferences ->
-            preferences[PreferencesKeys.WIDGET_FILL] ?: false
+            (preferences[PreferencesKeys.WIDGET_SCALE] ?: 1f).coerceIn(WIDGET_SCALE_RANGE)
         }
 
-    suspend fun setWidgetFill(enabled: Boolean) {
+    suspend fun setWidgetScale(scale: Float) {
         dataStore.edit { preferences ->
-            preferences[PreferencesKeys.WIDGET_FILL] = enabled
+            preferences[PreferencesKeys.WIDGET_SCALE] = scale.coerceIn(WIDGET_SCALE_RANGE)
         }
     }
     // endregion [Chomu]

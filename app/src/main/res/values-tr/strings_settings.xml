@@ -98,8 +98,7 @@
     <!-- [Chomu] Widget settings: the 4 setcat_widget* strings below -->
     <string name="setcat_widget">Widget</string>
     <string name="setcat_widget_background_opacity_title">Arka plan opaklığı</string>
-    <string name="setcat_widget_fill_title">Doldur</string>
-    <string name="setcat_widget_fill_subtitle">Alanı daha iyi kullanmak için widget içeriğini biraz büyütün. Çok küçük widget\'lar olduğu gibi kalır.</string>
+    <string name="setcat_widget_scale_title">İçerik ölçeği</string>
     <string name="setcat_auto_rotate_patterns_title">Desenleri Otomatik Döndür</string>
     <string name="setcat_auto_scan_lrc_subtitle">Kitaplık senkronizasyonu sırasında aynı klasördeki .lrc dosyalarını otomatik olarak tara ve ata.</string>
     <string name="setcat_folder_album_art_title">Klasördeki kapak görsellerini kullan</string>

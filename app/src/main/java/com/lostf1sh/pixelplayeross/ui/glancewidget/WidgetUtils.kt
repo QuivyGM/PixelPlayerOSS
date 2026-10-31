@@ -1,4 +1,4 @@
-// [Chomu] Modified: widget fill mode scaling (sdp/ssp/scaled), layout fitting helpers,
+// [Chomu] Modified: widget content scaling (sdp/ssp/scaled), layout fitting helpers,
 // background opacity and the text backdrop. Changes are inside [Chomu] regions below.
 package com.lostf1sh.pixelplayeross.ui.glancewidget
 
@@ -24,31 +24,18 @@ import androidx.glance.unit.ColorProvider
 import com.lostf1sh.pixelplayeross.data.model.PlayerInfo
 import com.lostf1sh.pixelplayeross.data.model.WidgetThemeColors
 import kotlin.math.roundToInt
-import kotlin.math.sqrt
 
-// region [Chomu] Widget fill mode scaling and layout fitting
-/** Whether the widget is in fill mode: content enlarged into the frame's padding. */
-val LocalWidgetFill = staticCompositionLocalOf { false }
-
-/** Factor every size inside a [WidgetFrame] is multiplied by; 1 unless in fill mode. */
+// region [Chomu] Widget content scale and layout fitting
+/** Factor the widget's text and button sizes are multiplied by: the user's widget scale setting. */
 val LocalWidgetScale = staticCompositionLocalOf { 1f }
 
 /** Space inside the enclosing [WidgetFrame]'s padding, which layouts fit their fixed sizes to. */
 val LocalWidgetContentSize = staticCompositionLocalOf { DpSize.Zero }
 
-/** Most fill mode enlarges content by, so it grows modestly rather than to the very edge. */
-const val MAX_FILL_SCALE = 1.12f
-
-/** Room fill mode leaves beyond the corner inset, for launchers that report a slightly wrong size. */
-val FILL_SAFETY_MARGIN = 4.dp
-
-/** Below this size there is no padding to spare, so fill mode leaves the widget as it is. */
-val MIN_FILL_SIZE = DpSize(width = 120.dp, height = 100.dp)
-
 /** Rough line height of text, as a multiple of its font size. */
 private const val LINE_HEIGHT_FACTOR = 1.35f
 
-/** This size multiplied by the enclosing [WidgetFrame]'s scale. */
+/** This size multiplied by the widget scale. */
 val Dp.scaled: Dp
     @Composable get() = this * LocalWidgetScale.current
 
@@ -75,40 +62,6 @@ fun widgetBorderRadius(context: Context, designRadius: Dp, size: DpSize): Dp {
     }
     return maxOf(designRadius, systemRadius).coerceAtMost(minOf(size.width, size.height) / 2)
 }
-
-/**
- * Smallest inset that keeps content whose outer corners are rounded by
- * [contentCornerRadius] inside an outline rounded by [borderRadius]: the content's corner
- * arcs must sit within the outline's.
- */
-fun fillInset(borderRadius: Dp, contentCornerRadius: Dp): Dp =
-    ((borderRadius - contentCornerRadius) * (1f - 1f / sqrt(2f))).coerceAtLeast(0.dp)
-
-/** Whether a widget of [size] has enough room for fill mode to enlarge its content. */
-fun canFill(size: DpSize): Boolean =
-    size.width >= MIN_FILL_SIZE.width && size.height >= MIN_FILL_SIZE.height
-
-/**
- * Scale that grows content laid out inside [padding] on every side of [size] towards
- * [inset] from the nearest edges, by at most [MAX_FILL_SCALE]. Width and height grow by
- * the same factor so sizes and spacing keep their proportions. Never below 1.
- */
-fun fillScale(size: DpSize, padding: Dp, inset: Dp): Float {
-    val width = size.width.value
-    val height = size.height.value
-    val padded = padding.value * 2
-    val inset2 = inset.value * 2
-    if (width <= padded || height <= padded) return 1f
-    val scale = minOf((width - inset2) / (width - padded), (height - inset2) / (height - padded))
-    return scale.coerceIn(1f, MAX_FILL_SCALE)
-}
-
-/**
- * Padding along one side of [length] that leaves room for content laid out inside
- * [padding] and then scaled by [scale]; [padding] itself when [scale] is 1.
- */
-fun fillPadding(length: Dp, padding: Dp, scale: Float): Dp =
-    ((length - (length - padding * 2) * scale) / 2).coerceAtLeast(0.dp)
 
 /**
  * Rough height of [lines] lines of [fontSize] text at the user's font scale, so layouts can

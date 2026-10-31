@@ -88,8 +88,7 @@
     <!-- [Chomu] Widget settings: the 4 setcat_widget* strings below -->
     <string name="setcat_widget">Widget</string>
     <string name="setcat_widget_background_opacity_title">Opasitas latar belakang</string>
-    <string name="setcat_widget_fill_title">Isi penuh</string>
-    <string name="setcat_widget_fill_subtitle">Perbesar sedikit konten widget agar ruangnya lebih terpakai. Widget yang sangat kecil tetap seperti semula.</string>
+    <string name="setcat_widget_scale_title">Skala konten</string>
     <string name="setcat_auto_rotate_patterns_title">Putar Pola Otomatis</string>
     <string name="setcat_auto_scan_lrc_subtitle">Secara otomatis memindai dan menetapkan file .lrc di folder yang sama selama sinkronisasi pustaka.</string>
     <string name="setcat_folder_album_art_title">Gunakan gambar sampul dari folder</string>

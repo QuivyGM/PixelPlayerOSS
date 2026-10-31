@@ -1,6 +1,6 @@
-// [Chomu] Modified: fill mode, background opacity, text backdrop and fitting to small sizes.
+// [Chomu] Modified: content scale, background opacity, text backdrop and fitting to small sizes.
 // Every layout marked "[Chomu] Modified" below now draws through WidgetFrame and uses the
-// fill-mode scaled units (sdp/ssp/scaled) in place of dp/sp.
+// widget-scaled units (sdp/ssp/scaled) in place of dp/sp.
 package com.lostf1sh.pixelplayeross.ui.glancewidget
 
 import android.content.Context
@@ -89,7 +89,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
             val albumColors = remember(playerInfo.themeColors) {
                 playerInfo.themeColors?.toGlanceColorProviders()
             }
-            CompositionLocalProvider(LocalWidgetFill provides playerInfo.fillMode) { // [Chomu] fill mode
+            CompositionLocalProvider(LocalWidgetScale provides playerInfo.widgetScale) { // [Chomu] widget scale
                 if (albumColors != null) {
                     GlanceTheme(colors = albumColors) {
                         WidgetUi(playerInfo = playerInfo, size = currentSize, context = context)
@@ -280,8 +280,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
             modifier = modifier,
             backgroundColor = backgroundColor,
             cornerRadius = bgCornerRadius,
-            padding = 16.dp,
-            contentCornerRadius = 10.dp
+            padding = 16.dp
         ) {
             // Fit the artwork and buttons to the space so short or narrow widgets don't overflow.
             val content = LocalWidgetContentSize.current
@@ -371,8 +370,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
             modifier = modifier,
             backgroundColor = backgroundColor,
             cornerRadius = bgCornerRadius,
-            padding = 16.dp,
-            contentCornerRadius = 10.dp
+            padding = 16.dp
         ) {
             // Fit the artwork and buttons to the space so short or narrow widgets don't overflow.
             val content = LocalWidgetContentSize.current
@@ -458,8 +456,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
             modifier = modifier,
             backgroundColor = backgroundColor,
             cornerRadius = bgCornerRadius,
-            padding = 16.dp,
-            contentCornerRadius = 10.dp
+            padding = 16.dp
         ) {
             Column(
                 modifier = GlanceModifier.fillMaxSize(),
@@ -528,8 +525,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
             modifier = modifier,
             backgroundColor = backgroundColor,
             cornerRadius = bgCornerRadius,
-            padding = 16.dp,
-            contentCornerRadius = 10.dp
+            padding = 16.dp
         ) {
             Column(
                 modifier = GlanceModifier.fillMaxSize(),
@@ -603,7 +599,6 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
             backgroundColor = backgroundColor,
             cornerRadius = bgCornerRadius,
             padding = 16.dp,
-            contentCornerRadius = 30.dp,
             contentAlignment = Alignment.Center
         ) {
             PlayPauseButtonGlance(
@@ -635,8 +630,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
             modifier = modifier,
             backgroundColor = backgroundColor,
             cornerRadius = bgCornerRadius,
-            padding = 16.dp,
-            contentCornerRadius = 10.dp
+            padding = 16.dp
         ) {
             Row(
                 modifier = GlanceModifier
@@ -695,8 +689,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
             modifier = modifier,
             backgroundColor = backgroundColor,
             cornerRadius = bgCornerRadius,
-            padding = 12.dp,
-            contentCornerRadius = 16.dp
+            padding = 12.dp
         ) {
             // The two button rows share the height with the artwork, which keeps at least a third.
             val buttonHeight = minOf(
@@ -793,8 +786,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
             modifier = modifier,
             backgroundColor = backgroundColor,
             cornerRadius = bgCornerRadius,
-            padding = 16.dp,
-            contentCornerRadius = 16.dp
+            padding = 16.dp
         ) {
             // With large fonts a two-line title and the artist would overflow the 80 dp backdrop.
             val titleLines = if (textHeight(16.ssp, lines = 2) + 4.sdp + textHeight(13.ssp) <= 80.sdp) 2 else 1
@@ -901,8 +893,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
             modifier = modifier,
             backgroundColor = backgroundColor,
             cornerRadius = bgCornerRadius,
-            padding = 16.dp,
-            contentCornerRadius = 18.dp
+            padding = 16.dp
         ) {
             Column(modifier = GlanceModifier.fillMaxSize(), horizontalAlignment = Alignment.CenterHorizontally) {
                 Row(verticalAlignment = Alignment.CenterVertically, modifier = GlanceModifier.fillMaxWidth().padding(bottom = 8.sdp)) {
@@ -1001,8 +992,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
             modifier = modifier,
             backgroundColor = backgroundColor,
             cornerRadius = bgCornerRadius,
-            padding = 16.dp,
-            contentCornerRadius = 14.dp
+            padding = 16.dp
         ) {
             // Header, buttons and queue with their spacing; without room for all, the queue is left out.
             val showQueue = LocalWidgetContentSize.current.height >= 210.sdp
@@ -1318,7 +1308,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
         )
     }
 
-    // [Chomu] Modified: default sizes scaled in fill mode (sdp).
+    // [Chomu] Modified: default sizes follow the widget scale (sdp).
     @Composable
     fun PlayPauseButtonGlance(
         modifier: GlanceModifier = GlanceModifier,
@@ -1346,7 +1336,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
         }
     }
 
-    // [Chomu] Modified: default sizes scaled in fill mode (sdp).
+    // [Chomu] Modified: default sizes follow the widget scale (sdp).
     @Composable
     fun NextButtonDGlance(
         modifier: GlanceModifier = GlanceModifier,
@@ -1400,7 +1390,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
         }
     }
 
-    // [Chomu] Modified: default sizes scaled in fill mode (sdp).
+    // [Chomu] Modified: default sizes follow the widget scale (sdp).
     @Composable
     fun NextButtonGlance(
         modifier: GlanceModifier = GlanceModifier,
@@ -1427,7 +1417,7 @@ class PixelPlayerGlanceWidget : GlanceAppWidget() {
         }
     }
 
-    // [Chomu] Modified: default sizes scaled in fill mode (sdp).
+    // [Chomu] Modified: default sizes follow the widget scale (sdp).
     @Composable
     fun PreviousButtonGlance(
         modifier: GlanceModifier = GlanceModifier,

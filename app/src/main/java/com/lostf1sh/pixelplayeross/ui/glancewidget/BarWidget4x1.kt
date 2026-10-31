@@ -1,4 +1,4 @@
-// [Chomu] Modified: fill mode, background opacity, text backdrop and fitting to small sizes.
+// [Chomu] Modified: content scale, background opacity, text backdrop and fitting to small sizes.
 package com.lostf1sh.pixelplayeross.ui.glancewidget
 
 import android.content.Context
@@ -40,7 +40,7 @@ class BarWidget4x1 : GlanceAppWidget() {
     override suspend fun provideGlance(context: Context, id: GlanceId) {
         provideContent {
             val playerInfo = currentState<PlayerInfo>()
-            CompositionLocalProvider(LocalWidgetFill provides playerInfo.fillMode) { // [Chomu] fill mode
+            CompositionLocalProvider(LocalWidgetScale provides playerInfo.widgetScale) { // [Chomu] widget scale
                 GlanceTheme {
                     BarWidget4x1Content(playerInfo = playerInfo, context = context)
                 }
@@ -66,8 +66,7 @@ class BarWidget4x1 : GlanceAppWidget() {
             modifier = GlanceModifier.clickable(actionStartActivity<MainActivity>()),
             backgroundColor = colors.background,
             cornerRadius = 28.dp,
-            padding = 16.dp,
-            contentCornerRadius = 16.dp
+            padding = 16.dp
         ) {
             val albumArtCornerRadius = 16.sdp
             val playButtonCornerRadius = if (isPlaying) 16.sdp else 20.sdp

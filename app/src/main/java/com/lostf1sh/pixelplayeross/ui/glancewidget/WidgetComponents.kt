@@ -1,5 +1,5 @@
 // [Chomu] Modified: added WidgetFrame and WidgetTextBackdrop; default icon sizes use the
-// fill-mode scaled units (sdp) and the artwork decode target is clamped to 1 px.
+// widget-scaled units (sdp) and the artwork decode target is clamped to 1 px.
 package com.lostf1sh.pixelplayeross.ui.glancewidget
 
 import android.content.Context
@@ -38,18 +38,15 @@ import androidx.glance.unit.ColorProvider
 import com.lostf1sh.pixelplayeross.R
 import timber.log.Timber
 
-// region [Chomu] Widget frame (fill mode, Android 12+ corners) and text backdrop
+// region [Chomu] Widget frame (content size, Android 12+ corners) and text backdrop
 /**
  * Outer container of a widget layout: the rounded background with [padding] around the
  * content. It is marked as the widget background, so Android 12+ launchers clip it and
  * animate app launches from it consistently.
  *
- * In fill mode ([LocalWidgetFill]) the background stays and the content is scaled by
- * [fillScale] into part of the padding: by at most [MAX_FILL_SCALE], and never closer to
- * the outline than its outer corners, rounded by [contentCornerRadius], allow plus
- * [FILL_SAFETY_MARGIN]. Widgets smaller than [MIN_FILL_SIZE] are not scaled. Sizes inside
- * should use [sdp], [ssp] and [scaled] to follow the scale, and fit fixed sizes to
- * [LocalWidgetContentSize]. [size] is the area the frame covers.
+ * Sizes inside should use [sdp], [ssp] and [scaled] to follow the widget scale
+ * ([LocalWidgetScale]), and fit fixed sizes to [LocalWidgetContentSize], the space inside
+ * the padding. [size] is the area the frame covers.
  */
 @Composable
 fun WidgetFrame(
@@ -57,35 +54,23 @@ fun WidgetFrame(
     backgroundColor: ColorProvider,
     cornerRadius: Dp,
     padding: Dp,
-    contentCornerRadius: Dp = 0.dp,
     contentAlignment: Alignment = Alignment.TopStart,
     size: DpSize = LocalSize.current,
     content: @Composable () -> Unit
 ) {
-    val borderRadius = widgetBorderRadius(LocalContext.current, cornerRadius, size)
-    val scale = if (LocalWidgetFill.current && canFill(size)) {
-        fillScale(size, padding, fillInset(borderRadius, contentCornerRadius) + FILL_SAFETY_MARGIN)
-    } else {
-        1f
-    }
-    val horizontalPadding = fillPadding(size.width, padding, scale)
-    val verticalPadding = fillPadding(size.height, padding, scale)
     val contentSize = DpSize(
-        width = (size.width - horizontalPadding * 2).coerceAtLeast(0.dp),
-        height = (size.height - verticalPadding * 2).coerceAtLeast(0.dp)
+        width = (size.width - padding * 2).coerceAtLeast(0.dp),
+        height = (size.height - padding * 2).coerceAtLeast(0.dp)
     )
     Box(
         modifier = modifier
             .appWidgetBackground()
-            .cornerRadius(borderRadius)
+            .cornerRadius(widgetBorderRadius(LocalContext.current, cornerRadius, size))
             .background(backgroundColor)
-            .padding(horizontal = horizontalPadding, vertical = verticalPadding),
+            .padding(padding),
         contentAlignment = contentAlignment
     ) {
-        CompositionLocalProvider(
-            LocalWidgetScale provides scale,
-            LocalWidgetContentSize provides contentSize
-        ) {
+        CompositionLocalProvider(LocalWidgetContentSize provides contentSize) {
             content()
         }
     }
@@ -273,7 +258,7 @@ fun PreviousButton(
     backgroundColor: ColorProvider,
     iconColor: ColorProvider,
     cornerRadius: Dp,
-    iconSize: Dp = 20.sdp // [Chomu] scaled in fill mode
+    iconSize: Dp = 20.sdp // [Chomu] follows the widget scale
 ) {
     val context = LocalContext.current
     val params = actionParametersOf(PlayerActions.key to PlayerActions.PREVIOUS)
@@ -295,7 +280,7 @@ fun NextButton(
     backgroundColor: ColorProvider,
     iconColor: ColorProvider,
     cornerRadius: Dp,
-    iconSize: Dp = 20.sdp // [Chomu] scaled in fill mode
+    iconSize: Dp = 20.sdp // [Chomu] follows the widget scale
 ) {
     val context = LocalContext.current
     val params = actionParametersOf(PlayerActions.key to PlayerActions.NEXT)
@@ -318,7 +303,7 @@ fun PlayPauseButton(
     backgroundColor: ColorProvider,
     iconColor: ColorProvider,
     cornerRadius: Dp,
-    iconSize: Dp = 22.sdp // [Chomu] scaled in fill mode
+    iconSize: Dp = 22.sdp // [Chomu] follows the widget scale
 ) {
     val context = LocalContext.current
     val params = actionParametersOf(PlayerActions.key to PlayerActions.PLAY_PAUSE)

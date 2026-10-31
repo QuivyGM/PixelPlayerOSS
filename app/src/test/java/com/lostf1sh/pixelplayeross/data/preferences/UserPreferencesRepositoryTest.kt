@@ -284,9 +284,9 @@ class UserPreferencesRepositoryTest {
         }
     }
 
-    // region [Chomu] Widget fill mode and background opacity
+    // region [Chomu] Widget content scale and background opacity
     @Test
-    fun `toggling widget fill keeps the widget background opacity`() = runTest {
+    fun `widget scale is stored within its range and keeps the background opacity`() = runTest {
         val tempDir = Files.createTempDirectory("user-preferences-repository-test")
         try {
             val repository = UserPreferencesRepository(
@@ -299,13 +299,17 @@ class UserPreferencesRepositoryTest {
 
             repository.setWidgetBackgroundOpacity(0.35f)
 
-            repository.setWidgetFill(true)
-            assertEquals(true, repository.widgetFillFlow.first())
+            assertEquals(1f, repository.widgetScaleFlow.first())
+
+            repository.setWidgetScale(1.25f)
+            assertEquals(1.25f, repository.widgetScaleFlow.first())
             assertEquals(0.35f, repository.widgetBackgroundOpacityFlow.first())
 
-            repository.setWidgetFill(false)
-            assertEquals(false, repository.widgetFillFlow.first())
-            assertEquals(0.35f, repository.widgetBackgroundOpacityFlow.first())
+            repository.setWidgetScale(3f)
+            assertEquals(WIDGET_SCALE_RANGE.endInclusive, repository.widgetScaleFlow.first())
+
+            repository.setWidgetScale(0.5f)
+            assertEquals(WIDGET_SCALE_RANGE.start, repository.widgetScaleFlow.first())
         } finally {
             tempDir.toFile().deleteRecursively()
         }
