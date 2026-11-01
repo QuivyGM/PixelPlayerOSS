@@ -835,7 +835,7 @@ fun SettingsCategoryScreen(
                                     label = stringResource(R.string.setcat_widget_scale_title),
                                     value = widgetScaleDraft,
                                     valueRange = WIDGET_SCALE_RANGE,
-                                    steps = 9,
+                                    steps = 7,
                                     onValueChange = { widgetScaleDraft = it },
                                     onValueChangeFinished = {
                                         if (widgetScaleDraft != uiState.widgetScale) {
